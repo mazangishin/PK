@@ -25,4 +25,11 @@
              #{memberId}, #{eMail}, #{password}, SYSDATE, SYSDATE)
 	</insert>
 
+    <select id="memberExist" parameterType="com.pk.ls.member.vo.MemberVo"
+        resultMap="memberResultMap">
+        SELECT MEMBER_NUMBER, AUTHORITY, MEMBER_ID   
+		FROM MEMBERS
+		WHERE EMAIL = #{id} AND PWD = #{password}
+    </select>    
+
 </mapper>
