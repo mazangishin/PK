@@ -5,9 +5,7 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias type="com.pk.member.vo.MemberVo" alias="memberVo"/>
-		<typeAlias type="com.pk.champ.vo.ChampVo" alias="champVo"/>
-		<typeAlias type="com.pk.board.vo.BoardVo" alias="boardVo"/>
+		<typeAlias type="com.pk.ls.member.vo.MemberVo" alias="memberVo"/>
 	</typeAliases>
 
 </configuration>
