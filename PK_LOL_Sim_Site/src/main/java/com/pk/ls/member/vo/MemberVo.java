@@ -1,4 +1,4 @@
-package com.pk.member.vo;
+package com.pk.ls.member.vo;
 
 import java.util.Date;
 
