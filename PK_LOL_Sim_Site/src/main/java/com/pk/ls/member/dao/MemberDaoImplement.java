@@ -14,7 +14,7 @@ public class MemberDaoImplement implements MemberDao{
 	@Autowired
 	SqlSessionTemplate sqlSession;
 	
-	String namespace = "com.pk.member.";
+	String namespace = "com.pk.ls.member.";
 	
 	@Override
 	public int memberRegister(MemberVo memberVo) {

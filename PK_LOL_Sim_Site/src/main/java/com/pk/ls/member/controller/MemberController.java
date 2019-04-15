@@ -37,7 +37,8 @@ public class MemberController {
 	@RequestMapping(value = "/member/loginCtr.hm", method = RequestMethod.POST)
 	public String memberLoginCtr(String memberId, String password, 
 			HttpSession httpSession, Model model) {
-		log.debug("login 합니다. 로그인을 시도한 사용자의 정보: " + memberId + password);
+		log.debug("login 합니다. 로그인을 시도한 사용자의 정보"
+			+ "ID : " + memberId + "\tPW : " + password);
 
 		// 맵에 로그인 정보 담기
 		Map<String, Object> paramMap = new HashMap<>();

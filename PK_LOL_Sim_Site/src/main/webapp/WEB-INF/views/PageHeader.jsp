@@ -37,15 +37,15 @@
 		<div id="munu2_bt">
 			
 			<span>
-				<c:if test="${sessionScope._memberVo_ != null}">
-					${sessionScope._memberVo_.name}
-					<a href="${pageContext.request.contextPath}/auth/logout.do"	style="color:white;">
+				<c:if test="${sessionScope.memberVo != null}">
+					${sessionScope.memberVo.memberId}
+					<a href="${pageContext.request.contextPath}/member/logout.hm"	style="color:white;">
 						로그아웃
 					</a>
 				</c:if>
-				<c:if test="${sessionScope._memberVo_ == null}">
+				<c:if test="${sessionScope.memberVo == null}">
 					게스트1
-					<a href="${pageContext.request.contextPath}/auth/logout.do"	style="color:white;">
+					<a href="${pageContext.request.contextPath}/member/logout.hm"	style="color:white;">
 						나가기
 					</a>
 				</c:if>

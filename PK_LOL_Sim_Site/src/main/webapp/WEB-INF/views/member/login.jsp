@@ -70,7 +70,7 @@
 </head>
 <body>
 	<div id="loginBox">
-		<form>
+		<form action="loginCtr.hm" method="post">
 			<h1>Login Plz</h1>
 			ID <input type="text" class="inputButton" name="memberId">
 			PW <input type="password" class="inputButton" name="password">

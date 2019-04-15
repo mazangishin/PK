@@ -29,7 +29,7 @@
         resultMap="memberResultMap">
         SELECT MEMBER_NUMBER, AUTHORITY, MEMBER_ID   
 		FROM MEMBERS
-		WHERE EMAIL = #{id} AND PWD = #{password}
+		WHERE MEMBER_ID = #{memberId} AND PASSWORD = #{password}
     </select>    
 
     <select id="memberInfo" parameterType="int"
