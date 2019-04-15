@@ -48,25 +48,33 @@
 			$('#yt').attr('src',playerVars(src,option));
 		}
 		
-		var $box = $(".box");
-	    
-	
 		
-		 function loopBoat() {  
-		      $box.animate({ left : '15px'}, 500)
-		        .animate({  right : '25px'}, 500, loopBoat);
-		    }
-		 loopBoat();
+
+		function eee(){
+			  $(".box").animate({ top : "1px" },1000)
+			
+			  .animate({ top : "15px" },1000)
+			  eee();
+			}
+		
+		eee();
+		
+		
 	});
 	
 		
 	
-	
 	</script>
+
+
 
 		
 	<script>		
 		$(document).ready(function() {
+			
+			
+			
+			
 			$('#fullpage').fullpage({
 				
 				anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage', 'lastPage'],
@@ -74,9 +82,13 @@
 				//equivalent to jQuery `easeOutBack` extracted from http://matthewlein.com/ceaser/
 				easingcss3: 'cubic-bezier(0.175, 0.885, 0.320, 1.275)'
 			});
+			
+			
 			$("#menu>li").click(function(){
 				$(this).addClass("act").siblings().removeClass("act");
 			});
+			
+			
 		});	
 	</script>	
 	<style>
@@ -84,7 +96,6 @@
 	
 	
 	#menu2 lnput{color: white; top:10px; padding: 41px 20px;}
-	
 	
 	
 	
@@ -136,20 +147,21 @@
 		position: absolute;
 		background-image:url(/PK_LOL_Sim_Site/resources/images/tt_img.png);
 		position:fixed; z-index: 200;
-		top:-5%; left:0%; width: 100%; height: 100%;
+		top:-15%; left:0%; width: 100%; height: 100%;
 		padding: 0; margin: 0 auto;
+		
 	} 
 	
 	#video { 
      position: absolute;
-     top: -15%;
-     left: 0;
-     min-width: 100%;
-     min-height: 100%;
-     width: auto;
-     height: auto;
-     z-index: -1;
+     top: -12%;
+     left: 0%;
+     width: 100%;
+     height: 100%;
+   
+     z-index: 10;
      overflow: hidden;
+     background-color: black;
 	}
 	
 	#mouseimg{
@@ -162,13 +174,12 @@
 
 
 	.box {
-	width:150px;
-	height : 150px;
-	background-color:  #3f8d3f;
+	width:224px;
+	height : 0;
 	position: absolute;
-	left : 50px;
+	left : 50;
 	top : 0;
-}
+	}
 
 	.yt-w{display:none}
 	.yt-pop{position:fixed;top:-15%;left:0;bottom:0;right:0;margin:auto;width:800px;height:600px;background:#000;z-index:339}
@@ -198,7 +209,7 @@
 	<li id=first_m><b><a href="#firstPage">HOME</a></b></li><br>
 	<li><b><a href="#secondPage">11111</a></b></li><br>
 	<li><b><a href="#3rdPage">22222</a></b></li><br>
-	<li><b><a href="#4thpage">33333</a></b></li><br>
+	<li><b><a href="#4thpage">자유 게시판</a></b></li><br>
 </ul>
 
 
@@ -222,21 +233,23 @@
 		
 		
 		<div class="box">
-		<button id="run">run</button>
+		<img src="/PK_LOL_Sim_Site/resources/images/boll.png" width="15">
+		<button id="run">띠용</button>
 		</div>
 		
 	</div>
 	
 	
 	<div id="ft_img">
+	
 	</div>
 	
+	
 	<div id=video>
-		<video muted autoplay loop plays-inline id="video-background">
+		<video muted autoplay loop plays-inline id="video-background" width="1980" height="1300">
 	  	<source src="/PK_LOL_Sim_Site/resources/images/K_DA.mp4">
 		</video>
 	</div>
-	
 	
 	
 
@@ -260,12 +273,9 @@
 	<div class="section">11111</div>
 	<div class="section">22222</div>
 	<div class="section">33333</div>	
-	<div class="section">333335555</div>	
+	<div class="section">
 	
-	
-	
-	
-</div>
+	</div>
 
 </body>
 </html>

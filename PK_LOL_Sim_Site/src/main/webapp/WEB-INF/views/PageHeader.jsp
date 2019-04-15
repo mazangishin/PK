@@ -40,13 +40,19 @@
 				<c:if test="${sessionScope.memberVo != null}">
 					${sessionScope.memberVo.memberId}
 					<a href="${pageContext.request.contextPath}/member/logout.hm"	style="color:white;">
-						로그아웃
+						로그아웃  
 					</a>
+					
+					<a href="${pageContext.request.contextPath}/member/memberInfo.hm"	style="color:white;">
+						회원정보
+					</a>
+					
 				</c:if>
+				
 				<c:if test="${sessionScope.memberVo == null}">
 					게스트1
-					<a href="${pageContext.request.contextPath}/member/logout.hm"	style="color:white;">
-						나가기
+					<a href="${pageContext.request.contextPath}/member/register.hm"	style="color:white;">
+						회원가입
 					</a>
 				</c:if>
 				

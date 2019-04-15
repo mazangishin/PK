@@ -96,11 +96,11 @@ public class MemberController {
 
 	// 회원 정보 화면 메서드
 	@RequestMapping(value="/member/memberInfo.hm", method=RequestMethod.GET)
-	public String memeberInfo(HttpSession httpSession, int memberNumber, 
+	public String memeberInfo(HttpSession httpSession, 
 			Model model) {
 		log.debug("회원 정보 페이지로 이동합니다.");
-//		httpSession.getAttribute("memberVo");
-		MemberVo memberVo = memberService.memberInfo(memberNumber);
+		MemberVo mem= (MemberVo)httpSession.getAttribute("memberVo");
+		MemberVo memberVo = memberService.memberInfo(mem.getMemberNumber());
 		model.addAttribute("memberVo", memberVo);
 		
 		return "/member/memberInfo";

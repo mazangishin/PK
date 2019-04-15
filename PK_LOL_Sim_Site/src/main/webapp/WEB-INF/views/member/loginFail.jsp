@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8" http-equiv="Refresh" 
-	content="2;url=${pageContext.request.contextPath}/member/login.do">
+	content="2;url=${pageContext.request.contextPath}/member/login.hm">
 <title>로그인 실패</title>
 </head>
 <body>
