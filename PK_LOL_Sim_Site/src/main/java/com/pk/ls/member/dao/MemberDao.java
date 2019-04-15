@@ -8,4 +8,5 @@ public interface MemberDao {
 
 	public int memberRegister(MemberVo memberVo);
 	public MemberVo memberExist(Map<String, Object> paramMap);
+	public MemberVo memberInfo(int memberNumber);
 }

@@ -28,6 +28,12 @@ public class MemberDaoImplement implements MemberDao{
 
 		return sqlSession.selectOne(namespace + "memberExist", paramMap);
 	}
+
+	@Override
+	public MemberVo memberInfo(int memberNumber) {
+
+		return sqlSession.selectOne(namespace + "memberInfo", memberNumber);
+	}
 	
 
 }

@@ -32,5 +32,11 @@ public class MemberServiceImplement implements MemberService{
 
 		return memberDao.memberExist(paramMap);
 	}
+
+	@Override
+	public MemberVo memberInfo(int memberNumber) {
+
+		return memberDao.memberInfo(memberNumber);
+	}
 	
 }

@@ -32,4 +32,12 @@
 		WHERE EMAIL = #{id} AND PWD = #{password}
     </select>    
 
+    <select id="memberInfo" parameterType="int"
+        resultMap="memberResultMap">
+        SELECT MEMBER_ID, EMAIL, CREATE_DATE, MODIFIED_DATE
+        FROM MEMBERS
+        WHERE MEMBER_NUMBER = #{memberNumber}
+    </select>
+
+
 </mapper>
