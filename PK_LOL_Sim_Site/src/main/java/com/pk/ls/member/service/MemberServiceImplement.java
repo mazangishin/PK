@@ -38,5 +38,5 @@ public class MemberServiceImplement implements MemberService{
 
 		return memberDao.memberInfo(memberNumber);
 	}
-	
+
 }

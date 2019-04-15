@@ -39,5 +39,4 @@
         WHERE MEMBER_NUMBER = #{memberNumber}
     </select>
 
-
 </mapper>
