@@ -8,7 +8,7 @@
 		<id column="MEMBER_NUMBER" property="memberNumber" />
 		<result column="AUTHORITY" property="authority" />
 		<result column="MEMBER_ID" property="memberId" />
-		<result column="EMAIL" property="eMail" />
+		<result column="EMAIL" property="email" />
 		<result column="PASSWORD" property="password" />
 		<result column="CREATE_DATE" property="createDate" 
             javaType="java.util.Date" />
@@ -22,7 +22,7 @@
 		(MEMBER_NUMBER, AUTHORITY, MEMBER_ID, EMAIL, PASSWORD, 
             CREATE_DATE, MODIFIED_DATE)
 		VALUES(SEQ_MEMBERS_MEMBER_NUMBER.nextval, #{authority},
-             #{memberId}, #{eMail}, #{password}, SYSDATE, SYSDATE)
+             #{memberId}, #{email}, #{password}, SYSDATE, SYSDATE)
 	</insert>
 
     <select id="memberExist" parameterType="com.pk.ls.member.vo.MemberVo"
@@ -34,9 +34,25 @@
 
     <select id="memberInfo" parameterType="int"
         resultMap="memberResultMap">
-        SELECT MEMBER_ID, EMAIL, CREATE_DATE, MODIFIED_DATE
+        SELECT MEMBER_NUMBER, MEMBER_ID, EMAIL, CREATE_DATE, MODIFIED_DATE
         FROM MEMBERS
         WHERE MEMBER_NUMBER = #{memberNumber}
     </select>
+
+    <update id="memberUpdate" parameterType="memberVo">
+		UPDATE 	MEMBERS
+		<set>
+			<if test="memberId != ''">MEMBER_ID = #{memberId},</if>
+			<if test="eMail != ''">EMAIL = #{eMail},</if>
+			<if test="password != ''">PASSWORD = #{password},</if>
+			MOD_DATE = SYSDATE
+		</set>
+		WHERE  MEMBER_NUMBER = #{memberNumber}
+	</update>
+
+    <delete id="memberDelete" parameterType="int">
+        DELETE FROM MEMBERS
+        WHERE MEMBER_NUMBER = #{memberNumber}
+    </delete>
 
 </mapper>

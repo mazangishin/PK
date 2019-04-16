@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.pk.ls.member.service.MemberService;
@@ -79,9 +80,10 @@ public class MemberController {
 	public String memberAdd(Model model) {
 		log.debug("회원가입으로 이동");
 
-		return "/registerForm";
+		return "/member/registerForm";
 	}
 
+	// 회원 가입 동작 메서드
 	@RequestMapping(value = "/member/registerCtr.hm", 
 						method = RequestMethod.POST)
 	public String memberAdd(MemberVo memberVo, 
@@ -89,6 +91,7 @@ public class MemberController {
 			Model model) {
 		log.debug("회원가입 처리 완료" + memberVo);
 
+		// 회원이 입력한 정보로 spl문을 조작하여 DB에 추가한다.
 		memberService.memberRegister(memberVo, multipartHttpServletRequest);
 
 		return "redirect:/login.hm";
@@ -99,13 +102,76 @@ public class MemberController {
 	public String memeberInfo(HttpSession httpSession, int memberNumber, 
 			Model model) {
 		log.debug("회원 정보 페이지로 이동합니다.");
-//		httpSession.getAttribute("memberVo");
+		
 		MemberVo memberVo = memberService.memberInfo(memberNumber);
+		httpSession.setAttribute("memberVo", memberVo);
 		model.addAttribute("memberVo", memberVo);
 		
 		return "/member/memberInfo";
 	}
 
+	// 회원 정보 수정 화면 메서드
+	@RequestMapping(value="/member/memberUpdate.hm", method=RequestMethod.POST)
+	public String memberUpdate(int memberNumber, Model model) {
+		
+		log.debug("회원 정보 수정 화면입니다, 회원 번호 :", memberNumber);
+		
+		MemberVo memberVo = memberService.memberInfo(memberNumber);
+		model.addAttribute("memberVo", memberVo);
+		
+		return "/member/memberUpdate";
+	}
+	
+	// 회원 정보 수정 작동 메서드
+	@RequestMapping(value="/member/memberUpdateCtr.hm", method=RequestMethod.POST)
+	public String memberUpdateCtr(HttpSession httpSession, Model model,
+			MemberVo memberVo) {
+	
+		log.debug("회원 정보를 수정합니다." + memberVo.toString());
+	
+		int resultNum = memberService.memberUpdate(memberVo);
+		
+		// 데이터베이스에서 회원정보가 수정이 됐는가 체크
+		if(resultNum > 0) {
+			
+			MemberVo sessionMemberVo = 
+					(MemberVo)httpSession.getAttribute("memberVo");
+			// 세션에 객체가 존재하는지 여부
+			if(sessionMemberVo != null) {
+				// 세션의 값과 새로운 값이 일치하는지 여부
+				// 홍길동				ㄴㅇㄹㄴㅇ
+				// s1@test.com		ㄴㅇㄹ33@
+				// 1111				2222
+				if(sessionMemberVo.getMemberNumber() 
+						== memberVo.getMemberNumber()) {
+					MemberVo newMemberVo = new MemberVo();
+					
+					sessionMemberVo.setMemberNumber(memberVo.getMemberNumber());
+					sessionMemberVo.setEmail(memberVo.getEmail());
+					sessionMemberVo.setMemberId(memberVo.getMemberId());
+								
+					httpSession.removeAttribute("memberVo");
+					
+					httpSession.setAttribute("memberVo", newMemberVo);
+				}
+			}
+		}
+		
+		return "/member/successPage";
+	}
+	
+	// 회원 탈퇴 작동 메서드
+	@RequestMapping(value="/member/deleteCtr.do",
+			method=RequestMethod.GET)
+	public String memberDelete(int memberNumber, Model model) {
+		log.debug("회원 탈퇴를 수행합니다. 회원 번호", memberNumber);
+		
+		memberService.memberDelete(memberNumber);
+		
+		return "redirect:/member/login.hm";
+	}
+	
+	// 메인 화면 출력 메서드
 	@RequestMapping(value = "/mainPage.hm", method = RequestMethod.GET)
 	public String mainPage(Model model) {
 		log.debug("회원가입으로 이동");

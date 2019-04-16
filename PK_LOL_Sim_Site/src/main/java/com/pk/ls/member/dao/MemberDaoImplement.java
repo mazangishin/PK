@@ -34,6 +34,19 @@ public class MemberDaoImplement implements MemberDao{
 
 		return sqlSession.selectOne(namespace + "memberInfo", memberNumber);
 	}
-	
+
+	@Override
+	public int memberUpdate(MemberVo memberVo) {
+
+		return sqlSession.update(namespace + "memberUpdate", memberVo);
+	}
+
+	@Override
+	public int memberDelete(int memberNumber) {
+		
+		return sqlSession.delete(namespace + "memberDelete", memberNumber);
+	}
+
+
 
 }
