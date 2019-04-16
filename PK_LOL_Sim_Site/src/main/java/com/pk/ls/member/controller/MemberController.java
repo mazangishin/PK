@@ -99,12 +99,13 @@ public class MemberController {
 
 	// 회원 정보 화면 메서드
 	@RequestMapping(value="/member/memberInfo.hm", method=RequestMethod.GET)
-	public String memeberInfo(HttpSession httpSession, int memberNumber, 
-			Model model) {
+	public String memeberInfo(HttpSession httpSession, Model model) {
 		log.debug("회원 정보 페이지로 이동합니다.");
 		
-		MemberVo memberVo = memberService.memberInfo(memberNumber);
+		MemberVo memberVo = memberService.memberInfo
+				((MemberVo)httpSession.getAttribute("memberVo"));
 		httpSession.setAttribute("memberVo", memberVo);
+
 		model.addAttribute("memberVo", memberVo);
 		
 		return "/member/memberInfo";
@@ -112,11 +113,13 @@ public class MemberController {
 
 	// 회원 정보 수정 화면 메서드
 	@RequestMapping(value="/member/memberUpdate.hm", method=RequestMethod.POST)
-	public String memberUpdate(int memberNumber, Model model) {
+	public String memberUpdate(HttpSession httpSession, Model model) {
 		
-		log.debug("회원 정보 수정 화면입니다, 회원 번호 :", memberNumber);
+		MemberVo memberVo = (MemberVo)httpSession.getAttribute("memberVo");
 		
-		MemberVo memberVo = memberService.memberInfo(memberNumber);
+		log.debug("회원 정보 수정 화면입니다, 회원 번호 :" + memberVo.getMemberNumber());
+				
+		memberVo = memberService.memberInfo(memberVo);
 		model.addAttribute("memberVo", memberVo);
 		
 		return "/member/memberUpdate";

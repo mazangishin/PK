@@ -30,9 +30,9 @@ public class MemberDaoImplement implements MemberDao{
 	}
 
 	@Override
-	public MemberVo memberInfo(int memberNumber) {
+	public MemberVo memberInfo(MemberVo memberVo) {
 
-		return sqlSession.selectOne(namespace + "memberInfo", memberNumber);
+		return sqlSession.selectOne(namespace + "memberInfo", memberVo);
 	}
 
 	@Override
