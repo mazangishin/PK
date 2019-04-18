@@ -8,14 +8,13 @@
 <meta charset="UTF-8">
 <title>회원 정보</title>
 <script type="text/javascript">
-	function memberUpdateFnc() {
-		location.href = "/member/memberUpdateCtr.hm";
+	function pageMoveMainFnc() {
+		var url = "/PK_LOL_Sim_Site/mainPage.hm";
+		location.href = url;
 	}
-	function pageMoveListFnc() {
-		location.href = "/mainpage.hm"
-	}
-	function withdrawalFnc() {
-		location.href = "/member/memberDelete.hm";
+	function withdrawalFnc(memberNumber) {
+		var url = "/PK_LOL_Sim_Site/member/memberDelete.hm?memberNumber=" + memberNumber;
+		location.href = url;
 	}
 </script>
 
@@ -85,28 +84,67 @@
 <body>
 	
 	<div id="box">
-		<h1>회원정보</h1>
-		<form action="/member/memberInfo.hm" method="get">
-		<input type="hidden" name='no' class="inputArea"
-			value='${sessionScope.memberVo.memberNumber}'>
-		ID: <input type="text" name='id' readonly="readonly" class="inputArea"
-				id='memberId' value='${memberVo.memberId}'><br>
-		이메일: <input type="text" name="eMail" class="inputArea"
-				value='${sessionScope.memberVo.eMail}'><br>
-		가입일: <fmt:formatDate value="${sessionScope.memberVo.createDate}"
-				class="inputArea" pattern="yyyy-MM-dd" /><br>
-		최종수정일: <fmt:formatDate value="${sessionScope.memberVo.modifiedDate}"
-				class="inputArea" pattern="yyyy-MM-dd" /><br>
-		<c:set var="authority" value="${sessionScope.memberVo.authority}"/>
-		<c:if test="authority == y">관리자입니다.</c:if>
-		
-		<input type="submit" value="수정하기" class="inputButton"
-			onclick="memberUpdateFnc();">
-		<input type="button" value="회원탈퇴" class="inputButton" 
-			onclick="withdrawalFnc();">
-		<input type="button" value="돌아가기" class="inputButton" 
-			onclick="pageMoveListFnc();">	
-	</form>
+		<div>
+			<h1>회원정보</h1>
+		</div>
+		<div>
+			<form action="memberUpdate.hm" method="post">
+				<div>
+					<input type="hidden" name='no' class="inputArea"
+					value='${memberVo.memberNumber}'/>
+				</div>
+				<div>
+					<span>ID:</span> 
+				</div>
+				<div>
+					<input type="text" name='id' readonly="readonly" class="inputArea"
+						id='memberId' value='${memberVo.memberId}'/>
+				</div>
+				<div>
+					<span>이메일:</span> 
+				</div>
+				<div>
+					<input type="text" name="eMail" class="inputArea"
+						value='${memberVo.email}'/>
+				</div>
+				<div>
+					<span>가입일:</span>
+				</div>
+				<div>
+					<input type="text" name="createDate" class="inputArea"
+					 value="<fmt:formatDate value="${memberVo.createDate}"/>"
+					 readonly="readonly"/>
+				</div>
+				<div>
+					<span>최종수정일:</span>
+				</div>
+				<div>
+					<input type="text" name="createDate" class="inputArea"
+					 value="<fmt:formatDate value="${memberVo.modifiedDate}"/>"
+					 readonly="readonly"/>
+				</div>
+				<div>
+					<c:set var="authority" value="${memberVo.authority}"/>
+					<c:if test="${authority eq 'Y'}">
+						 <c:out value="관리자" />
+					</c:if>
+					<c:if test="${authority ne 'Y'}">
+						 <c:out value="일반회원" />
+					</c:if>
+				</div>
+				<div>
+					<input type="submit" value="수정하기" class="inputButton">
+				</div>
+				<div>
+					<input type="button" value="회원탈퇴" class="inputButton" 
+					onclick="withdrawalFnc(${memberVo.memberNumber});">
+				</div>
+				<div>
+					<input type="button" value="돌아가기" class="inputButton" 
+					onclick="pageMoveMainFnc();">	
+				</div>
+			</form>
+		</div>
 	</div>
 
 </body>

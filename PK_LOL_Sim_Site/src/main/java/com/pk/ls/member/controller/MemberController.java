@@ -94,7 +94,7 @@ public class MemberController {
 		// 회원이 입력한 정보로 spl문을 조작하여 DB에 추가한다.
 		memberService.memberRegister(memberVo, multipartHttpServletRequest);
 
-		return "redirect:/login.hm";
+		return "/member/successPage";
 	}
 
 	// 회원 정보 화면 메서드
@@ -102,10 +102,12 @@ public class MemberController {
 	public String memeberInfo(HttpSession httpSession, Model model) {
 		log.debug("회원 정보 페이지로 이동합니다.");
 		
+		// sql문을 조작해서 DB에서 가져온 값을 memberVo에 담고 세션에 태운다.
 		MemberVo memberVo = memberService.memberInfo
 				((MemberVo)httpSession.getAttribute("memberVo"));
 		httpSession.setAttribute("memberVo", memberVo);
 
+		// 모델에 담고 jsp 페이지로 ㄱㄱ
 		model.addAttribute("memberVo", memberVo);
 		
 		return "/member/memberInfo";
@@ -115,23 +117,31 @@ public class MemberController {
 	@RequestMapping(value="/member/memberUpdate.hm", method=RequestMethod.POST)
 	public String memberUpdate(HttpSession httpSession, Model model) {
 		
+		// 세션에 있는 memberVo의 값을 담아옴
 		MemberVo memberVo = (MemberVo)httpSession.getAttribute("memberVo");
 		
+		// 확인차 디버깅 돌리고 안에 정보 조회한 거 표기
 		log.debug("회원 정보 수정 화면입니다, 회원 번호 :" + memberVo.getMemberNumber());
-				
+		
+		// sql문 돌린 거 memberVo에 다시 담아서 모델에 태움
 		memberVo = memberService.memberInfo(memberVo);
 		model.addAttribute("memberVo", memberVo);
 		
+		// 회원 정보 수정 페이지로 가즈아ㅏㅏ
 		return "/member/memberUpdate";
 	}
 	
 	// 회원 정보 수정 작동 메서드
 	@RequestMapping(value="/member/memberUpdateCtr.hm", method=RequestMethod.POST)
-	public String memberUpdateCtr(HttpSession httpSession, Model model,
-			MemberVo memberVo) {
-	
+	public String memberUpdateCtr(HttpSession httpSession, MemberVo memberVo,
+			@RequestParam(value="memberNumber") String memberNumber, Model model) {
+		
+		// 회원 정보 표기 로그
 		log.debug("회원 정보를 수정합니다." + memberVo.toString());
-	
+
+		memberVo.setMemberNumber(Integer.parseInt(memberNumber));
+		
+		// sql문 조작 후 결과를 담는다.
 		int resultNum = memberService.memberUpdate(memberVo);
 		
 		// 데이터베이스에서 회원정보가 수정이 됐는가 체크
@@ -159,25 +169,29 @@ public class MemberController {
 				}
 			}
 		}
-		
+		// 성공 페이지로 가즈아ㅏㅏ
 		return "/member/successPage";
 	}
 	
 	// 회원 탈퇴 작동 메서드
-	@RequestMapping(value="/member/deleteCtr.do",
+	@RequestMapping(value="/member/memberDelete.hm",
 			method=RequestMethod.GET)
-	public String memberDelete(int memberNumber, Model model) {
-		log.debug("회원 탈퇴를 수행합니다. 회원 번호", memberNumber);
+	public String memberDelete(@RequestParam(value="memberNumber") 
+			String memberNumber, MemberVo memberVo, Model model) {
 		
-		memberService.memberDelete(memberNumber);
+		memberVo.setMemberNumber(Integer.parseInt(memberNumber));
 		
-		return "redirect:/member/login.hm";
+		log.debug("회원 탈퇴를 수행합니다. 회원 번호", memberVo.getMemberNumber());
+		
+		memberService.memberDelete(memberVo.getMemberNumber());
+		
+		return "/member/successPage";
 	}
 	
 	// 메인 화면 출력 메서드
 	@RequestMapping(value = "/mainPage.hm", method = RequestMethod.GET)
 	public String mainPage(Model model) {
-		log.debug("회원가입으로 이동");
+		log.debug("메인페이지로 이동");
 
 		return "/mainPage";
 	}

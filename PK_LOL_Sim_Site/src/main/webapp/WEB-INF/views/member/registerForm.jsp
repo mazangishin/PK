@@ -76,21 +76,51 @@
 </head>
 <body>
 	<div id="box">
-		<h1>회원가입</h1>
-		<form action="/registerCtr.do" method="post" enctype="multipart/form-data">
-			ID: <input type="text" name='memberId' class="inputArea"
-				 placeholder="ID를 입력하세요"><br>
-			비밀번호: <input type="password" name='password' class="inputArea"
-					placeholder="비밀번호를 입력하세요"><br>
-			비밀번호 확인: <input type="password" name='passwordConfirm' 
-					class="inputArea" placeholder="비밀번호를 다시 입력하세요"><br>
-			이메일: <input type="text" name="eMail" class="inputArea"
-					placeholder="E-메일을 입력하세요"><br>
-			
-			<input type="submit" class="inputButton" value="회원가입">
-			<input type="button" class="inputButton" value="돌아가기"
-				 onclick="backToLastFnc();">
-		</form>
+		<div>
+			<h1>회원가입</h1>
+		</div>
+		<div>
+			<form action="registerCtr.hm" method="post" enctype="multipart/form-data">
+				<div>
+					<input type="hidden" name="authority" value="n">
+				</div>
+				<div>
+					<span>ID:</span>
+				</div>
+				<div>
+					<input type="text" name='memberId' class="inputArea"
+					placeholder="ID를 입력하세요">
+				</div>
+				<div>
+					<span>비밀번호:</span>
+				</div>
+				<div>
+					<input type="password" name='password' class="inputArea"
+					placeholder="비밀번호를 입력하세요">
+				</div>
+				<div>
+					<span>비밀번호 확인:</span>
+				</div>
+				<div>
+					<input type="password" name='passwordConfirm' 
+					class="inputArea" placeholder="비밀번호를 다시 입력하세요">
+				</div>
+				<div>
+					<span>이메일:</span>
+				</div>
+				<div>
+					<input type="text" name="email" class="inputArea"
+					placeholder="E-메일을 입력하세요">
+				</div>
+				<div>
+					<input type="submit" class="inputButton" value="회원가입">
+				</div>
+				<div>
+					<input type="button" class="inputButton" value="돌아가기"
+					onclick="backToLastFnc();">
+				</div>
+			</form> 
+		</div>
 	</div>
 </body>
 </html>
