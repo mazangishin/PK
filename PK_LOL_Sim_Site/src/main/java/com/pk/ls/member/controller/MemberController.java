@@ -30,8 +30,17 @@ public class MemberController {
 	@RequestMapping(value = "/member/login.hm", method = RequestMethod.GET)
 	public String memberLogin(HttpSession httpSession, Model model) {
 		log.debug("login 페이지 이동");
+		
+		String firstPageUrl = "";
+		MemberVo memberVo = (MemberVo) httpSession.getAttribute("memberVo");
+		
+		if (memberVo != null) {
+			firstPageUrl = "/mainPage";
+		}else if(memberVo == null) {
+			firstPageUrl = "/member/login";
+		}
 
-		return "/member/login";
+		return firstPageUrl;
 	}
 
 	// 로그인 작동 메서드
@@ -84,8 +93,7 @@ public class MemberController {
 	}
 
 	// 회원 가입 동작 메서드
-	@RequestMapping(value = "/member/registerCtr.hm", 
-						method = RequestMethod.POST)
+	@RequestMapping(value = "/member/registerCtr.hm", method = RequestMethod.POST)
 	public String memberAdd(MemberVo memberVo, 
 			MultipartHttpServletRequest multipartHttpServletRequest, 
 			Model model) {
@@ -152,9 +160,6 @@ public class MemberController {
 			// 세션에 객체가 존재하는지 여부
 			if(sessionMemberVo != null) {
 				// 세션의 값과 새로운 값이 일치하는지 여부
-				// 홍길동				ㄴㅇㄹㄴㅇ
-				// s1@test.com		ㄴㅇㄹ33@
-				// 1111				2222
 				if(sessionMemberVo.getMemberNumber() 
 						== memberVo.getMemberNumber()) {
 					MemberVo newMemberVo = new MemberVo();

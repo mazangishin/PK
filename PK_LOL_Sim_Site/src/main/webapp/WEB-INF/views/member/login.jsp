@@ -15,9 +15,9 @@
 						url(/PK_LOL_Sim_Site/resources/images/kda.jpg);
 		background-repeat: no-repeat;
 		background-size: cover;
-		margin: 0px;
 		padding: 0px;
 		height: 100vh;
+		width: 100vw;
 		font-family: sans-serif;
 		opacity: 0.8;
 	}
