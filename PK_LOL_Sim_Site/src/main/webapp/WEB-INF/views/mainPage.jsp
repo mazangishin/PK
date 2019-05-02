@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>one page - wheel sliding move</title>	
 	
-	<meta charset=UTF-8">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width"> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.fullpage/2.9.4/jquery.fullpage.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.fullpage/2.9.4/jquery.fullpage.min.css">
 	
@@ -60,136 +61,86 @@
 		eee();
 		
 		
+		
+		
 	});
 	
 		
+	
+	function goPage(pageNumber,sc){
+		
+		var nowPage = $("#nowPage");
+		nowPage.val(pageNumber);
+		var scText = $("#scText2");
+		scText.val(sc);
+ 		$("#pagingForm").submit();
+ 		//$(location).attr('href', 'http://localhost:8090/PK_LOL_Sim_Site/board/list.hm?');
+	}
+	
+	function goBoardInfo(boardNumber){
+		var boardNum = $("#boardNum");
+		boardNum.val(boardNumber);
+		$("#infoForm").submit();
+ 		
+	}
+	
+	
 	
 	</script>
 
 
 
 		
-	<script>		
-		$(document).ready(function() {
-			
-			
-			
+	<script >	
+	
+	
+	
+		 $(document).ready(function() {
 			
 			$('#fullpage').fullpage({
 				
 				anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage', 'lastPage'],
 				menu: '#menu',
 				//equivalent to jQuery `easeOutBack` extracted from http://matthewlein.com/ceaser/
-				easingcss3: 'cubic-bezier(0.175, 0.885, 0.320, 1.275)'
+				easingcss3: 'cubic-bezier(0.175, 0.885, 0.320, 1.275)',
+				
+				onLeave: function(origin, destination, direction){
+					var loadedSection = this;
+					//after leaving section 2
+					if(origin == 3 && direction =='down'){
+					$(location).attr('href', 'http://localhost:8090/PK_LOL_Sim_Site/board/list.hm?');
+					} 
+					
+					
+
+				}
+			
+				
 			});
 			
 			
 			$("#menu>li").click(function(){
 				$(this).addClass("act").siblings().removeClass("act");
+
 			});
 			
+			function aaa(){
+				location.href = "list.do";
+				}
 			
-		});	
+			
+			
+		
+		});	 
+		
+		
 	</script>	
-	<style>
-	#fullpage>div	{text-align:center;}
 	
-	
-	#menu2 lnput{color: white; top:10px; padding: 41px 20px;}
-	
+	<link rel="stylesheet" href="//PK_LOL_Sim_Site/src/main/views/common/main.css"/>
 	
 	
 
 	
-	
-	#menu li 		{display:inline-block;}
-	#menu li a		{text-decoration:none; color: #EDBB6A;  padding: 41px 20px; display:block;}
-	#menu{
-		position:fixed; z-index: 500;
-		top:0; left:0; width: 200px; height: 100%;
-		padding: 0; margin: 0 auto;
-		background-image:url(/PK_LOL_Sim_Site/resources/images/l_menu_img.png); text-align: center; overflow: hidden;		
-	}
-	#menu li:hover	{background: rgba(255,255,255, 0.2);}
-	#menu>.act 		{background:rgba(255,255,255, 0.1);}
-	#menu>.act>a:hover 	{color:black;}
-	#menu>.act>a 		{color:white;}
-	
-	
-	#logo{
-		position:fixed; z-index: 550;
-		top:15px; left:15px; width: 220px; height: 200px;
-		padding: 0; margin: 0 auto;
-	}
-	
-	#bttt{
-	top:10%; left:0; width: 145px; height: 145px;
-	border: 0px; 
-	background: rgba(255,255,255, 0);
-	
- 	
- 
-	 border-top-left-radius: 15px; 
-  	border-top-right-radius: 15px; 
-  	border-bottom-left-radius: 15px; 
-  	border-bottom-right-radius: 15px; 
-	}
-	
-	#play_bt{
-		position:fixed;
-		z-index: 250;
-		width: 145px; height: 145px;
-		padding: 0; 
-		top:30%; left:47%;
-		margin: 0 auto;
-	}
-	 #ft_img{
-		position: absolute;
-		background-image:url(/PK_LOL_Sim_Site/resources/images/tt_img.png);
-		position:fixed; z-index: 200;
-		top:-15%; left:0%; width: 100%; height: 100%;
-		padding: 0; margin: 0 auto;
-		
-	} 
-	
-	#video { 
-     position: absolute;
-     top: -12%;
-     left: 0%;
-     width: 100%;
-     height: 100%;
-   
-     z-index: 10;
-     overflow: hidden;
-     background-color: black;
-	}
-	
-	#mouseimg{
-		position:fixed; z-index: 700;
-		top:75%; left:47%; width: 180px; height: 150px;
-		padding: 0; margin: 0 auto;
-		
-		text-align: center; overflow: hidden;	
-	}
-
-
-	.box {
-	width:224px;
-	height : 0;
-	position: absolute;
-	left : 50;
-	top : 0;
-	}
-
-	.yt-w{display:none}
-	.yt-pop{position:fixed;top:-15%;left:0;bottom:0;right:0;margin:auto;width:800px;height:600px;background:#000;z-index:339}
-	.close{text-align:center; color:white; display:block;position:absolute;top:-30px;right:0;width:65px;height:30px; background-color: black;}
-
-	
-	
-   
-	
-	</style>
 	
 	
 	
@@ -197,8 +148,8 @@
 
 <body>
 
-	<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
-
+	<jsp:include page="/WEB-INF/views/PageHeader.jsp" /> 
+	<jsp:include page="/WEB-INF/views/common/mainCss.jsp" />
 
 	<div id="logo">
 	<a href="#firstPage"><img src="/PK_LOL_Sim_Site/resources/images/logo.png" width="80%"></a><br>
@@ -215,9 +166,7 @@
 
 
 
-<ul id="menu3">
-	<li><a href="#firstPage">00000</a></li><br>
-</ul>
+
 
 
 <jsp:include page="/WEB-INF/views/Tail.jsp" />
@@ -226,27 +175,18 @@
 
 	
 
-	<div class="section" id="mainp">
-	
+	<div class="section">
 	<div id="mouseimg">
 		<img src="/PK_LOL_Sim_Site/resources/images/scroll.png" width="30">
-		
-		
 		<div class="box">
 		<img src="/PK_LOL_Sim_Site/resources/images/boll.png" width="15">
 		<button id="run">띠용</button>
 		</div>
-		
-	</div>
-	
-	
-	<div id="ft_img">
-	
 	</div>
 	
 	
 	<div id=video>
-		<video muted autoplay loop plays-inline id="video-background" width="1980" height="1300">
+		<video muted autoplay loop plays-inline id="video-background">
 	  	<source src="/PK_LOL_Sim_Site/resources/images/K_DA.mp4">
 		</video>
 	</div>
@@ -271,11 +211,122 @@
 	</div>
 	
 	<div class="section">11111</div>
-	<div class="section">22222</div>
-	<div class="section">33333</div>	
-	<div class="section">
 	
-	</div>
+	
+	
+	
+	
+	
+	
+	
 
+	<div class="section">
+	</div>
+	
+	
+	
+	
+	
+
+	<div class="section">
+			
+	<div id="board">
+	
+			<table id="customers">
+			
+						 <caption>소환사 광장</caption>
+			        <colgroup>
+			        	<col style="width:13%">
+			            <col style="width:*%">
+			            <col style="width:13%">
+			            <col style="width:10%">
+			           
+			        </colgroup>
+			        <thead>
+			        <tr>
+			            <th scope="col">게시번호</th>
+			            <th scope="col" class="first" >제목</th>
+			            <th scope="col">작성자</th>
+			            <th scope="col">작성일</th>
+			        </tr>
+			        </thead>
+			        <tbody>
+			
+				<c:forEach var="boardVo" items="${boardList}">
+					
+				
+					  <thead>
+					   
+			        <tr>
+			        	<th scope="col">${boardVo.board_Number}</th>
+			            <th scope="col" class="first" ><a href="#" onclick="goBoardInfo(${boardVo.board_Number});">${boardVo.title}
+			             <c:if test="${boardVo.commet_Num>=1}">
+			           	[${boardVo.commet_Num}]
+			            </c:if></a></th>
+			            <th scope="col">${boardVo.member_id}</th>
+			            
+			           
+			            
+			            <th scope="col">작성일</th>
+			        </tr>
+			        </thead>
+				</c:forEach>
+				
+				
+				
+		</table>
+				<form action="./board/info.hm" id="infoForm" method="post">
+				<input type="text" id="boardNum" name="boardNum" value="${boardVo.board_Number}">
+				</form>
+		
+			 
+			<div id="pageBox">
+				
+				
+					
+					
+					<c:forEach var="num" begin="${page.blockStartPage}" end="${page.blockEndPage}">
+					
+							
+								<a href="#" onclick="goPage(${num}, '${scTextObj}');">
+									<c:out value="${num}"/>
+								</a>
+							
+						
+					</c:forEach>
+					
+					
+				
+				
+				<form action="./board/list.hm" id="pagingForm" method="post">
+				<input type="hidden" id="nowPage" name="nowPage" value="${page.nowPage}">
+				<input type="hidden" id="scText2" name="scText2" value="${scText}">
+				</form>
+				
+				<div id="suDiv">
+				<div id="suDiv2">
+				
+				<form action="./board/list.hm" method="get">
+					<select name="key">
+						<option value="title">제목</option>  <!-- 글쓴이 -->
+						<option value="content">내용</option>  <!-- 내용 -->
+						<option value="mno">회원번호</option>  <!-- 번호 -->
+					</select>
+						
+						<input type="text" id="scText" name="scText" value="${scText}" > 
+						<input type="submit" value="검색하기"> 
+						
+				</form>
+				
+				</div>
+				</div>
+				
+		
+				
+			</div>
+	</div>
+	
+	</div>	
+</div>
 </body>
 </html>

@@ -108,9 +108,12 @@ public class MemberController {
 
 	@RequestMapping(value = "/mainPage.hm", method = RequestMethod.GET)
 	public String mainPage(Model model) {
-		log.debug("회원가입으로 이동");
-
 		return "/mainPage";
+	}
+	
+	@RequestMapping(value = "/memberTest.hm", method = RequestMethod.GET)
+	public String memberTest(Model model) {
+		return "/memberTest";
 	}
 
 }

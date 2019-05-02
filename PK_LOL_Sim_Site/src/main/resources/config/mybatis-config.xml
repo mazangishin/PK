@@ -6,6 +6,9 @@
 
 	<typeAliases>
 		<typeAlias type="com.pk.ls.member.vo.MemberVo" alias="memberVo"/>
+		<typeAlias type="com.pk.ls.member.vo.BoardVo" alias="boardVo"/>
+		<typeAlias type="com.pk.ls.member.vo.RePlyVo" alias="replyVo"/>
 	</typeAliases>
+	
 
 </configuration>
