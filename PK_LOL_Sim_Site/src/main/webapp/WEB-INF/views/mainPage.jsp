@@ -7,7 +7,11 @@
 <head>
 	<title>one page - wheel sliding move</title>	
 	
-	<meta charset="UTF-8">
+
+	
+
+	<meta charset=UTF-8>
+
 	<meta name="viewport" content="width=device-width"> 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.fullpage/2.9.4/jquery.fullpage.min.js"></script>

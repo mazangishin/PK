@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pk.ls.champ">
+
+	<resultMap type="com.pk.ls.champ.vo.ChampVo"
+		id="champResultMap">
+    	<id column="CHAMPION_NUMBER" property="championNumber"/>
+		<result column="CHAMPION_NAME" property="championName"/>
+		<result column="CHAMPION_NICK" property="championNick"/>
+		<result column="POSITION" property="position"/>
+		<result column="HP" property="hp"/>
+		<result column="MP" property="mp"/>
+		<result column="AD" property="ad"/>
+		<result column="AP" property="ap"/>
+	</resultMap>
+
+	<insert id="champCreate" 
+		parameterType="com.pk.ls.champ.vo.ChampVo"
+        useGeneratedKeys="true" keyProperty="championNumber">
+		<selectKey keyProperty="championNumber" resultType="int" order="BEFORE">
+			SELECT SEQ_CHAMPION_CHAMPION_NUMBER.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO CHAMPION
+		(CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK,	POSITION,
+         HP, MP, AD, AP)
+		VALUES(
+		#{championNumber}, #{championName}, #{championNick}, #{position},
+        #{hp}, #{mp}, #{ad}, #{ap})
+	</insert>
+
+	<select id="champList" parameterType="map"
+        resultMap="champResultMap">
+        SELECT CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, POSITION,
+        HP, MP, AD, AP
+	        FROM (
+	        SELECT ROWNUM, C.CHAMPION_NUMBER, C.CHAMPION_NAME, C.CHAMPION_NICK,
+        		C.POSITION, C.HP, C.MP, C.AD, C.AP
+        		FROM (
+	        		SELECT CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, POSITION,
+	       				HP, MP, AD, AP
+	       			FROM CHAMPION
+	       			WHERE POSITION = #{position}
+        			ORDER BY CHAMPION_NUMBER) C
+        ) CHAMPION
+        WHERE ROWNUM BETWEEN #{start} AND #{end}
+    </select>
+
+    <select id="champPositionTotalCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM CHAMPION
+		<choose>
+			<when test="#{position} != null">
+				WHERE POSITION = #{position}
+			</when>
+			<otherwise>
+				WHERE POSITION = top
+			</otherwise>
+		</choose>
+	</select>
+
+    <select id="champSelectOne" parameterType="int"
+        resultMap="champResultMap">
+        SELECT CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, 
+        POSITION, HP, MP, AD, AP
+        FROM CHAMPION
+        WHERE CHAMPION_NUMBER = #{championNumber}
+    </select>
+
+    <update id="champUpdate" parameterType="map">
+		UPDATE CHAMPION
+		<set>
+			<if test="championName != ''">CHAMPION_NAME = #{CHAMPION_NAME},</if>
+			<if test="championNick != ''">CHAMPION_NICK = #{championNick},</if>
+			<if test="position != ''">POSITION = #{position},</if>
+			<if test="hp != ''">HP = #{hp},</if>
+			<if test="mp != ''">MP = #{mp},</if>
+			<if test="ad != ''">AD = #{ad},</if>
+			<if test="ap != ''">AP = #{ap},</if>
+		</set>
+		WHERE CHAMPION_NUMBER = #{championNumber}
+	</update>
+
+    <delete id="champDelete" parameterType="int">
+        DELETE FROM CHAMPION
+        WHERE CHAMPION_NUMBER = #{championNumber}
+    </delete>
+
+    <insert id="insertFile" parameterType="map">
+		INSERT INTO CHAMPION_FILE
+			(FILE_INDEX, CHAMPION_NUMBER, ORIGINAL_FILE_NAME, 
+			STORED_FILE_NAME, FILE_SIZE, CRE_DATE)
+		VALUES
+			(SEQ_CHAMPION_FILE_INDEX.NEXTVAL, #{championNumber}, #{original_file_name},
+			#{stored_file_name}, #{file_size}, SYSDATE)
+	</insert>
+	
+	<select id="fileSelectList" parameterType="int"
+		resultType="map">
+		SELECT FILE_INDEX, ORIGINAL_FILE_NAME, STORED_FILE_NAME, 
+			ROUND(FILE_SIZE/1024, 1) AS FILE_SIZE
+		FROM CHAMPION_FILE
+        WHERE CHAMPION_NUMBER = #{championNumber}
+        ORDER BY CHAMPION_NUMBER
+	</select>
+	
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM CHAMPION_FILE
+		WHERE CHAMPION_NUMBER = #{championNumber}
+	</delete>
+
+	<select id="fileSelectStoredFileName" parameterType="int"
+		resultType="map">
+		SELECT FILE_INDEX, STORED_FILE_NAME
+		FROM CHAMPION_FILE
+		WHERE CHAMPION_NUMBER = #{championNumber}
+        ORDER BY CHAMPION_NUMBER
+	</select>
+    
+</mapper>

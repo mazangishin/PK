@@ -7,7 +7,7 @@ public class MemberVo {
 	private int memberNumber;
 	private String authority;
 	private String memberId;
-	private String eMail;
+	private String email;
 	private String password;
 	private Date createDate;
 	private Date modifiedDate;
@@ -15,13 +15,13 @@ public class MemberVo {
 	public MemberVo() {
 		super();
 	}
-	public MemberVo(int memberNumber, String authority, String memberId, String eMail, String password, Date createDate,
+	public MemberVo(int memberNumber, String authority, String memberId, String email, String password, Date createDate,
 			Date modifiedDate) {
 		super();
 		this.memberNumber = memberNumber;
 		this.authority = authority;
 		this.memberId = memberId;
-		this.eMail = eMail;
+		this.email = email;
 		this.password = password;
 		this.createDate = createDate;
 		this.modifiedDate = modifiedDate;
@@ -45,11 +45,11 @@ public class MemberVo {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String geteMail() {
-		return eMail;
+	public String getEmail() {
+		return email;
 	}
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
@@ -73,8 +73,8 @@ public class MemberVo {
 	@Override
 	public String toString() {
 		return "MemberVo [memberNumber=" + memberNumber + ", authority=" 
-				+ authority + ", memberId=" + memberId + ", eMail=" 
-				+ eMail + ", password=" + password + ", createDate=" 
+				+ authority + ", memberId=" + memberId + ", email=" 
+				+ email + ", password=" + password + ", createDate=" 
 				+ createDate + ", modifiedDate=" + modifiedDate + "]";
 	}
 	

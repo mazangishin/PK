@@ -34,9 +34,22 @@ public class MemberServiceImplement implements MemberService{
 	}
 
 	@Override
-	public MemberVo memberInfo(int memberNumber) {
+	public MemberVo memberInfo(MemberVo memberVo) {
 
-		return memberDao.memberInfo(memberNumber);
+		return memberDao.memberInfo(memberVo);
 	}
 
+	@Override
+	public int memberUpdate(MemberVo memberVo) {
+
+		return memberDao.memberUpdate(memberVo);
+	}
+
+	@Override
+	public int memberDelete(int memberNumber) {
+
+		return memberDao.memberDelete(memberNumber);
+	}
+
+	
 }

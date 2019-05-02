@@ -93,7 +93,7 @@ public class BoardController {
 		  
 		  for (int i = 0; i < rePlyList.size(); i++) {
 			  //멤버 넘버로 리플에서 글쓴이 이름값 넣어줌
-			  membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
+			//  membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
 			  String name = membervo.getMemberId();
 			  rePlyList.get(i).setMember_name(name);//이름 담음
 		  }

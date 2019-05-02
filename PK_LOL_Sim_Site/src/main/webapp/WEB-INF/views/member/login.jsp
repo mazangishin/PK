@@ -4,15 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript">
+	function goToRegisterFnc() {
+		location.href="/PK_LOL_Sim_Site/member/register.hm";		
+	}
+</script>
 <style type="text/css">
 	body {
 		background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
 						url(/PK_LOL_Sim_Site/resources/images/kda.jpg);
 		background-repeat: no-repeat;
 		background-size: cover;
-		margin: 0px;
 		padding: 0px;
 		height: 100vh;
+		width: 100vw;
 		font-family: sans-serif;
 		opacity: 0.8;
 	}
@@ -47,7 +52,6 @@
 		width: 250px;
 		border-color: #EDD200;
 	}
-		
 	.loginButton {
 		border: 2px solid #B778FF;
 		background: none;
@@ -65,6 +69,23 @@
 	.loginButton:hover {
 		background: #B778FF;
 	}
+	.register {
+		border: 2px solid #B778FF;
+		background: none;
+		display: block;
+		margin: 15px auto;
+		text-align: center;
+		width: 100px;
+		height: 30px;
+		outline: none;
+		color: white;
+		border-radius: 24px;
+		transition: 0.25s;
+		cursor: pointer;
+	}
+	.register:hover {
+		background: #B778FF;
+	}
 </style>
 <title>환영합니다.</title>
 </head>
@@ -76,6 +97,8 @@
 			PW <input type="password" class="inputButton" name="password">
 			<input type="submit" class="loginButton" value="로그인">
 			<input type="reset" class="loginButton" value="취소">
+			<input type="button" class="register" value="회원가입"
+				onclick="goToRegisterFnc();">
 		</form>
 	</div>
 </body>

@@ -53,7 +53,7 @@ public class RePlyController {
 		  
 		  for (int i = 0; i < rePlyList.size(); i++) {
 			  
-			  membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
+			 // membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
 			  String name = membervo.getMemberId();
 			  rePlyList.get(i).setMember_name(name);//이름 담음
 		}
