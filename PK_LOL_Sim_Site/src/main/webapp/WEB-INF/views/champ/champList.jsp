@@ -14,6 +14,19 @@
 			
 		location.href = url;		
 	}
+	function backToMainFnc() {
+		var url = "/PK_LOL_Sim_Site/mainPage.hm";
+		
+		location.href = url;
+	}
+	function goPage(pageNumber) {
+// 		var curPage = $("#curPage");
+		var curPage = document.getElementById("curPage");
+// 		curPage.val(pageNumber);
+		curPage.value = pageNumber;
+
+		document.getElementById("pagingForm").submit();
+	}
 </script>
 <style type="text/css">
 	body {
@@ -180,10 +193,11 @@
 	</div>
 	
 	<div class="paging">
-			<a href="#" onclick="goPage(${pagingMap.champPaging.prevPage});">
-				<img alt="앞으로" src="../resources/images/arrowToLeft.png"
-				width="70" height="300">
-			</a>
+		<a href="#" onclick="goPage(${pagingMap.champPaging.prevPage});">
+			<img alt="뒤로" src="../resources/images/arrowToLeft.png"
+			width="70" height="300">
+		</a>
+		
 	</div>
 	
 	<div id="championBox">
@@ -196,24 +210,32 @@
 				</a>
 			</div>
 		</c:forEach>
+		<form action="./champList.hm" id="pagingForm" method="get">
+			<input type="hidden" id="curPage" name="curPage" 
+				value="${pagingMap.champPaging.curPage}">
+		</form>
 	</div>
 	
 	<div class="paging">
-			<a href="#" onclick="goPage(${pagingMap.champPaging.nextPage});">
-				<img alt="뒤로" src="../resources/images/arrowToRight.png" 
-				width="70" height="300" >
-			</a>
+		<a href="#" onclick="goPage(${pagingMap.champPaging.nextPage});">
+			<img alt="앞으로" src="../resources/images/arrowToRight.png" 
+			width="70" height="300" >
+		</a>
 	</div>
 </div>
 
 
 	<div id="outerBox">
-		<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
+		<c:if test="${memberVo.authority eq 'Y'}">
 			<form>
 				<input type="button" value="챔피언 생성" class="adminButton" 
 				onclick="champCreateFnc();">
 			</form>
 		</c:if>
+		<form>
+			<input type="button" value="돌아가기" class="adminButton"
+			onclick="backToMainFnc();">
+		</form>
 	</div>
 
 <jsp:include page="/WEB-INF/views/Tail.jsp" />

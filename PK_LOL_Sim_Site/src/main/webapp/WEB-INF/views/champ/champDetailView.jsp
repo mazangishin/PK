@@ -6,19 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript">
-		
-// 	window.onload = function(){
-// 						var parentObj = document.getElementById("statusBox");
-// 						var tr_Obj = parentObj.getElementsByClassName("label");
-						
-// 						tr_Obj[0].style.display="block";
-// 					}
-	
 	function levelSelectFnc(value){
 		var parentObj = document.getElementById("statusBox");
 		var li_Obj = parentObj.getElementsByClassName("label");
 		
-		li_Obj[value].style.display="inline-block";
+		li_Obj[value - 1].style.display="inline-block";
 	}
 	function deleteFnc() {
 		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
@@ -32,6 +24,7 @@
 		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 		location.href = url;
 	}
+	
 </script>
 <style type="text/css">
 	body {
@@ -149,8 +142,8 @@
 				<li>
 					<select id="championLevel" name="championLevel" 
 					onchange="levelSelectFnc(this.value);">
-						<c:forEach begin="1" end="18" step="1" varStatus="status">
-							<option>${status.count}</option>
+						<c:forEach begin="1" end="18" varStatus="status">
+							<option>${status.index}</option>
 						</c:forEach>
 					</select>
 				</li>

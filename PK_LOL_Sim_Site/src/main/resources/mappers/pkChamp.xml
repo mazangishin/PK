@@ -31,10 +31,10 @@
 
 	<select id="champList" parameterType="map"
         resultMap="champResultMap">
-        SELECT CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, POSITION,
+        SELECT RNUM, CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, POSITION,
         HP, MP, AD, AP
 	        FROM (
-	        SELECT ROWNUM, C.CHAMPION_NUMBER, C.CHAMPION_NAME, C.CHAMPION_NICK,
+	        SELECT ROWNUM AS RNUM, C.CHAMPION_NUMBER, C.CHAMPION_NAME, C.CHAMPION_NICK,
         		C.POSITION, C.HP, C.MP, C.AD, C.AP
         		FROM (
 	        		SELECT CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, POSITION,
@@ -43,7 +43,7 @@
 	       			WHERE POSITION = #{position}
         			ORDER BY CHAMPION_NUMBER) C
         ) CHAMPION
-        WHERE ROWNUM BETWEEN #{start} AND #{end}
+        WHERE RNUM BETWEEN #{start} AND #{end}
     </select>
 
     <select id="champPositionTotalCount" parameterType="map"
