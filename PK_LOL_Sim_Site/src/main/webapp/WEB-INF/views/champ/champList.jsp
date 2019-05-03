@@ -20,8 +20,9 @@
 		background-color: black;
 	}
 	#container {
-		margin: auto;
-		vertical-align: middle;
+		position: fixed;
+		top: 10%;
+		left: 20%;
 		width: 1100px;
 		height: 700px;
 		padding: 10px;
@@ -105,7 +106,14 @@
 	.paging:hover {
 		background-color: #F5D6FF;
 	}
-	.clear { clear: both }
+	#outerBox {
+		position: fixed;
+		top: 83%;
+		left: 20%;
+		width: 1100px;
+		height: 700px;
+		padding: 10px;
+	}
 	.adminButton {
 		border: 2px solid #B778FF;
 		background: none;
@@ -199,7 +207,7 @@
 </div>
 
 
-	<div>
+	<div id="outerBox">
 		<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
 			<form>
 				<input type="button" value="챔피언 생성" class="adminButton" 

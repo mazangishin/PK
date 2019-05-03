@@ -163,7 +163,7 @@
 	<br><br><br><br><br><br><br><br><br><br>
 	<li id=first_m><b><a href="#firstPage">HOME</a></b></li><br>
 	<li><b><a href="#secondPage">11111</a></b></li><br>
-	<li><b><a href="#3rdPage">22222</a></b></li><br>
+	<li><b><a href="#3rdPage">챔피언 리스트</a></b></li><br>
 	<li><b><a href="#4thpage">자유 게시판</a></b></li><br>
 </ul>
 
@@ -215,7 +215,13 @@
 	</div>
 	
 	<div class="section">11111</div>
-	<div class="section"><a href="/PK_LOL_Sim_Site/champ/champList.hm"></a></div>
+	<div class="section" >
+		<div id="board" style="margin: auto;">
+			<a href="/PK_LOL_Sim_Site/champ/champList.hm">
+				<h1>Go To Champion List</h1>
+			</a>
+		</div>
+	</div>
 	<div class="section">
 			
 	<div id="board">

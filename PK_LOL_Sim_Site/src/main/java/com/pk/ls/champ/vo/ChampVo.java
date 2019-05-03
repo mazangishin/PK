@@ -10,13 +10,14 @@ public class ChampVo {
 	private int mp;
 	private int ad;
 	private int ap;
+	private String STORED_FILE_NAME;
 	
 	public ChampVo() {
 
 	}
 
 	public ChampVo(int championNumber, String championName, String championNick, String position,
-			int hp, int mp, int ad, int ap) {
+			int hp, int mp, int ad, int ap, String STORED_FILE_NAME) {
 		super();
 		this.championNumber = championNumber;
 		this.championName = championName;
@@ -92,12 +93,23 @@ public class ChampVo {
 		this.ap = ap;
 	}
 
+	public String getSTORED_FILE_NAME() {
+		return STORED_FILE_NAME;
+	}
+
+	public void setSTORED_FILE_NAME(String STORED_FILE_NAME) {
+		this.STORED_FILE_NAME = STORED_FILE_NAME;
+	}
+
 	@Override
 	public String toString() {
 		return "ChampVo [championNumber=" + championNumber + ", championName="
-				+ championName + ", championNick=" + championNick + ", position="
-				+ position + ", hp=" + hp + ", mp="
-				+ mp + ", ad=" + ad + ", ap=" + ap + "]";
+				+ championName + ", championNick=" + championNick 
+				+ ", position=" + position + ", hp=" + hp + ", mp=" + mp 
+				+ ", ad=" + ad + ", ap=" + ap + ", STORED_FILE_NAME="
+				+ STORED_FILE_NAME + "]";
 	}
+
+
 	
 }

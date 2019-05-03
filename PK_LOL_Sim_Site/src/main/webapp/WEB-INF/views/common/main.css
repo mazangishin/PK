@@ -147,6 +147,20 @@
      color:white;
   	 background-color: green;
 	}	
+	.board{
+	 position: absolute;
+     top: 5%;
+     left: 25%;
+     width: 75%;
+     height: 90%;
+   
+     z-index: 10;
+     overflow:scroll;
+	 overflow-x:hidden; 
+    
+     color:white;
+  	 background-color: black;
+	}	
 	
 		
 	#customers{
