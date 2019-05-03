@@ -196,9 +196,15 @@ public class MemberController {
 	// 메인 화면 출력 메서드
 	@RequestMapping(value = "/mainPage.hm", method = RequestMethod.GET)
 	public String mainPage(Model model) {
+
 		log.debug("메인페이지로 이동");
 
 		return "/mainPage";
+	}
+	
+	@RequestMapping(value = "/memberTest.hm", method = RequestMethod.GET)
+	public String memberTest(Model model) {
+		return "/memberTest";
 	}
 
 }

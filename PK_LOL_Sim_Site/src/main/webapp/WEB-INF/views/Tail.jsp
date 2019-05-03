@@ -8,7 +8,7 @@
 
 #tail_1{
 		position:fixed; z-index: 350;
-		top:95%; right:0px; width: 100%; height: 50px;
+		top:95%; right:0px; width: 100%; height: 48px;
 		padding: 0; margin: 0 auto;
 		background: black; text-align: center; overflow: hidden;
 		
