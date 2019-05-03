@@ -128,6 +128,7 @@
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
 
 <div id="container">
 
@@ -178,10 +179,10 @@
 	</div>
 	
 	<div id="championBox">
-		<c:forEach var="flieList" items="${fileList}" varStatus="status">
+		<c:forEach var="champList" items="${champList}" varStatus="status">
 			<div class="championArt">
 				<a href="/PK_LOL_Sim_Site/champ/champDetailView.hm?championNumber=
-				${champList[flieList.championNumber].championNumber}">
+				${champList.championNumber}">
 					<img src="<c:url value='/images/${flieList.STORED_FILE_NAME}'/>"
 					width=300px; height=300px;/>
 				</a>
@@ -207,5 +208,6 @@
 		</c:if>
 	</div>
 
+<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>

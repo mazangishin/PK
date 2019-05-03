@@ -43,31 +43,32 @@ public class ChampController {
 		
 		log.debug("챔피언 목록을 표시합니다. 현재 출력 중인 포지션은 : " + position + "입니다.");
 		
+		// 페이징 준비
         int totalCount = champService.champPositionTotalCount(position);
 		Paging champPaging = new Paging(totalCount, curPage);
 		int start = champPaging.getPageBegin();
 		int end = champPaging.getPageEnd();
-		MemberVo memberVo = (MemberVo) session.getAttribute("memberVo");
-		
+
+		// 포지션 별로 1~4번까지 row를 가져옴
 		Map<String, Object> champListMap = 
 				champService.champList(position, start, end);
-		
 		Map<String, Object> pagingMap = new HashMap<>();
 		
+		// 총 챔피언의 수와 시작 페이지, 끝 페이지를 저장
 		pagingMap.put("totalCount", totalCount);
 		pagingMap.put("champPaging", champPaging);
-		
+
+		// 리스트에 보여 줄 파일과 챔피언의 정보를 추출해서 따로 담는다.
 		List<Map<String, Object>> fileList = 
 				(List<Map<String, Object>>)champListMap.get("fileList");
 		
 		List<Map<String, Object>> champList = 
 				(List<Map<String, Object>>)champListMap.get("champList");
 		
+		//모델에 태워서 보냄
 		model.addAttribute("champList", champList);
 		model.addAttribute("pagingMap", pagingMap);
 		model.addAttribute("fileList", fileList);
-		
-		model.addAttribute("memberVo", memberVo);
 		
 		
 		return "/champ/champList";
@@ -79,23 +80,24 @@ public class ChampController {
 			HttpServletRequest httpServletRequest, Model model) {
 		log.debug("챔피언 개별 정보를 출력합니다.");
 
+		// 해당 챔피언의 정보를 가져온다. 이미지 포함
 		Map<String, Object> champSelectMap = new HashMap<String, Object>();
 		champSelectMap = champService.champSelectOne(championNumber);
 		
+		// 맵에서 챔피언의 정보를 꺼낸다
 		ChampVo champVo = (ChampVo)champSelectMap.get("champVo");
+		// 맵에서 이미지 파일 정보를 꺼낸다.
 		Map<String, Object> fileName = (Map<String, Object>) champSelectMap.get("fileName");
 		
+		// 레벨별 능력치를 가져온다.
 		List<Map<String, Object>> champLevelVoList =  
 				(List<Map<String, Object>>)
 				champLevelService.champLevelSelectList(championNumber);
 		
-//		httpServletRequest.setAttribute("champVo", champVo);
-//		httpServletRequest.setAttribute("fileName", fileName);
-//		httpServletRequest.setAttribute("champLevelVo", champLevelVoList);
-		
-		model.addAttribute("champVo", champVo);
-		model.addAttribute("fileName", fileName);
-		model.addAttribute("champLevelVoList", champLevelVoList);
+		// 보낸다
+		httpServletRequest.setAttribute("champVo", champVo);
+		httpServletRequest.setAttribute("fileName", fileName);
+		httpServletRequest.setAttribute("champLevelVoList", champLevelVoList);
 		
 		return "/champ/champDetailView";
 	}
@@ -109,18 +111,23 @@ public class ChampController {
 		
 		Map<String, Object> champMap = new HashMap<String, Object>();
 		
+		// 챔피언 정보 꺼내고
 		ChampVo champVo = (ChampVo)httpServletRequest.getAttribute("champVo");
+		// 챔피언 레벨별 정보 꺼내고
 		ChampLevelVo champLevelVo = 
 				(ChampLevelVo)httpServletRequest.getAttribute("champLevelVo");
 
+		// 확인
 		log.debug("현재 로드된 챔피언 정보 :, {}, {}", champVo, champLevelVo);
 		
+		// 챔피언 고유 번호와 레벨을 입력하면 
 		int championNumber = champVo.getChampionNumber();
 		int championLevel = champLevelVo.getChampionLevel();
 		
 		champMap.put("championNumber", championNumber);
 		champMap.put("championLevel", championLevel);
 		
+		// 그 데이터값을 토대로 sql에서 해달 레벨을 추출해낸다.
 		champLevelService.champLevelSelectOne(champMap);
 		
 		return "/champ/champDetailView";	

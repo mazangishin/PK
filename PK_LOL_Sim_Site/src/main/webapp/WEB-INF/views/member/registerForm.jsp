@@ -75,6 +75,9 @@
 <title>회원가입</title>
 </head>
 <body>
+
+	<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
+
 	<div id="box">
 		<div>
 			<h1>회원가입</h1>
@@ -122,5 +125,7 @@
 			</form> 
 		</div>
 	</div>
+	
+	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>

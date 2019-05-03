@@ -90,6 +90,8 @@
 <title>환영합니다.</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
+
 	<div id="loginBox">
 		<form action="loginCtr.hm" method="post">
 			<h1>Login Plz</h1>
@@ -101,5 +103,7 @@
 				onclick="goToRegisterFnc();">
 		</form>
 	</div>
+	
+	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>

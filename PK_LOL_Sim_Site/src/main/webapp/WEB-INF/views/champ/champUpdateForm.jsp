@@ -157,6 +157,9 @@
 </style>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
+
 <div id="container">
 	<div class="tableBox">
 		<table class="headTable">
@@ -330,5 +333,7 @@
 		</table>
 	</div>
 </div>	
+
+<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>
