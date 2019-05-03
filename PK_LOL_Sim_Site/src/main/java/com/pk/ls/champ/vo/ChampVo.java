@@ -11,6 +11,10 @@ public class ChampVo {
 	private int ad;
 	private int ap;
 	
+	private String stored_file_name;
+	
+	
+
 	public ChampVo() {
 
 	}
@@ -90,6 +94,14 @@ public class ChampVo {
 
 	public void setAp(int ap) {
 		this.ap = ap;
+	}
+	
+	public String getStored_file_name() {
+		return stored_file_name;
+	}
+
+	public void setStored_file_name(String stored_file_name) {
+		this.stored_file_name = stored_file_name;
 	}
 
 	@Override

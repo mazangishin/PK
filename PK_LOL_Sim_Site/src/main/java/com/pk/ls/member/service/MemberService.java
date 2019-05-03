@@ -12,6 +12,7 @@ public interface MemberService {
 			MultipartHttpServletRequest multipartHttpServletRequest);
 	public MemberVo memberExist(Map<String, Object> paramMap);
 	public MemberVo memberInfo(MemberVo memberVo);
+	public MemberVo memberInfo2(int memberNumber);
 	public int memberUpdate(MemberVo memberVo);
 	public int memberDelete(int memberNumber);
 

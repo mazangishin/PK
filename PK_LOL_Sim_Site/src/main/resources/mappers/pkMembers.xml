@@ -53,5 +53,12 @@
         DELETE FROM MEMBERS
         WHERE MEMBER_NUMBER = #{memberNumber}
     </delete>
+    
+    <select id="memberInfo2" parameterType="int"
+        resultMap="memberResultMap">
+        SELECT MEMBER_NUMBER, MEMBER_ID, EMAIL, AUTHORITY, CREATE_DATE, MODIFIED_DATE
+        FROM MEMBERS
+        WHERE MEMBER_NUMBER = #{memberNumber}
+    </select>
 
 </mapper>

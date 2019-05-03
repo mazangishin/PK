@@ -11,19 +11,20 @@
 		<id column="REPLY_NUM" property="reply_num" />
 		<result column="REPLY_BOARD_NUM" property="reply_board_number" />
 		<result column="RE_COMMENT" property="re_comment" />
-		<result column="CREATE_DATE" property="create_date"
-			javaType="java.util.Date" />
 		<result column="MEMBER_NUMBER" property="member_number"/>
 		<result column="IS_REPLY_COMM" property="is_reply_comm"/>
+		<result column="IS_REPLY_COMM_NUM" property="is_reply_comm_num"/>
+		<result column="CREATE_DATE" property="create_date"
+			javaType="java.util.Date" />
 		
 </resultMap>
 
 
 	<insert id="rePlyWrite" parameterType="map">
 		INSERT INTO REPLY
-		(REPLY_NUM, REPLY_BOARD_NUM, RE_COMMENT, CREATE_DATE, MEMBER_NUMBER, IS_REPLY_COMM)
+		(REPLY_NUM, REPLY_BOARD_NUM, RE_COMMENT, CREATE_DATE, MEMBER_NUMBER, IS_REPLY_COMM, IS_REPLY_COMM_NUM)
 		VALUES(SEQ_REPLY_NUMBER.nextval, #{reply_board_number},
-             #{re_comment}, SYSDATE ,#{member_number},#{is_reply_comm})
+             #{re_comment}, SYSDATE ,#{member_number},#{is_reply_comm},#{is_reply_comm_num})
 	</insert>
 	
 	
@@ -31,7 +32,17 @@
 	<select id="rePlyList" parameterType="int" resultMap="replyResultMap">
 		SELECT * FROM REPLY
 		WHERE REPLY_BOARD_NUM = #{reply_board_number}
+		AND IS_REPLY_COMM_NUM = 0
 	</select>
+	
+	
+	<select id="rePlyList2" parameterType="int" resultMap="replyResultMap">
+		SELECT * FROM REPLY
+		WHERE REPLY_BOARD_NUM = #{reply_board_number}
+		AND IS_REPLY_COMM_NUM > 0
+		ORDER BY REPLY_BOARD_NUM ASC
+	</select>
+	
 
 	<select id="rePlyCount" parameterType="int" resultType="int">
 		SELECT COUNT(*) 

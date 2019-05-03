@@ -24,13 +24,18 @@ public class ReplyServiceImplement implements RePlyService{
 
 	
 	@Override
-	public int rePlyWrite(int reply_number,int member_number,String re_comment,String is_reply_comm) {
-		return rePlyDao.rePlyWrite(reply_number, member_number, re_comment,is_reply_comm);
+	public int rePlyWrite(int reply_number,int member_number,String re_comment,String is_reply_comm,int is_reply_comm_num) {
+		return rePlyDao.rePlyWrite(reply_number, member_number, re_comment,is_reply_comm, is_reply_comm_num);
 	}
 	
-	@Override
+	@Override//게시물 댓글
 	public List<RePlyVo> rePlyList(int reply_board_number){
 		return rePlyDao.rePlyList(reply_board_number);
+	}
+	
+	@Override//댓글에 댓글 
+	public List<RePlyVo> rePlyList2(int reply_board_number){
+		return rePlyDao.rePlyList2(reply_board_number);
 	}
 	
 	@Override

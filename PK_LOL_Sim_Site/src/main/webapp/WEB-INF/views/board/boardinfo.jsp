@@ -59,7 +59,7 @@
 
 </head>
 
-<body>
+<body oncontextmenu="return false">
 
 	<jsp:include page="/WEB-INF/views/PageHeader.jsp" /> 
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
@@ -137,18 +137,64 @@
 						<!-- 댓글부분  -->
 						<tr>
 			        	<td>
-			        		<form action="./reply.hm" id="replyWrite"method="get">
+			        		<form action="./reply.hm"  id="replyWrite"method="get">
 			        		<textarea id="texta" rows="3" cols="80"></textarea>
 			        		<input type="button" value="답글달기" onclick="upReply();">
 			        		<input type="hidden" id="comm" name="comm">
 			        		<input type="hidden" id="is_re_comm" name="is_re_comm" value="">
+			        		<input type="hidden" id="is_reply_comm_num" name="is_reply_comm_num" value="0">
 			        		<input type="hidden" id="bnum" name="bnum" value="${binfo.board_Number}">
 			        		<input type="hidden" id="mnum" name="mnum" value="${sessionScope.memberVo.memberNumber}">
 			        		</form>
 			        	</td>
 			        	</tr>
-			        	<c:forEach var="RePlyVo" items="${rePlyList}">
+			        	
+			        	<c:forEach var="RePlyVo" items="${rePlyList}" varStatus="status">
+							<tr>
+							<td>
+							${RePlyVo.reply_num}
+			        		${RePlyVo.re_comment}
+			        		${RePlyVo.member_name}
+			        		
+			        		
+			        		</td>
+			        		<td>
+			        		
+			        		
+			        		<form action="./reply.hm"  id="replyWrite"method="get">
+			        		<textarea id="comm" name="comm" rows="1" cols="15"></textarea>
+			        		<input type="submit" value="답글달기">
+			        		<input type="hidden" id="is_re_comm" name="is_re_comm" value="${RePlyVo.member_name}">
+			        		<input type="hidden" id="bnum" name="bnum" value="${binfo.board_Number}">
+			        		<input type="hidden" id="is_reply_comm_num" name="is_reply_comm_num" value="${RePlyVo.reply_num}">
+			        		<input type="hidden" id="mnum" name="mnum" value="${sessionScope.memberVo.memberNumber}">
+			        		</form> 
+			        		</td>
+							</tr>
+							
+							
+							<c:if test="${re_rePlyList!=null}">
+							<c:forEach var="RePlyVo" items="${re_rePlyList}" varStatus="status2">
+							<c:if test="${RePlyVo.is_reply_comm_num==rePlyList[status.index].reply_num}">
 			        		<tr>
+			        		<td>	
+			        		내용 ${RePlyVo.re_comment}
+			        		
+			        		<%-- 리플번호 ${RePlyVo.reply_num}
+			        		
+			        		회원번호 ${RePlyVo.member_number}
+			        		댓글의 번호 ${RePlyVo.is_reply_comm_num}
+			        		이름 ${RePlyVo.member_name} --%>
+			        		</td>
+			        		</tr>
+			        		</c:if> 
+			        		
+			        		
+			        		</c:forEach>
+			        		</c:if>
+			        	</c:forEach>
+			        	
+			        	<%-- <td>${rePlyList[status.index].reply_num}</td>
 			        		<td>댓글 번호 ${RePlyVo.reply_num} </td>
 			        		<td>댓글 내용 ${RePlyVo.re_comment} </td>
 			        		<td>댓글 쓴애 ${RePlyVo.member_name} </td>
@@ -156,28 +202,13 @@
 			        		<form action="./reply.hm" id="replyWrite"method="get">
 			        		<textarea id="comm" name="comm" rows="1" cols="15"></textarea>
 			        		<input type="submit" value="답글달기">
-			        		<%-- <input type="hidden" id="comm" name="comm" vlaue="${('#texta')}"> --%>
-			        		<!-- ~에게 댓글을 달았을때 IS_Re_COMM값에 상대편 이름 들어감 -->
 			        		<input type="hidden" id="is_re_comm" name="is_re_comm" value="${RePlyVo.member_name}">
 			        		<input type="hidden" id="bnum" name="bnum" value="${binfo.board_Number}">
+			        		<input type="hidden" id="is_re_comm_num" name="is_re_comm_num" value="${RePlyVo.reply_num}">
 			        		<input type="hidden" id="mnum" name="mnum" value="${sessionScope.memberVo.memberNumber}">
-			        		</form>
-			        		</td>
-			        		
-			        		</tr>
-			        		
-			        		
-			        	</c:forEach>
-			        	
-<!-- 			        	<input type="text" id="test7" name="test7" value="4"> -->
-			        	
-			        	
-<%-- 			        	<c:if test="${rePlyList[4]!=null}"> --%>
-<%-- 			        				<td>${rePlyList[4]} 아응애예요</td> --%>
-<%-- 			        				<td>${rePlyList[4].getRe_comment()} 아응애예요2</td> --%>
-<%-- 			            </c:if> --%>
-			        	
-			        		
+			        		</form> --%>
+			       	
+			          		
 			      
 			        	
 			</table>

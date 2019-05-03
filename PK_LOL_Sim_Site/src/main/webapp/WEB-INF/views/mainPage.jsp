@@ -78,7 +78,7 @@
 		var scText = $("#scText2");
 		scText.val(sc);
  		$("#pagingForm").submit();
- 		//$(location).attr('href', 'http://localhost:8090/PK_LOL_Sim_Site/board/list.hm?');
+ 		/* $(location).attr('href', 'http://localhost:8090/PK_LOL_Sim_Site/board/list.hm?'); */
 	}
 	
 	function goBoardInfo(boardNumber){

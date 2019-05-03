@@ -51,5 +51,9 @@ public class MemberServiceImplement implements MemberService{
 		return memberDao.memberDelete(memberNumber);
 	}
 
+	@Override
+	public MemberVo memberInfo2(int memberNumber) {
+		return memberDao.memberInfo2(memberNumber);
+	}
 	
 }

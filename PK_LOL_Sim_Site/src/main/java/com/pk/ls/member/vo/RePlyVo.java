@@ -12,6 +12,7 @@ public class RePlyVo {
 	private Date  create_date;
 	private int  member_number;
 	private String  member_name;
+	private int is_reply_comm_num;//대댓글 번호
 	
 	
 	
@@ -94,6 +95,16 @@ public class RePlyVo {
 	public void setMember_name(String member_name) {
 		this.member_name = member_name;
 	}
+
+	public int getIs_reply_comm_num() {
+		return is_reply_comm_num;
+	}
+
+	public void setIs_reply_comm_num(int is_reply_comm_num) {
+		this.is_reply_comm_num = is_reply_comm_num;
+	}
+
+	
 	
 	
 	

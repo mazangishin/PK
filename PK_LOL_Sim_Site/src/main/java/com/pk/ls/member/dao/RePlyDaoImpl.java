@@ -20,7 +20,7 @@ public class RePlyDaoImpl implements RePlyDao{
 	String namespace = "com.pk.ls.board.";
 	
 	@Override
-	public int rePlyWrite(int reply_number,int member_number,String re_comment,String is_reply_comm)
+	public int rePlyWrite(int reply_number,int member_number,String re_comment,String is_reply_comm,int is_reply_comm_num)
 	{
 		Map<String, Object> map = new HashMap<>();//맵생성
 		
@@ -28,6 +28,7 @@ public class RePlyDaoImpl implements RePlyDao{
 		map.put("member_number", member_number);
 		map.put("re_comment", re_comment);
 		map.put("is_reply_comm", is_reply_comm);//댓글의 댓글인감?
+		map.put("is_reply_comm_num", is_reply_comm_num);//대댓글의 번호
 		return sqlSession.insert(namespace + "rePlyWrite", map);
 		
 	}
@@ -35,6 +36,11 @@ public class RePlyDaoImpl implements RePlyDao{
 	@Override
 	public List<RePlyVo> rePlyList(int reply_board_number){
 		return sqlSession.selectList(namespace + "rePlyList", reply_board_number);
+	}
+	
+	@Override
+	public List<RePlyVo> rePlyList2(int reply_board_number){
+		return sqlSession.selectList(namespace + "rePlyList2", reply_board_number);
 	}
 	
 	@Override

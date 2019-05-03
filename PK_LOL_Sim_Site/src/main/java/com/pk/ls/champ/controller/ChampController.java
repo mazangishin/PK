@@ -61,14 +61,16 @@ public class ChampController {
 				(List<Map<String, Object>>)champListMap.get("fileList");
 		
 		List<Map<String, Object>> champList = 
-				(List<Map<String, Object>>)champListMap.get("champList");
+			(List<Map<String, Object>>)champListMap.get("champList");
+		
+		
 		
 		model.addAttribute("champList", champList);
 		model.addAttribute("pagingMap", pagingMap);
 		model.addAttribute("fileList", fileList);
 		
 		model.addAttribute("memberVo", memberVo);
-		
+		log.debug(champList+"");
 		
 		return "/champ/champList";
 	}

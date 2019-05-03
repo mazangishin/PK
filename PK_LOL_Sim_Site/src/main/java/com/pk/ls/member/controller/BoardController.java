@@ -79,34 +79,74 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/info.hm")
-	public String boardInfo(HttpSession session,String boardNum, Model model){
+	public String boardInfo(HttpSession session,@RequestParam(defaultValue ="0")String boardNum, Model model){
 		
 		
+		  
 		  log.debug("게시판 상세보기 입장"); 
 		  log.debug(": {}", boardNum);
-		 
-		  int no=Integer.parseInt(boardNum);
-		  log.debug(": {}", no);
 		
-		  List<RePlyVo>rePlyList =replyServiceImplement.rePlyList(no);//댓글리스트
+		  int bno=Integer.parseInt(boardNum);
+		  int testnum2=0;
+		  if(session.getAttribute("bnum")!=null)
+		  {
+			  testnum2 =(int)session.getAttribute("bnum");
+		  }
+		  
+		  log.debug(": {}", bno);
+		  log.debug(": {}", testnum2);
+		  if(bno!=0)//기본값이 아닐때
+			{
+				session.setAttribute("bnum", bno);
+			}
+		  
+		  if(bno==0)//기본값 일때
+		  {
+			  bno=testnum2;
+		  }
+		  
+		 
+		  
+		  
+		  List<RePlyVo>rePlyList =replyServiceImplement.rePlyList(bno);//댓글리스트
+		  List<RePlyVo>re_rePlyList=replyServiceImplement.rePlyList2(bno);
+		  
 		  MemberVo membervo=new MemberVo();
 		  
-//		  for (int i = 0; i < rePlyList.size(); i++) {
-//			  멤버 넘버로 리플에서 글쓴이 이름값 넣어줌
-//			  membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
-//			  String name = membervo.getMemberId();
-//			  rePlyList.get(i).setMember_name(name);//이름 담음
-//		  }
+		  if(rePlyList!=null)
+		  {
+			  for (int i = 0; i < rePlyList.size(); i++) {
+				  
+				  membervo=memberServiceImplement.memberInfo2(rePlyList.get(i).getMember_number());
+				  String name = membervo.getMemberId();
+				  rePlyList.get(i).setMember_name(name);//이름 담음
+			  } 
+		  }
 		  
-		  BoardVo binfo= boardService.boardInfoList(no);//상세인포 가져오오오오오옴
+		  if(re_rePlyList!=null)
+		  {
+			  for (int i = 0; i < re_rePlyList.size(); i++) {
+				  
+				  membervo=memberServiceImplement.memberInfo2(re_rePlyList.get(i).getMember_number());
+				  String name = membervo.getMemberId();
+				  re_rePlyList.get(i).setMember_name(name);//이름 담음
+			  }
+		  }
+		 
+		  
+		  BoardVo binfo= boardService.boardInfoList(bno);//상세인포 가져오오오오오옴
 		  
 		  model.addAttribute("rePlyList", rePlyList);
+		  model.addAttribute("re_rePlyList",re_rePlyList);//대댓글 리스트
 		  model.addAttribute("binfo", binfo);//세션에 담음
-		  log.debug(session.toString()+"게시물 상세정보");
+		  
 		 
 		return "/board/boardinfo";
 		//return "forward:/mainPage.hm";
+		//return "forward:/mainPage.hm";
 	}
+	
+	
 	
 	@RequestMapping(value="/board/update.hm")//게시물 수정페이지로 가기
 	public String boardUpdate(HttpSession session,String boardNum,Model model){
@@ -123,6 +163,9 @@ public class BoardController {
 		  log.debug(session.toString()+"게시물 상세정보");
 		  
 		  List<RePlyVo>rePlyList =replyServiceImplement.rePlyList(no);
+		  
+		  
+		  
 		  model.addAttribute("rePlyList", rePlyList);
 		 
 		return "/board/boardupdate";
@@ -150,6 +193,7 @@ public class BoardController {
 		
 		 	return "/board/boardinfo";
 		//return "forward:/mainPage.hm";
+		 	
 	}
 	
 	
