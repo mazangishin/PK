@@ -41,14 +41,19 @@ public class ChampServiceImplement implements ChampService{
 		
 		List<ChampVo> champList = champDao.champList(position, start, end);
 		
-		List<Map<String, Object>> fileList = new ArrayList<Map<String,Object>>();
+		Map<String, Object> fileMap = new HashMap<String,Object>();
 		
 		for (int i = 0; i < champList.size(); i++) {
-			fileList = champDao.fileSelectList(champList.get(i).getChampionNumber());
+			String STORED_FILE_NAME = "";
+			
+			fileMap = champDao.fileSelectStoredFileName(champList.get(i).getChampionNumber());
+			STORED_FILE_NAME = (String) fileMap.get("STORED_FILE_NAME");
+			
+			champList.get(i).setSTORED_FILE_NAME(STORED_FILE_NAME);
 		}
 		
 		resultMap.put("champList", champList);
-		resultMap.put("fileList", fileList);
+		resultMap.put("fileList", fileMap);
 		
 		return resultMap;
 	}

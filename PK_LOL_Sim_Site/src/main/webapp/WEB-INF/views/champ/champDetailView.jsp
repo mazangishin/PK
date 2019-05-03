@@ -7,18 +7,18 @@
 <meta charset="UTF-8">
 <script type="text/javascript">
 		
-	window.onload = function(){
-						var parentObj = document.getElementById("statusBox");
-						var tr_Obj = parentObj.getElementsByClassName("label");
+// 	window.onload = function(){
+// 						var parentObj = document.getElementById("statusBox");
+// 						var tr_Obj = parentObj.getElementsByClassName("label");
 						
-						tr_Obj[0].style.display="block";
-					}
+// 						tr_Obj[0].style.display="block";
+// 					}
 	
 	function levelSelectFnc(value){
 		var parentObj = document.getElementById("statusBox");
 		var li_Obj = parentObj.getElementsByClassName("label");
 		
-		li_Obj[value].style.display="block";
+		li_Obj[value].style.display="inline-block";
 	}
 	function deleteFnc() {
 		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
@@ -171,7 +171,7 @@
 					<td>AP</td>
 				</tr>
 				<c:forEach var="champLevelVoList" items="${champLevelVoList}">
-					<tr class="label" style="diplay: none;">
+					<tr class="label" style="display: none;">
 						<td>${champLevelVoList.championLevel}</td>
 						<td>${champLevelVoList.hp}</td>
 						<td>${champLevelVoList.mp}</td>

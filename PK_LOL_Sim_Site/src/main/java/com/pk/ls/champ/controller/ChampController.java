@@ -59,8 +59,8 @@ public class ChampController {
 		pagingMap.put("champPaging", champPaging);
 
 		// 리스트에 보여 줄 파일과 챔피언의 정보를 추출해서 따로 담는다.
-		List<Map<String, Object>> fileList = 
-				(List<Map<String, Object>>)champListMap.get("fileList");
+//		List<Map<String, Object>> fileList = 
+//				(List<Map<String, Object>>)champListMap.get("fileList");
 		
 		List<Map<String, Object>> champList = 
 				(List<Map<String, Object>>)champListMap.get("champList");
@@ -68,7 +68,7 @@ public class ChampController {
 		//모델에 태워서 보냄
 		model.addAttribute("champList", champList);
 		model.addAttribute("pagingMap", pagingMap);
-		model.addAttribute("fileList", fileList);
+//		model.addAttribute("fileList", fileList);
 		
 		
 		return "/champ/champList";

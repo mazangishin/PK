@@ -191,7 +191,7 @@
 			<div class="championArt">
 				<a href="/PK_LOL_Sim_Site/champ/champDetailView.hm?championNumber=
 				${champList.championNumber}">
-					<img src="<c:url value='/images/${flieList.STORED_FILE_NAME}'/>"
+					<img src="<c:url value='/images/${champList.STORED_FILE_NAME}'/>"
 					width=300px; height=300px;/>
 				</a>
 			</div>
