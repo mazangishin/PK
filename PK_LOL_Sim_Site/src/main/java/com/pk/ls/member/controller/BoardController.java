@@ -91,12 +91,12 @@ public class BoardController {
 		  List<RePlyVo>rePlyList =replyServiceImplement.rePlyList(no);//댓글리스트
 		  MemberVo membervo=new MemberVo();
 		  
-		  for (int i = 0; i < rePlyList.size(); i++) {
-			  //멤버 넘버로 리플에서 글쓴이 이름값 넣어줌
-			//  membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
-			  String name = membervo.getMemberId();
-			  rePlyList.get(i).setMember_name(name);//이름 담음
-		  }
+//		  for (int i = 0; i < rePlyList.size(); i++) {
+//			  멤버 넘버로 리플에서 글쓴이 이름값 넣어줌
+//			  membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
+//			  String name = membervo.getMemberId();
+//			  rePlyList.get(i).setMember_name(name);//이름 담음
+//		  }
 		  
 		  BoardVo binfo= boardService.boardInfoList(no);//상세인포 가져오오오오오옴
 		  

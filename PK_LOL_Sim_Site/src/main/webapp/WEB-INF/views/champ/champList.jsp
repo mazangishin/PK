@@ -178,7 +178,7 @@
 	</div>
 	
 	<div id="championBox">
-		<c:forEach var="flieList" items="${fileList}" varStatus="status">
+		<c:forEach var="flieList" items="${champList}" varStatus="status">
 			<div class="championArt">
 				<a href="/PK_LOL_Sim_Site/champ/champDetailView.hm?championNumber=
 				${champList[flieList.championNumber].championNumber}">

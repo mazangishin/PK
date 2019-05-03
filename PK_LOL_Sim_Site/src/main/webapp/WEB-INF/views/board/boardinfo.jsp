@@ -52,6 +52,8 @@
 	 		
 		}
 		
+		
+		
 	
 	</script>
 
@@ -152,9 +154,9 @@
 			        		<td>댓글 쓴애 ${RePlyVo.member_name} </td>
 			        		<td>
 			        		<form action="./reply.hm" id="replyWrite"method="get">
-			        		<textarea id="texta" rows="1" cols="15"></textarea>
-			        		<input type="button" value="답글달기" onclick="upReply();">
-			        		<input type="hidden" id="comm" name="comm">
+			        		<textarea id="comm" name="comm" rows="1" cols="15"></textarea>
+			        		<input type="submit" value="답글달기">
+			        		<%-- <input type="hidden" id="comm" name="comm" vlaue="${('#texta')}"> --%>
 			        		<!-- ~에게 댓글을 달았을때 IS_Re_COMM값에 상대편 이름 들어감 -->
 			        		<input type="hidden" id="is_re_comm" name="is_re_comm" value="${RePlyVo.member_name}">
 			        		<input type="hidden" id="bnum" name="bnum" value="${binfo.board_Number}">
@@ -167,13 +169,13 @@
 			        		
 			        	</c:forEach>
 			        	
-			        	<input type="text" id="test7" name="test7" value="4">
+<!-- 			        	<input type="text" id="test7" name="test7" value="4"> -->
 			        	
 			        	
-			        	<c:if test="${rePlyList[4]!=null}">
-			        				<td>${rePlyList[4]} 아응애예요</td>
-			        				<td>${rePlyList[4].getRe_comment()} 아응애예요2</td>
-			            </c:if>
+<%-- 			        	<c:if test="${rePlyList[4]!=null}"> --%>
+<%-- 			        				<td>${rePlyList[4]} 아응애예요</td> --%>
+<%-- 			        				<td>${rePlyList[4].getRe_comment()} 아응애예요2</td> --%>
+<%-- 			            </c:if> --%>
 			        	
 			        		
 			      

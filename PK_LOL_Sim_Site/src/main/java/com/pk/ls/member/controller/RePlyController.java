@@ -51,12 +51,15 @@ public class RePlyController {
 		  MemberVo membervo=new MemberVo();
 		  List<RePlyVo>rePlyList = replyServiceImplement.rePlyList(bnum);
 		  
-		  for (int i = 0; i < rePlyList.size(); i++) {
-			  
-			 // membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
-			  String name = membervo.getMemberId();
-			  rePlyList.get(i).setMember_name(name);//이름 담음
-		}
+		  
+		  //코멘트 아이디 차후 구현
+		  
+//		  for (int i = 0; i < rePlyList.size(); i++) {
+//			  
+//			  membervo=memberServiceImplement.memberInfo(rePlyList.get(i).getMember_number());
+//			  String name = membervo.getMemberId();
+//			  rePlyList.get(i).setMember_name(name);//이름 담음
+//		}
 		 
 		  
 		  BoardVo binfo= boardServiceImpl.boardInfoList(bnum);

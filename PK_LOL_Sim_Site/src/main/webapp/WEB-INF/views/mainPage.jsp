@@ -214,24 +214,14 @@
 	
 	</div>
 	
-	<div class="section">11111</div>
-	
-	
-	
-	
-	
-	
-	
-	
-
-	<div class="section">
-	</div>
-	
+	<div class="section"><a> </a></div>
 	
 	
 	
 	
 
+	<div class="section">헤헤헤헤헤</div>
+	
 	<div class="section">
 			
 	<div id="board">
