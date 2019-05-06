@@ -204,7 +204,7 @@
 		</table>
 	</div>
 	<div id="controlBox">
-		<form id="champUpdate" action="champUpdateCtr.hm" method="post"
+		<form id="champCreate" action="champCreateCtr.hm" method="post"
 		enctype="multipart/form-data">
 			<ul>
 				<li>
@@ -299,7 +299,7 @@
 					<input type="reset" class="inputButton" value="취소">
 				</li>
 				<li>
-					<input type="submit" class="inputButton" value="수정">
+					<input type="submit" class="inputButton" value="저장">
 				</li>
 				<li>
 					<input class="longwidth" type="file" name="original_file_name" 

@@ -13,21 +13,18 @@
 		li_Obj[value - 1].style.display="inline-block";
 	}
 	function deleteFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champDeleteCtr.hm";
+		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 		location.href = url;		
 	} 
 	function goToUpdateFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champUpdateCtr.hm";
+		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 		location.href = url;
 	}
 	function goToBackFnc() {
 		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 		location.href = url;
 	}
-	function goToLevelUpdateFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champLevelUpdate.hm";
-		location.ghref = url;
-	}
+	
 </script>
 <style type="text/css">
 	body {
@@ -182,8 +179,6 @@
 				<div>
 					<input type="button" class="inputButton" 
 						value="수정하기" onclick="goToUpdateFnc();">
-					<input type="button" class="inputButton" 
-						value="레벨별 정보 수정" onclick="goToLevelUpdateFnc();">
 					<input type="button" class="inputButton" 
 						value="삭제하기" onclick="deleteFnc();">
 				</div>

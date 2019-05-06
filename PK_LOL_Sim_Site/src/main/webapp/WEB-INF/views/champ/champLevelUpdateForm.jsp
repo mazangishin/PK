@@ -1,0 +1,340 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript">
+	function deleteFnc() {
+		var url = "/PK_LOL_Sim_Site/champ/champDeleteCtr.hm";
+		location.href = url;		
+	} 
+	function updateFnc() {
+		var url = "/PK_LOL_Sim_Site/champ/champLevelUpdateCtr.hm";
+		location.href = url;
+	}
+	function goToBackFnc() {
+		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
+		location.href = url;
+	}
+	function viewInputFnc() {
+		
+		var level = parseInt(document.getElementById('championLevel').value);
+		var hp = parseInt(document.getElementById('hp').value);
+		var mp = parseInt(document.getElementById('mp').value);
+		var ad = parseInt(document.getElementById('ad').value);
+		var ap = parseInt(document.getElementById('ap').value);
+		
+		var hpGrowth = parseInt(document.getElementById('hpGrowth').value);
+		var mpGrowth = parseInt(document.getElementById('mpGrowth').value);
+		var adGrowth = parseInt( document.getElementById('adGrowth').value);
+		var apGrowth = parseInt(document.getElementById('apGrowth').value);
+		
+		var htmlStr = "";
+		
+		for (var i = 0; i <= 17; i++) {
+
+			htmlStr += "<tbody>";
+			htmlStr += "<tr>";
+			htmlStr += "<td class='label'>";
+			htmlStr += "<span>" + (level+(i)) + "</span>";
+			htmlStr += "</td>";
+			htmlStr += "<td class='label'>";
+			htmlStr += "<span>" + (hp+(hpGrowth*i)) + "</span>";
+			htmlStr += "</td>";
+			htmlStr += "<td class='label'>";
+			htmlStr += "<span>" + (mp+(mpGrowth*i)) + "</span>";
+			htmlStr += "</td>";
+			htmlStr += "<td class='label'>";
+			htmlStr += "<span>" + (ad+(adGrowth*i)) + "</span>";
+			htmlStr += "</td>";
+			htmlStr += "<td class='label'>";
+			htmlStr += "<span>" + (ap+(apGrowth*i)) + "</span>";
+			htmlStr += "</td>";
+			htmlStr += "</tr>";
+			htmlStr += "</tbody>";
+			
+			document.getElementById('updateStatusTable').innerHTML = htmlStr;	
+		}
+	}
+</script>
+<style type="text/css">
+	body {
+		background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
+						url(/PK_LOL_Sim_Site/resources/images/kda.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+		padding: 0px;
+		height: 100vh;
+		width: 100vw;
+		font-family: sans-serif;
+		opacity: 0.8;
+	}
+	ul li {
+		list-style: none;
+	}
+	#container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 900px;
+		padding: 40px;
+		background: #353535;
+		text-align: center;
+		color: #F7EA6E;
+	}
+	#controlBox {
+		float: left;
+		color: #F7EA6E;
+	}
+	#currentStatusBox {
+		float: left;
+		padding: 10px;
+		margin: 20px 20px 20px 20px;
+		border: 4px solid #F7EA6E;
+	}
+	#updateStatusBox {
+		float: left;
+		padding: 10px;
+		margin: 20px 20px 20px 20px;
+		border: 4px solid #F7EA6E;
+	}
+	#buttonBox {
+		float: left;
+		padding: 10px;
+		margin: 20px 20px 20px 20px;
+		border: 4px solid #F7EA6E;
+	}
+	.status {
+		border: 2px solid #F7EA6E;
+		background: none;
+		display: block;
+		margin: 20px auto;
+		text-align: center;
+		width: 200px;
+		height: 30px;
+		outline: none;
+		color: white;
+		border-radius: 24px;
+		transition: 0.25s;
+	}	
+	.status:focus {
+		width: 250px;
+		border-color: #EDD200;
+	}
+	.inputButton {
+		border: 2px solid #B778FF;
+		background: none;
+		display: block;
+		margin: 15px auto;
+		text-align: center;
+		width: 100px;
+		height: 30px;
+		outline: none;
+		color: white;
+		border-radius: 24px;
+		transition: 0.25s;
+		cursor: pointer;
+	}
+	.inputButton:hover {
+		background: #B778FF;
+	}
+	div table {
+		whidth: 350px;
+	}
+	.headTable tr td{
+		width: 70px;
+		text-align: center;
+	}
+	#currentStatusTable tr td {
+		width: 70px;
+		text-align: center;
+		opacity: 1.0;
+	}
+	#updateStatusTable tr td {
+		width: 70px;
+		text-align: center;
+		opacity: 1.0;
+	}
+	.label:nth-child(odd) {
+		border: 2px solid #E3C4FF;
+		text-align: center;
+		color: white;
+	}
+	.label:nth-child(even) {
+		border: 2px solid #F7EA6E;
+		text-align: center;
+		color: white;
+	}
+</style>
+<title>챔피언 상세보기 페이지</title>
+</head>
+<body>
+
+	<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
+
+	<div id="container">
+		
+		<!--현재 레벨 별 스탯 -->
+		<div id="currentStatusBox">
+			<div class="statusTitle">
+				<h1>현재 레벨 별 스테이터스</h1>
+			</div>
+			<div>
+				<table class="headTable">
+					<tr>
+						<td class="label">
+							<span>레벨</span>
+						</td>
+						<td class="label">
+							<span>hp</span>
+						</td>
+						<td class="label">
+							<span>mp</span>
+						</td>
+						<td class="label">
+							<span>ad</span>
+						</td>
+						<td class="label">
+							<span>ap</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<table id="currentStatusTable">
+					<tr>
+						<td>레벨</td>
+						<td>HP</td>
+						<td>MP</td>
+						<td>AD</td>
+						<td>AP</td>
+					</tr>
+					<c:forEach var="champLevelVoList" items="${champLevelVoList}">
+						<tr class="label">
+							<td>${champLevelVoList.championLevel}</td>
+							<td>${champLevelVoList.hp}</td>
+							<td>${champLevelVoList.mp}</td>
+							<td>${champLevelVoList.ad}</td>
+							<td>${champLevelVoList.ap}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+		
+		<!--수정 후 레벨 별 스테이터스 테이블 -->
+		<div id="updateTableBox">
+			<div class="statusTitle">
+				<h1>수정 후 레벨 별 스테이터스</h1>
+			</div>
+			<div>
+				<table class="headTable">
+					<tr>
+						<td class="label">
+							<span>레벨</span>
+						</td>
+						<td class="label">
+							<span>hp</span>
+						</td>
+						<td class="label">
+							<span>mp</span>
+						</td>
+						<td class="label">
+							<span>ad</span>
+						</td>
+						<td class="label">
+							<span>ap</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<table id="updateStatusTable">
+				
+				</table>
+			</div>
+		</div>
+		
+		<!--수정할 정보 입력 및 기존 정보 -->
+		<div id="controlBox">
+			<form id="champUpdate" action="viewInputFnc();" method="post"
+			enctype="multipart/form-data">
+				<ul>
+					<li>
+						<input type="hidden" class="status" id="championNumber" 
+						name="championNumber" value="${champVo.championNumber}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="championName" 
+						name="championName" value="${champVo.championName}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="championNick" 
+						name="championNick" value="${champVo.championNick}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="position" 
+						name="position" value="${champVo.position}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="championLevel"
+						name="championLevel" value="1">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="hp" name="hp"
+						value="${champVo.hp}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="mp" name="mp"
+						value="${champVo.mp}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="ad" name="ad"
+						value="${champVo.ad}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="ap" name="ap"
+						value="${champVo.ap}">
+					</li>
+					<li>
+						<input type="text" class="status" id="hpGrowth" name="hpGrowth" 
+						placeholder="hp 성장치를 입력해주세요">
+					</li>
+					<li>
+						<input type="text" class="status" id="mpGrowth" name="mpGrowth" 
+						placeholder="mp 성장치를 입력해주세요">
+					</li>
+					<li>
+						<input type="text" class="status" id="adGrowth" name="adGrowth" 
+						placeholder="ad 성장치를 입력해주세요">
+					</li>
+					<li>
+						<input type="text" class="status" id="apGrowth" name="apGrowth" 
+						placeholder="ap 성장치를 입력해주세요">
+					</li>
+					<li>
+						<input type="submit" class="inputButton" value="반영"	>
+					</li>
+				</ul>
+			</form>
+		</div>
+			
+		<!--버튼 두는 곳 -->
+		<div id="buttonBox">
+			<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
+				<div>
+					<input type="button" class="inputButton" 
+						value="수정하기" onclick="updateFnc();">
+				</div>
+			</c:if>
+			<input type="button" class="inputButton"
+				value="돌아가기" onclick="goToBackFnc();">
+		</div>
+	</div>
+
+	<jsp:include page="/WEB-INF/views/Tail.jsp" />
+</body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pk.ls.champLevel">
+
+	<resultMap type="com.pk.ls.champLevel.vo.ChampLevelVo"
+		id="champLevelResultMap">
+		<id column="ROW_NUMBER" property="rowNumber" />
+		<result column="CHAMPION_NUMBER" property="championNumber" />
+		<result column="CHAMPION_LEVEL" property="championLevel" />
+		<result column="HP" property="hp" />
+		<result column="MP" property="mp" />
+		<result column="AD" property="ad"/>
+		<result column="AP" property="ap"/>
+		<result column="HPGROWTH" property="hpGrowth"/>
+		<result column="MPGROWTH" property="mpGrowth"/>
+		<result column="ADGROWTH" property="adGrowth"/>
+		<result column="APGROWTH" property="apGrowth"/>
+	</resultMap>
+
+    <insert id="champLevelCreate" parameterType="com.pk.ls.champLevel.vo.ChampLevelVo"> 
+        INSERT INTO CHAMPION_PER_LEVEL
+        VALUES(
+        SEQ_CHAMP_PER_LEVEL_ROW_NO.nextval, #{championNumber}, #{championLevel}, #{hp}, 
+        #{mp}, #{ad}, #{ap}, #{hpGrowth}, #{mpGrowth}, #{adGrowth}, #{apGrowth}
+        )
+    </insert>
+
+    <select id="champLevelSelectList" parameterType="int"
+        resultMap="champLevelResultMap">
+        SELECT ROW_NUMBER, CHAMPION_NUMBER, CHAMPION_LEVEL, HP, MP, AD, AP, 
+        HPGROWTH, MPGROWTH, ADGROWTH, APGROWTH
+        FROM CHAMPION_PER_LEVEL
+        WHERE CHAMPION_NUMBER = #{championNumber}
+    </select>
+
+    <select id="champLevelSelectOne" parameterType="map"
+        resultMap="champLevelResultMap">
+        SELECT ROW_NUMBER, CHAMPION_NUMBER, CHAMPION_LEVEL, HP, MP, AD, AP, 
+        HPGROWTH, MPGROWTH, ADGROWTH, APGROWTH
+        FROM CHAMPION_PER_LEVEL
+        WHERE CHAPION_NUMBER = #{championNumber}
+        AND CHAMPION_LEVEL = #{championLevel}
+    </select>
+
+    <update id="champLevelUpdate" parameterType="map">
+		UPDATE CHAMPION_PER_LEVEL
+		<set>
+			<if test="hp != ''">HP = #{hp},</if>
+			<if test="mp != ''">MP = #{mp},</if>
+			<if test="ad != ''">AD = #{ad},</if>
+			<if test="ap != ''">AP = #{ap},</if>
+			<if test="hpGrowth != ''">HPGROWTH = #{hpGrowth},</if>
+			<if test="mpGrowth != ''">MPGROWTH = #{mpGrowth},</if>
+			<if test="adGrowth != ''">ADGROWTH = #{adGrowth},</if>
+			<if test="adGrowth != ''">APGROWTH = #{adGrowth},</if>
+		</set>
+		WHERE CHAMPION_NUMBER = #{championNumber}
+	</update>
+   
+</mapper>

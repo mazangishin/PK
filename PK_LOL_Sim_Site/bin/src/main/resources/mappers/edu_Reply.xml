@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pk.ls.board">
+
+
+ 
+
+
+<resultMap type="com.pk.ls.member.vo.RePlyVo" id="replyResultMap">
+		<id column="REPLY_NUM" property="reply_num" />
+		<result column="REPLY_BOARD_NUM" property="reply_board_number" />
+		<result column="RE_COMMENT" property="re_comment" />
+		<result column="CREATE_DATE" property="create_date"
+			javaType="java.util.Date" />
+		<result column="MEMBER_NUMBER" property="member_number"/>
+		<result column="IS_REPLY_COMM" property="is_reply_comm"/>
+		
+</resultMap>
+
+
+	<insert id="rePlyWrite" parameterType="map">
+		INSERT INTO REPLY
+		(REPLY_NUM, REPLY_BOARD_NUM, RE_COMMENT, CREATE_DATE, MEMBER_NUMBER, IS_REPLY_COMM)
+		VALUES(SEQ_REPLY_NUMBER.nextval, #{reply_board_number},
+             #{re_comment}, SYSDATE ,#{member_number},#{is_reply_comm})
+	</insert>
+	
+	
+	
+	<select id="rePlyList" parameterType="int" resultMap="replyResultMap">
+		SELECT * FROM REPLY
+		WHERE REPLY_BOARD_NUM = #{reply_board_number}
+	</select>
+
+	<select id="rePlyCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) 
+		from REPLY
+		WHERE REPLY_BOARD_NUM = #{reply_board_number}
+	</select>
+	
+
+</mapper>
