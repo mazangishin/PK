@@ -69,7 +69,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 1100px;
+		width: 900px;
 		padding: 40px;
 		background: #353535;
 		text-align: center;
@@ -80,7 +80,7 @@
 		color: #F7EA6E;
 	}
 	#tableBox {
-		float: left;
+		float: right;
 		padding: 10px;
 		margin: 20px 20px 20px 20px;
 		border: 4px solid #F7EA6E;
@@ -182,7 +182,7 @@
 			</tr>
 		</table>
 		<table class="statusTable">
-			<c:forEach var="champLevelVo" items="${champLevelVo}">
+			<c:foreach var="champLevelVo" items="${champLevelVo}">
 				<tr>
 				<td class="label">
 					<span>${champLevelVo.championLevel}</span>
@@ -200,11 +200,11 @@
 					<span>${champLevelVo.ap}</span>
 				</td>
 			</tr>
-			</c:forEach>
+			</c:foreach>
 		</table>
 	</div>
 	<div id="controlBox">
-		<form id="champUpdate" action="champUpdateCtr.hm" method="post"
+		<form id="champCreate" action="champCreateCtr.hm" method="post"
 		enctype="multipart/form-data">
 			<ul>
 				<li>
@@ -299,7 +299,7 @@
 					<input type="reset" class="inputButton" value="취소">
 				</li>
 				<li>
-					<input type="submit" class="inputButton" value="수정">
+					<input type="submit" class="inputButton" value="저장">
 				</li>
 				<li>
 					<input class="longwidth" type="file" name="original_file_name" 

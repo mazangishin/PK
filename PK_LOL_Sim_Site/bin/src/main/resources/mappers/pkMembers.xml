@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pk.ls.member">
+
+	<resultMap type="com.pk.ls.member.vo.MemberVo"
+		id="memberResultMap">
+		<id column="MEMBER_NUMBER" property="memberNumber" />
+		<result column="AUTHORITY" property="authority" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="EMAIL" property="email" />
+		<result column="PASSWORD" property="password" />
+		<result column="CREATE_DATE" property="createDate" 
+            javaType="java.util.Date" />
+		<result column="MODIFIED_DATE" property="modifiedDate"
+            javaType="java.util.Date" />
+	</resultMap>
+
+	<insert id="memberRegister" 
+		parameterType="com.pk.ls.member.vo.MemberVo">
+		INSERT INTO MEMBERS
+		(MEMBER_NUMBER, AUTHORITY, MEMBER_ID, EMAIL, PASSWORD, 
+            CREATE_DATE, MODIFIED_DATE)
+		VALUES(SEQ_MEMBERS_MEMBER_NUMBER.nextval, #{authority},
+             #{memberId}, #{email}, #{password}, SYSDATE, SYSDATE)
+	</insert>
+
+    <select id="memberExist" parameterType="com.pk.ls.member.vo.MemberVo"
+        resultMap="memberResultMap">
+        SELECT MEMBER_NUMBER, AUTHORITY, MEMBER_ID   
+		FROM MEMBERS
+		WHERE MEMBER_ID = #{memberId} AND PASSWORD = #{password}
+    </select>    
+
+    <select id="memberInfo" parameterType="int"
+        resultMap="memberResultMap">
+        SELECT MEMBER_NUMBER, MEMBER_ID, EMAIL, AUTHORITY, CREATE_DATE, MODIFIED_DATE
+        FROM MEMBERS
+        WHERE MEMBER_NUMBER = #{memberNumber}
+    </select>
+
+    <update id="memberUpdate" parameterType="memberVo">
+		UPDATE 	MEMBERS
+		<set>
+			<if test="email != ''">EMAIL = #{email},</if>
+			<if test="password != ''">PASSWORD = #{password},</if>
+			MODIFIED_DATE = SYSDATE
+		</set>
+		WHERE MEMBER_NUMBER = #{memberNumber}
+	</update>
+
+    <delete id="memberDelete" parameterType="int">
+        DELETE FROM MEMBERS
+        WHERE MEMBER_NUMBER = #{memberNumber}
+    </delete>
+
+</mapper>

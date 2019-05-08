@@ -5,7 +5,7 @@
 <html>
 
 <head>
-<title>챔피언 수정 페이지</title>
+<title>innerHTML Test Page</title>
 
 <script type="text/javascript">
 		function createTableFnc() {
@@ -69,7 +69,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 1100px;
+		width: 900px;
 		padding: 40px;
 		background: #353535;
 		text-align: center;
@@ -80,7 +80,7 @@
 		color: #F7EA6E;
 	}
 	#tableBox {
-		float: left;
+		float: right;
 		padding: 10px;
 		margin: 20px 20px 20px 20px;
 		border: 4px solid #F7EA6E;
@@ -119,14 +119,14 @@
 	.inputButton:hover {
 		background: #B778FF;
 	}
-	.tableBox table {
+	#tableBox table {
 		whidth: 350px;
 	}
-	.headTable tr td{
+	#headTable tr td{
 		width: 70px;
 		text-align: center;
 	}
-	.statusTable tr td {
+	#statusTable tr td {
 		width: 70px;
 		text-align: center;
 		opacity: 1.0;
@@ -161,50 +161,8 @@
 <jsp:include page="/WEB-INF/views/PageHeader.jsp" />
 
 <div id="container">
-	<div class="tableBox">
-		<table class="headTable">
-			<tr>
-				<td class="label">
-					<span>저장된 레벨</span>
-				</td>
-				<td class="label">
-					<span>저장된 hp</span>
-				</td>
-				<td class="label">
-					<span>저장된 mp</span>
-				</td>
-				<td class="label">
-					<span>저장된 ad</span>
-				</td>
-				<td class="label">
-					<span>저장된 ap</span>
-				</td>
-			</tr>
-		</table>
-		<table class="statusTable">
-			<c:forEach var="champLevelVo" items="${champLevelVo}">
-				<tr>
-				<td class="label">
-					<span>${champLevelVo.championLevel}</span>
-				</td>
-				<td class="label">
-					<span>${champLevelVo.hp}</span>
-				</td>
-				<td class="label">
-					<span>${champLevelVo.mp}</span>
-				</td>
-				<td class="label">
-					<span>${champLevelVo.ad}</span>
-				</td>
-				<td class="label">
-					<span>${champLevelVo.ap}</span>
-				</td>
-			</tr>
-			</c:forEach>
-		</table>
-	</div>
 	<div id="controlBox">
-		<form id="champUpdate" action="champUpdateCtr.hm" method="post"
+		<form id="champCreate" action="champCreateCtr.hm" method="post"
 		enctype="multipart/form-data">
 			<ul>
 				<li>
@@ -248,34 +206,6 @@
 					value="${champVo.ap}">
 				</li>
 				<li>
-					<input type="hidden" class="status" id="ap" name="rowNumber"
-					value="${champLevelVo.rowNumber}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="championNumber"
-					value="${champLevelVo.championNumber}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="championLevel"
-					value="${champLevelVo.championLevel}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champLevelVo.hp}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champLevelVo.mp}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champLevelVo.ad}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champLevelVo.ap}">
-				</li>
-				<li>
 					<input type="text" class="status" id="hpGrowth" name="hpGrowth" 
 					placeholder="hp 성장치를 입력해주세요">
 				</li>
@@ -299,7 +229,7 @@
 					<input type="reset" class="inputButton" value="취소">
 				</li>
 				<li>
-					<input type="submit" class="inputButton" value="수정">
+					<input type="submit" class="inputButton" value="저장">
 				</li>
 				<li>
 					<input class="longwidth" type="file" name="original_file_name" 
@@ -308,27 +238,27 @@
 			</ul>
 		</form>
 	</div>
-	<div class="tableBox">
-		<table class="headTable">
+	<div id="tableBox">
+		<table id="headTable">
 			<tr>
 				<td class="label">
-					<span>수정후 레벨</span>
+					<span>레벨</span>
 				</td>
 				<td class="label">
-					<span>수정후 hp</span>
+					<span>hp</span>
 				</td>
 				<td class="label">
-					<span>수정후 mp</span>
+					<span>mp</span>
 				</td>
 				<td class="label">
-					<span>수정후 ad</span>
+					<span>ad</span>
 				</td>
 				<td class="label">
-					<span>수정후 ap</span>
+					<span>ap</span>
 				</td>
 			</tr>
 		</table>
-		<table class="statusTable">
+		<table id="statusTable">
 		
 		</table>
 	</div>
