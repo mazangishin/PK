@@ -221,35 +221,39 @@ public class ChampController {
 	
 	// 챔피언 정보 수정 페이지 이동 메서드
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/champ/champUpdateCtr.hm")
-	public String champUpdate(HttpSession httpSession, int championNumber, 
-			Model model) {
-		log.debug("Welcome memberUpdate enter! - {}", championNumber);
+	@RequestMapping(value = "/champ/champUpdate.hm")
+	public String champUpdate(HttpSession httpSession, Model model,
+			HttpServletRequest httpServletRequest, int championNumber) {
 
-		MemberVo memberVo = (MemberVo) httpSession.getAttribute("memberVo");
+		log.debug("챔피언 정보 수정 페이지입니다. {}", championNumber);
+		
+		MemberVo memberVo = (MemberVo)httpSession.getAttribute("memberVo");
 		String distinguish = "";
 		
 		if (memberVo.getAuthority().equals("Y")) {
+			Map<String, Object> champMap = (Map<String, Object>) 
+					champService.champSelectOne(championNumber);
+			// 챔피언의 정보를 가져온다 - 기본 정보, 이미지파일, 레벨별 정보
+			ChampVo champVo = (ChampVo) champMap.get("champVo");
+			Map<String, Object> fileName = 
+					(Map<String, Object>) champMap.get("fileName");
+			List<Map<String, Object>> champLevelVoList = 
+					champLevelService.champLevelSelectList(championNumber);
+			
+			model.addAttribute("champVo", champVo);
+			model.addAttribute("fileName", fileName);
+			model.addAttribute("champLevelVoList", champLevelVoList);
+			
 			distinguish = "/champ/champUpdateForm";
 		}else{
 			distinguish = "/mainPage";
 		}
-		
-		Map<String, Object> map = champService.champSelectOne(championNumber);
-
-		ChampVo champVo = (ChampVo) map.get("champVo");
-		List<Map<String, Object>> fileList = 
-				(List<Map<String, Object>>)map.get("fileList");
-
-		model.addAttribute("champVo", champVo);
-		model.addAttribute("fileList", fileList);
-
 		return distinguish;
 	}
 
 	
 	// 챔피언 정보 수정 메서드
-	@RequestMapping(value = "/champ/champUpdateCtr.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/champ/champUpdateCtr.hm", method = RequestMethod.POST)
 	public String champUpdateCtr(HttpSession httpSession, ChampVo champVo, 
 			MultipartHttpServletRequest multipartHttpServletRequest, 
 			@RequestParam(value="file_Index", defaultValue="-1") int file_Index, 
@@ -284,7 +288,7 @@ public class ChampController {
 	}
 
 	// 챔피언 정보 삭제 메서드
-	@RequestMapping(value = "/champ/champDeleteCtr.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/champ/champDeleteCtr.hm", method = RequestMethod.GET)
 	public String champDelete(@RequestParam(value = "champNumber") int champNumber,
 			HttpSession httpSession, Model model) {
 		log.debug("챔피언을 삭제합니다. 삭제할 챔피언의 고유번호: " + champNumber);

@@ -69,7 +69,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 900px;
+		width: 1100px;
 		padding: 40px;
 		background: #353535;
 		text-align: center;
@@ -80,7 +80,7 @@
 		color: #F7EA6E;
 	}
 	#tableBox {
-		float: right;
+		float: left;
 		padding: 10px;
 		margin: 20px 20px 20px 20px;
 		border: 4px solid #F7EA6E;
@@ -182,7 +182,7 @@
 			</tr>
 		</table>
 		<table class="statusTable">
-			<c:foreach var="champLevelVo" items="${champLevelVo}">
+			<c:forEach var="champLevelVo" items="${champLevelVo}">
 				<tr>
 				<td class="label">
 					<span>${champLevelVo.championLevel}</span>
@@ -200,7 +200,7 @@
 					<span>${champLevelVo.ap}</span>
 				</td>
 			</tr>
-			</c:foreach>
+			</c:forEach>
 		</table>
 	</div>
 	<div id="controlBox">

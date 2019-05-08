@@ -13,11 +13,11 @@
 		li_Obj[value - 1].style.display="inline-block";
 	}
 	function deleteFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
+		var url = "/PK_LOL_Sim_Site/champ/champDeleteCtr.hm";
 		location.href = url;		
 	} 
 	function goToUpdateFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
+		var url = "/PK_LOL_Sim_Site/champ/champUpdate.hm?championNumber=${champVo.championNumber}";
 		location.href = url;
 	}
 	function goToBackFnc() {
@@ -135,6 +135,9 @@
 	<div id="container">
 		<div id="championBox">
 			<ul>
+<!-- 				<li style="display: hidden;"> -->
+<%-- 					<span name="championNumber">${champVo.championNumber}</span> --%>
+<!-- 				</li> -->
 				<li>
 					<img class="championArt" 
 						src="<c:url value='/images/${fileName.STORED_FILE_NAME}'/>">
