@@ -22,6 +22,7 @@ import com.pk.ls.champ.vo.ChampVo;
 import com.pk.ls.champLevel.service.ChampLevelService;
 import com.pk.ls.champLevel.vo.ChampLevelVo;
 import com.pk.ls.member.vo.MemberVo;
+import com.pk.ls.util.FileUtils;
 import com.pk.ls.util.Paging;
 
 @Controller
@@ -93,6 +94,7 @@ public class ChampController {
 		httpServletRequest.setAttribute("champVo", champVo);
 		httpServletRequest.setAttribute("fileName", fileName);
 		httpServletRequest.setAttribute("champLevelVoList", champLevelVoList);
+		model.addAttribute("champVo", champVo);
 		
 		return "/champ/champDetailView";
 	}
@@ -255,14 +257,15 @@ public class ChampController {
 	@RequestMapping(value = "/champ/champUpdateCtr.hm", method = RequestMethod.POST)
 	public String champUpdateCtr(HttpSession httpSession, ChampVo champVo, 
 			MultipartHttpServletRequest multipartHttpServletRequest, 
-			@RequestParam(value="FILE_INDEX", defaultValue="-1") int file_Index, 
 			Model model) {
 		
 		log.debug("챔피언 정보를 업데이트 합니다. 현재 챔피언의 정보 : {} 챔피언 이미지의 고유 번호 : {}",
-				champVo, file_Index);
+				champVo);
+		
 		// 사용자의 정보 추출 
 		MemberVo memberVo = (MemberVo) httpSession.getAttribute("memberVo");
 		String distinguish = "";
+		
 		// 사용자가 관리자인가 아닌가
 		if (memberVo.getAuthority().equals("Y")) {
 			// 사용자가 관리자라면
@@ -275,7 +278,7 @@ public class ChampController {
 			try {
 				// 챔피언의 기본 정보를 업데이트한다
 				resultNum = champService.champUpdateOne
-						(champVo, multipartHttpServletRequest, file_Index);
+						(champVo, multipartHttpServletRequest);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -284,14 +287,17 @@ public class ChampController {
 				// 수정이 됐다면
 				// 챔피언 레벨별 스테이터스 DB테이블에 반영할 준비 (성장치는 건드리지 않고 수정된 기본 정보만
 				// 반영하는 것)
-				int level = 1;
+				int championLevel = 1;
 				Map<String, Object> selectMap = new HashMap<String, Object>();
 				
 				selectMap.put("championNumber", championNumber);
-				selectMap.put("level", level);
+				selectMap.put("championLevel", championLevel);
+				
 				// 수정된 챔피언의 기본 정보를 불러온다
-				ChampVo resultVo = 
-						(ChampVo) champService.champSelectOne(championNumber);
+				Map<String, Object> champAndFileMap = 
+						champService.champSelectOne(championNumber);
+				ChampVo resultVo = (ChampVo) champAndFileMap.get("champVo"); 
+				
 				// 수정된 챔피언의 고유 번호를 바탕으로 해당 챔피언의 레벨별 정보를 불러온다 
 				ChampLevelVo champLevelVo =
 						champLevelService.champLevelSelectOne(selectMap);
@@ -302,9 +308,12 @@ public class ChampController {
 				champLevelVo.setMp(resultVo.getMp());
 				// 업데이트
 				champLevelService.champLevelUpdate(champLevelVo);
+				
 				// 성장치까지 수정할 것을 대비해서 모델에 기본 정보를 태운다
 				model.addAttribute("champVo", resultVo);
+				
 				log.debug("챔피언의 정보가 성공적으로 수정되었습니다. 수정된 정보 :, {}", resultVo);
+				
 				// 선택화면으로 넘어간다
 				distinguish = "/champ/distractor";
 				
@@ -319,34 +328,71 @@ public class ChampController {
 		}
 		return distinguish;
 	}
+	
 
 	// 챔피언 레벨별 정보 수정 화면 메서드
-	@RequestMapping(value="/champ/champLevelUpdate.hm")
+	@RequestMapping(value="/champ/champLevelUpdate.hm", method = RequestMethod.GET)
 	public String champLevelUpdate(ChampVo champVo, Model model) {
-		// 수정할 챔피언의 정보를 불러온다
-		List<Map<String, Object>> champLevelList = 
-				champLevelService.champLevelSelectList(champVo.getChampionNumber());
-		// 모델에 담아서 보낸다
-		model.addAttribute("champLevelList", champLevelList);
+		log.debug("champLevelUpdate 접속  - 챔피언의 정보 : {}", champVo);
+		
+		// 수정할 챔피언의 이미지를 불러온다
+		List<Map<String, Object>> champImage = 
+				champService.imageSelect(champVo.getChampionNumber());
+		String imgName = (String) champImage.get(0).get("STORED_FILE_NAME");
+		// champVo에 넣자
+		champVo.setSTORED_FILE_NAME(imgName);
+		
+		// 수정할 챔피언의 정보를 불러와 모델에 담아서 보낸다
 		model.addAttribute("champVo", champVo);
+
+		// 수정할 챔피언의 레벨별 정보를 불러와서 모델에 담아 보낸다
+		List<Map<String, Object>> champLevelVoList = 
+		champLevelService.champLevelSelectList(champVo.getChampionNumber());
+		model.addAttribute(champLevelVoList);
 		
 		return "/champ/champLevelUpdateForm";
 	}
 	
 	// 챔피언 레벨별 정보 수정 작동 메서드
-	@RequestMapping(value="/champ/champLevelUpdateCtr.hm")
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/champ/champLevelUpdateCtr.hm", method=RequestMethod.POST)
 	public String champLevelUpdateCtr(Model model, HttpSession httpSession,
-			HttpServletRequest httpServletRequest,
-			ChampLevelVo champLevelVo) {
+			HttpServletRequest httpServletRequest, ChampVo champVo,
+			int apGrowth, int adGrowth, int hpGrowth, int mpGrowth) {
+		log.debug("champLevelUpdateCtr 체크, 챔피언의 기본 정보 : {}, champVo");
+		
 		// 사용자의 정보를 추출
 		MemberVo memberVo = (MemberVo) httpSession.getAttribute("memberVo");
 		String distinguish = "";
 		// 사용자가 관리자인가 아닌가
 		if (memberVo.getAuthority().equals("Y")) {
-			// 챔피언 고유 번호 추출
+			
+			// 결과 확인용 int 변수
 			int resultNum = 0;
+			// 챔피언 고유 번호 
 			int championNumber = 0;
-			championNumber = champLevelVo.getChampionNumber();
+			// 챔피언 레벨 
+			int championLevel = 0;
+			// 챔피언 레벨 설정
+			championLevel = 1;
+			
+			// db에서 levelVo 를 뽑아 올 때 쓸 매개변수 선언
+			Map<String, Object> selectMap = new HashMap<>();
+			// 챔피언 고유 번호 추출
+			championNumber = champVo.getChampionNumber();
+			// 맵에 챔피언의 고유 번호와 레벨을 담는다
+			selectMap.put("championNumber", championNumber);
+			selectMap.put("championLevel", championLevel);
+			
+			// 챔피언의 레벨별 정보를 추출
+			ChampLevelVo champLevelVo = champLevelService.champLevelSelectOne(selectMap);
+			
+			champLevelVo.setHpGrowth(hpGrowth);
+			champLevelVo.setMpGrowth(mpGrowth);
+			champLevelVo.setApGrowth(apGrowth);
+			champLevelVo.setAdGrowth(adGrowth);
+			
+			log.debug("현재 champLevelVo의 데이터 : {}", champLevelVo);
 			
 			try {
 				// 챔피언 레벨별 정보 수정
@@ -354,16 +400,17 @@ public class ChampController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 데이터베이스에서 회원정보가 수정이 됐는가
+			// 데이터베이스에서 수정이 됐는가
 			if (resultNum > 0) {
 				// 수정된 정보를 불러온다
 				List<Map<String, Object>> resultList = 
 						champLevelService.champLevelSelectList(championNumber);
 				// 로그로 출력 이후 성공메시지 페이지로 
 				log.debug("챔피언의 정보가 성공적으로 수정되었습니다. 수정된 정보 :, {}", resultList);
-				distinguish = "/common/successPage";
+				distinguish = "/champ/successPage";
 				
 			}else if (resultNum == 0){
+				// 실패하면 로그만 남긴다.
 				log.debug("정보 수정 실패");
 			}
 		} else {
@@ -376,9 +423,9 @@ public class ChampController {
 	
 	// 챔피언 정보 삭제 메서드
 	@RequestMapping(value = "/champ/champDeleteCtr.hm", method = RequestMethod.GET)
-	public String champDelete(@RequestParam(value = "champNumber") int champNumber,
+	public String champDelete(@RequestParam(value = "championNumber") int championNumber,
 			HttpSession httpSession, Model model) {
-		log.debug("챔피언을 삭제합니다. 삭제할 챔피언의 고유번호: " + champNumber);
+		log.debug("챔피언을 삭제합니다. 삭제할 챔피언의 고유번호: " + championNumber);
 		// 사용자의 정보를 추출
 		MemberVo memberVo = (MemberVo) httpSession.getAttribute("memberVo");
 		String distinguish = "";
@@ -387,7 +434,8 @@ public class ChampController {
 			// 사용자가 관리자라면
 			try {
 				// 챔피언의 정보를 지운다
-				champService.champDelete(champNumber);
+				champLevelService.champLevelDelete(championNumber);
+				champService.champDelete(championNumber);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

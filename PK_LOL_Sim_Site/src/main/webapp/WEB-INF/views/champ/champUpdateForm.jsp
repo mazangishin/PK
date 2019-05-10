@@ -45,8 +45,12 @@
 				htmlStr += "</tr>";
 				htmlStr += "</tbody>";
 				
-				document.getElementById('statusTable').innerHTML = htmlStr;	
+				document.getElementById('afterInputTable').innerHTML = htmlStr;	
 			}
+		}
+		function goBackFnc() {
+			var url = "/PK_LOL_Sim_Site/champ/champList.hm";
+			location.href = url;
 		}
 	</script>
 <style type="text/css">
@@ -74,6 +78,12 @@
 		background: #353535;
 		text-align: center;
 		color: #F7EA6E;
+	}
+	#before {
+		float: left;
+	}
+	#after {
+		float: left;
 	}
 	#controlBox {
 		float: left;
@@ -132,11 +142,13 @@
 		opacity: 1.0;
 	}
 	.label:nth-child(odd) {
+		text-size: smaller;
 		border: 2px solid #E3C4FF;
 		text-align: center;
 		color: white;
 	}
 	.label:nth-child(even) {
+		text-size: smaller;
 		border: 2px solid #F7EA6E;
 		text-align: center;
 		color: white;
@@ -161,176 +173,195 @@
 <jsp:include page="/WEB-INF/views/PageHeader.jsp" />
 
 <div id="container">
-	<div class="tableBox">
-		<table class="headTable">
-			<tr>
-				<td class="label">
-					<span>저장된 레벨</span>
-				</td>
-				<td class="label">
-					<span>저장된 hp</span>
-				</td>
-				<td class="label">
-					<span>저장된 mp</span>
-				</td>
-				<td class="label">
-					<span>저장된 ad</span>
-				</td>
-				<td class="label">
-					<span>저장된 ap</span>
-				</td>
-			</tr>
-		</table>
-		<table class="statusTable">
-			<c:forEach var="champLevelVo" items="${champLevelVo}">
+	<div id="before">
+		<div class="tableBox">
+			<table class="headTable">
 				<tr>
-				<td class="label">
-					<span>${champLevelVo.championLevel}</span>
-				</td>
-				<td class="label">
-					<span>${champLevelVo.hp}</span>
-				</td>
-				<td class="label">
-					<span>${champLevelVo.mp}</span>
-				</td>
-				<td class="label">
-					<span>${champLevelVo.ad}</span>
-				</td>
-				<td class="label">
-					<span>${champLevelVo.ap}</span>
-				</td>
-			</tr>
-			</c:forEach>
-		</table>
+					<td class="label">
+						<span>저장된 레벨</span>
+					</td>
+					<td class="label">
+						<span>저장된 hp</span>
+					</td>
+					<td class="label">
+						<span>저장된 mp</span>
+					</td>
+					<td class="label">
+						<span>저장된 ad</span>
+					</td>
+					<td class="label">
+						<span>저장된 ap</span>
+					</td>
+				</tr>
+			</table>
+			<table class="statusTable">
+				<c:forEach var="champLevelVoList" items="${champLevelVoList}">
+					<tr>
+					<td class="label">
+						<span>${champLevelVoList.championLevel}</span>
+					</td>
+					<td class="label">
+						<span>${champLevelVoList.hp}</span>
+					</td>
+					<td class="label">
+						<span>${champLevelVoList.mp}</span>
+					</td>
+					<td class="label">
+						<span>${champLevelVoList.ad}</span>
+					</td>
+					<td class="label">
+						<span>${champLevelVoList.ap}</span>
+					</td>
+				</tr>
+				</c:forEach>
+			</table>
+		</div>
 	</div>
-	<div id="controlBox">
-		<form id="champUpdate" action="champUpdateCtr.hm" method="post"
-		enctype="multipart/form-data">
-			<ul>
-				<li>
-					<input type="hidden" class="status" id="championNumber" 
-					name="championNumber" value="${champVo.championNumber}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="championName" 
-					name="championName" value="${champVo.championName}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="championNick" 
-					name="championNick" value="${champVo.championNick}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="position" 
-					name="position" value="${champVo.position}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="championNumber" 
-					name="championNumber" value="${champVo.championNumber}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="championLevel"
-					name="championLevel" value="1">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="hp" name="hp"
-					value="${champVo.hp}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="mp" name="mp"
-					value="${champVo.mp}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ad" name="ad"
-					value="${champVo.ad}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champVo.ap}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="rowNumber"
-					value="${champLevelVo.rowNumber}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="championNumber"
-					value="${champLevelVo.championNumber}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="championLevel"
-					value="${champLevelVo.championLevel}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champLevelVo.hp}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champLevelVo.mp}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champLevelVo.ad}">
-				</li>
-				<li>
-					<input type="hidden" class="status" id="ap" name="ap"
-					value="${champLevelVo.ap}">
-				</li>
-				<li>
-					<input type="text" class="status" id="hpGrowth" name="hpGrowth" 
-					placeholder="hp 성장치를 입력해주세요">
-				</li>
-				<li>
-					<input type="text" class="status" id="mpGrowth" name="mpGrowth" 
-					placeholder="mp 성장치를 입력해주세요">
-				</li>
-				<li>
-					<input type="text" class="status" id="adGrowth" name="adGrowth" 
-					placeholder="ad 성장치를 입력해주세요">
-				</li>
-				<li>
-					<input type="text" class="status" id="apGrowth" name="apGrowth" 
-					placeholder="ap 성장치를 입력해주세요">
-				</li>
-				<li>
-					<input type="button" class="inputButton" value="반영" 
-					onclick="createTableFnc();">
-				</li>
-				<li>
-					<input type="reset" class="inputButton" value="취소">
-				</li>
-				<li>
-					<input type="submit" class="inputButton" value="수정">
-				</li>
-				<li>
-					<input class="longwidth" type="file" name="original_file_name" 
-					placeholder="챔피언의 이미지를 올려주세요">
-				</li>
-			</ul>
-		</form>
-	</div>
-	<div class="tableBox">
-		<table class="headTable">
-			<tr>
-				<td class="label">
-					<span>수정후 레벨</span>
-				</td>
-				<td class="label">
-					<span>수정후 hp</span>
-				</td>
-				<td class="label">
-					<span>수정후 mp</span>
-				</td>
-				<td class="label">
-					<span>수정후 ad</span>
-				</td>
-				<td class="label">
-					<span>수정후 ap</span>
-				</td>
-			</tr>
-		</table>
-		<table class="statusTable">
-		
-		</table>
+	<div id="atfer">
+		<div id="controlBox">
+			<form id="champUpdate" action="champUpdateCtr.hm" method="post"
+			enctype="multipart/form-data">
+				<ul>
+					<li>
+						<input type="hidden" class="status" id="championNumber" 
+						name="championNumber" value="${champVo.championNumber}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="championName" 
+						name="championName" value="${champVo.championName}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="championNick" 
+						name="championNick" value="${champVo.championNick}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="position" 
+						name="position" value="${champVo.position}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="championLevel"
+						name="championLevel" value="1">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="champHp" name="champHp"
+						value="${champVo.hp}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="champMp" name="champMp"
+						value="${champVo.mp}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="champAd" name="champAd"
+						value="${champVo.ad}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="champAp" name="champAp"
+						value="${champVo.ap}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="rowNumber" name="rowNumber"
+						value="${champLevelVoList[0].rowNumber}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="levelHp" name="levelHp"
+						value="${champLevelVoList[0].hp}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="levelMp" name="levelMp"
+						value="${champLevelVoList[0].mp}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="levelAd" name="levelAd"
+						value="${champLevelVoList[0].ad}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="levelAp" name="levelAp"
+						value="${champLevelVoList[0].ap}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="hpGrowth" name="hpGrowth"
+						value="${champLevelVoList[0].hpGrowth}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="mpGrowth" name="mpGrowth"
+						value="${champLevelVoList[0].mpGrowth}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="adGrowth" name="adGrowth"
+						value="${champLevelVoList[0].adGrowth}">
+					</li>
+					<li>
+						<input type="hidden" class="status" id="apGrowth" name="apGrowth"
+						value="${champLevelVoList[0].apGrowth}">
+					</li>
+					
+					<!--입력부 -->
+					<li>
+						<span>HP</span>
+						<input type="text" class="status" id="hp" name="hp" 
+						value="${champVo.hp}">
+					</li>
+					<li>
+						<span>MP</span>
+						<input type="text" class="status" id="mp" name="mp" 
+						value="${champVo.mp}">
+					</li>
+					<li>
+						<span>AD</span>
+						<input type="text" class="status" id="ad" name="ad" 
+						value="${champVo.ad}">
+					</li>
+					<li>
+						<span>AP</span>
+						<input type="text" class="status" id="ap" name="ap" 
+						value="${champVo.ap}">
+					</li>
+					<li>
+						<input type="button" class="inputButton" value="반영" 
+						onclick="createTableFnc();">
+					</li>
+					<li>
+						<input type="reset" class="inputButton" value="취소">
+					</li>
+					<li>
+						<input type="submit" class="inputButton" value="수정">
+					</li>
+					<li>
+						<input type="text" class="inputButton" value="돌아가기"
+						onclick="goBackFnc();">
+					</li>
+					<li>
+						<input class="longwidth" type="file" name="original_file_name" 
+						value="">
+					</li>
+				</ul>
+				<input type="hidden" name="stored_file_name" value="${fileName.STORED_FILE_NAME}">
+			</form>
+		</div>
+		<div class="tableBox">
+			<table class="headTable">
+				<tr>
+					<td class="label">
+						<span>수정후 레벨</span>
+					</td>
+					<td class="label">
+						<span>수정후 hp</span>
+					</td>
+					<td class="label">
+						<span>수정후 mp</span>
+					</td>
+					<td class="label">
+						<span>수정후 ad</span>
+					</td>
+					<td class="label">
+						<span>수정후 ap</span>
+					</td>
+				</tr>
+			</table>
+			<table id="afterInputTable" class="statusTable">
+			
+			</table>
+		</div>
 	</div>
 </div>	
 

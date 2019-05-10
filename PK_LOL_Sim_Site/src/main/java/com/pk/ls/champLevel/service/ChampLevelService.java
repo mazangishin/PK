@@ -11,5 +11,6 @@ public interface ChampLevelService {
 	public List<Map<String, Object>> champLevelSelectList(int championNumber);
 	public void champLevelCreate(ChampLevelVo champLevelVo);
 	public int champLevelUpdate(ChampLevelVo champLevelVo);
+	public int champLevelDelete(int championNumber);
 	
 }

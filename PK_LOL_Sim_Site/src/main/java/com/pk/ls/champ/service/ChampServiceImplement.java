@@ -17,6 +17,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.pk.ls.champ.controller.ChampController;
 import com.pk.ls.champ.dao.ChampDao;
 import com.pk.ls.champ.vo.ChampVo;
 import com.pk.ls.util.FileUtils;
@@ -26,6 +27,8 @@ import sun.util.logging.resources.logging;
 @Service
 public class ChampServiceImplement implements ChampService{
 
+	private static final Logger log = LoggerFactory.getLogger(ChampServiceImplement.class);
+	
 	@Autowired
 	public ChampDao champDao;
 	
@@ -102,39 +105,48 @@ public class ChampServiceImplement implements ChampService{
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public int champUpdateOne(ChampVo champVo, MultipartHttpServletRequest 
-			multipartHttpServletRequest, int file_Index) 
+			multipartHttpServletRequest) 
 			throws Exception {
-	int resultNum = 0;
+		int resultNum = 0;
+		
+		log.debug("왔노라");
 		
 		try {
 			resultNum = champDao.champUpdateOne(champVo);
 
-			int ChampionNumber = champVo.getChampionNumber();
-			Map<String, Object> tempFileMap = 
-					champDao.fileSelectStoredFileName(ChampionNumber);
-
+			int championNumber = champVo.getChampionNumber();
+			
 			List<Map<String, Object>> list = 
-					fileUtils.parseInsertFileInfo(ChampionNumber, multipartHttpServletRequest);
+					fileUtils.parseInsertFileInfo(championNumber, multipartHttpServletRequest);
+			
+			List<Map<String, Object>> tempFileMap = 
+					champDao.fileSelectList(championNumber);
 			
 			// 오로지 하나만 관리
 			if (list.isEmpty() == false) {
-				if(tempFileMap != null) {
-					fileUtils.parseUpdateFileInfo(tempFileMap);
-					champDao.fileDelete(ChampionNumber);
-				}
 				
-				for (Map<String, Object> map : list) {
+				String newOriginalFileName = (String) list.get(0).get("original_file_name");
+				long newFileSize = (long) list.get(0).get("file_size");
+				
+				String fileSizeStr = String.valueOf(tempFileMap.get(0).get("FILE_SIZE"));
+				long fileSize = Long.parseLong(fileSizeStr);
+				String originalFileName = (String) tempFileMap.get(0).get("ORIGINAL_FILE_NAME");
+				
+				if(fileSize != newFileSize || !originalFileName.equals(newOriginalFileName)) {
+					
+					fileUtils.parseUpdateFileInfo(tempFileMap.get(0));
+					champDao.fileDelete(championNumber);
+					
+					Map<String, Object> map = list.get(0);
+					
 					champDao.insertFile(map);
-				}
-
-			}else if(file_Index == -1) {
-				if(tempFileMap != null) {
-					champDao.fileDelete(ChampionNumber);
-					fileUtils.parseUpdateFileInfo(tempFileMap);
-				}
+				} else {
+					
+				}	
 			}
 			
 		}catch (Exception e) {
+			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 			
@@ -145,21 +157,30 @@ public class ChampServiceImplement implements ChampService{
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public int champDelete(int championNumber) throws Exception {
-
+		// 저장된 파일 이름을 추출할 준비
 		Map<String, Object> tempFileMap = null;
+		// 저장된 파일 이름을 추출해서 담는다
 		tempFileMap = champDao.fileSelectStoredFileName(championNumber);
 		
 		int result = 0;
+		
+		// 저장된 이름이 null이 아니라면
 		if(tempFileMap != null) {
+			// DB의 챔피언 이미지 파일을 삭제
 			 result = champDao.fileDelete(championNumber);	
 		}
-		
+		// 위의 if문을 수행한 결과값이 0이 아니라면 (즉, 성공적으로 DB에서 이미지 파일을 삭제했다면)
 		if(result != 0) {
+			// 저장된 이미지를 지운다
 			fileUtils.parseUpdateFileInfo(tempFileMap);
 		}
 		
 		return champDao.champDelete(championNumber);
 	}
-
-
+	// 이미지만 가져오기
+	@Override
+	public List<Map<String, Object>> imageSelect(int championNumber) {
+		
+		return champDao.fileSelectList(championNumber);
+	}
 }

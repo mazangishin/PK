@@ -6,14 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript">
-	function deleteFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champDeleteCtr.hm";
-		location.href = url;		
-	} 
-	function updateFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champLevelUpdateCtr.hm";
-		location.href = url;
-	}
 	function goToBackFnc() {
 		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 		location.href = url;
@@ -79,7 +71,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 900px;
+		width: 1200px;
 		padding: 40px;
 		background: #353535;
 		text-align: center;
@@ -89,23 +81,22 @@
 		float: left;
 		color: #F7EA6E;
 	}
+	#championUpdate {
+		text-align: center;
+	}
 	#currentStatusBox {
 		float: left;
 		padding: 10px;
 		margin: 20px 20px 20px 20px;
-		border: 4px solid #F7EA6E;
 	}
 	#updateStatusBox {
 		float: left;
 		padding: 10px;
-		margin: 20px 20px 20px 20px;
-		border: 4px solid #F7EA6E;
+		margin: 20px 20px 20px 70px;
 	}
 	#buttonBox {
-		float: left;
 		padding: 10px;
 		margin: 20px 20px 20px 20px;
-		border: 4px solid #F7EA6E;
 	}
 	.status {
 		border: 2px solid #F7EA6E;
@@ -113,7 +104,7 @@
 		display: block;
 		margin: 20px auto;
 		text-align: center;
-		width: 200px;
+		width: 170px;
 		height: 30px;
 		outline: none;
 		color: white;
@@ -121,7 +112,7 @@
 		transition: 0.25s;
 	}	
 	.status:focus {
-		width: 250px;
+		width: 200px;
 		border-color: #EDD200;
 	}
 	.inputButton {
@@ -174,13 +165,13 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
-
+	<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
 	<div id="container">
 		
 		<!--현재 레벨 별 스탯 -->
 		<div id="currentStatusBox">
 			<div class="statusTitle">
-				<h1>현재 레벨 별 스테이터스</h1>
+				<h3>현재 레벨 별 스테이터스</h3>
 			</div>
 			<div>
 				<table class="headTable">
@@ -205,64 +196,32 @@
 			</div>
 			<div>
 				<table id="currentStatusTable">
-					<tr>
-						<td>레벨</td>
-						<td>HP</td>
-						<td>MP</td>
-						<td>AD</td>
-						<td>AP</td>
-					</tr>
 					<c:forEach var="champLevelVoList" items="${champLevelVoList}">
-						<tr class="label">
-							<td>${champLevelVoList.championLevel}</td>
-							<td>${champLevelVoList.hp}</td>
-							<td>${champLevelVoList.mp}</td>
-							<td>${champLevelVoList.ad}</td>
-							<td>${champLevelVoList.ap}</td>
+						<tr>
+							<td class="label">${champLevelVoList.championLevel}</td>
+							<td class="label">${champLevelVoList.hp}</td>
+							<td class="label">${champLevelVoList.mp}</td>
+							<td class="label">${champLevelVoList.ad}</td>
+							<td class="label">${champLevelVoList.ap}</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 		</div>
 		
-		<!--수정 후 레벨 별 스테이터스 테이블 -->
-		<div id="updateTableBox">
-			<div class="statusTitle">
-				<h1>수정 후 레벨 별 스테이터스</h1>
-			</div>
-			<div>
-				<table class="headTable">
-					<tr>
-						<td class="label">
-							<span>레벨</span>
-						</td>
-						<td class="label">
-							<span>hp</span>
-						</td>
-						<td class="label">
-							<span>mp</span>
-						</td>
-						<td class="label">
-							<span>ad</span>
-						</td>
-						<td class="label">
-							<span>ap</span>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div>
-				<table id="updateStatusTable">
-				
-				</table>
-			</div>
-		</div>
-		
 		<!--수정할 정보 입력 및 기존 정보 -->
 		<div id="controlBox">
-			<form id="champUpdate" action="viewInputFnc();" method="post"
+			<form id="champUpdate" action="./champLevelUpdateCtr.hm" method="post"
 			enctype="multipart/form-data">
 				<ul>
+					<h1>
+						<span>${champVo.championName}</span>
+					</h2>
+					<h3>
+						<span>${champVo.championNick}</span>
+					</h3>
+					<img src="<c:url value='/images/${champVo.STORED_FILE_NAME}'/>"
+					width=200px; height=200px;/>
 					<li>
 						<input type="hidden" class="status" id="championNumber" 
 						name="championNumber" value="${champVo.championNumber}">
@@ -316,25 +275,54 @@
 						placeholder="ap 성장치를 입력해주세요">
 					</li>
 					<li>
-						<input type="submit" class="inputButton" value="반영"	>
+							<!--버튼 두는 곳 -->
+						<div id="buttonBox">
+							<input type="button" class="inputButton" value="반영"	
+							onclick="viewInputFnc();">
+							<input type="submit" class="inputButton" 
+							value="수정하기" onclick="updateFnc();">
+							<input type="button" class="inputButton"
+							value="돌아가기" onclick="goToBackFnc();">
+						</div>
 					</li>
 				</ul>
 			</form>
 		</div>
 			
-		<!--버튼 두는 곳 -->
-		<div id="buttonBox">
-			<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
-				<div>
-					<input type="button" class="inputButton" 
-						value="수정하기" onclick="updateFnc();">
-				</div>
-			</c:if>
-			<input type="button" class="inputButton"
-				value="돌아가기" onclick="goToBackFnc();">
+		<!--수정 후 레벨 별 스테이터스 테이블 -->
+		<div id="updateStatusBox">
+			<div class="statusTitle">
+				<h3>수정 후 레벨 별 스테이터스</h3>
+			</div>
+			<div>
+				<table class="headTable">
+					<tr>
+						<td class="label">
+							<span>레벨</span>
+						</td>
+						<td class="label">
+							<span>hp</span>
+						</td>
+						<td class="label">
+							<span>mp</span>
+						</td>
+						<td class="label">
+							<span>ad</span>
+						</td>
+						<td class="label">
+							<span>ap</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<table id="updateStatusTable">
+				
+				</table>
+			</div>
 		</div>
 	</div>
-
+	</c:if>
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>

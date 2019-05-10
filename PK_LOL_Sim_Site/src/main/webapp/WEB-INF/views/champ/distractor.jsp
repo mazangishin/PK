@@ -1,20 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <script type="text/javascript">
-	function goToUpdateFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champLevelUpdate.hm";
-		
-		location.href = url;		
-	}
 	function goToMainPageFnc() {
-		var url = "/PK_LOL_Sim_Site/mainPage.hm";
+		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 		
 		location.href = url;
-		
 	}
 </script>
 <style type="text/css">
@@ -46,7 +41,6 @@
 	#choiceBox {
 		padding: 10px;
 		margin: 20px 20px 20px 20px;
-		border: 4px solid #F7EA6E;
 	}
 	.inputButton {
 		border: 2px solid #B778FF;
@@ -54,8 +48,8 @@
 		display: block;
 		margin: 15px auto;
 		text-align: center;
-		width: 200px;
-		height: 30px;
+		width: 220px;
+		height: 40px;
 		outline: none;
 		color: white;
 		border-radius: 24px;
@@ -66,27 +60,53 @@
 		background: #B778FF;
 	}
 </style>
-<title>´ÙÀ½ ÀÛ¾÷À» ¼±ÅÃÇØÁÖ½Ê½Ã¿À.</title>
+<title>ë‹¤ìŒ ì‘ì—…ì„ ì„ íƒí•´ì£¼ì‹­ì‹œì˜¤.</title>
 </head>
 <body>
 
 	<div id="container">
 		<div id="textArea">
 			<h1>
-				´ÙÀ½ ÀÛ¾÷À» ¼±ÅÃÇØÁÖ½Ê½Ã¿À.
+				ë‹¤ìŒ ì‘ì—…ì„ ì„ íƒí•´ì£¼ì‹­ì‹œì˜¤.
 			</h1>
 		</div>
 		<div id="choiceBox">
-			<ul>
-				<li>
-					<input class="inputButton" value="·¹º§ º° Á¤º¸ ¼öÁ¤ ÆäÀÌÁö·Î ³Ñ¾î°¡±â"
-					onclick="goToUpdateFnc();">
-				</li>
-				<li>
-					<input class="inputButton" value="¸ŞÀÎ ÆäÀÌÁö·Î ³Ñ¾î°¡±â"
-					onclick="goToMainPageFnc();">
-				</li>
-			</ul>
+			<form id="championLevelUpdate" action="./champLevelUpdate.hm" method="get">
+				<ul>
+					<li>
+						<input type="hidden" id="championNumber" name="championNumber" 
+						value="${champVo.championNumber}">
+					</li>
+					<li>
+						<input type="hidden" id="championName" name="championName" 
+						value="${champVo.championName}">
+					</li>
+					<li>
+						<input type="hidden" id="championNick" name="championNick" 
+						value="${champVo.championNick}">
+					</li>
+					<li>
+						<input type="hidden" id="position" name="position" 
+						value="${champVo.position}">
+					</li>
+					<li>
+						<input type="hidden" id="hp" name="hp" value="${champVo.hp}">
+					</li>
+					<li>
+						<input type="hidden" id="mp" name="mp" value="${champVo.mp}">
+					</li>
+					<li>
+						<input type="hidden" id="ad" name="ad" value="${champVo.ad}">
+					</li>
+					<li>
+						<input type="hidden" id="ap" name="ap" value="${champVo.ap}">
+					</li>
+				</ul>
+					<input type="submit" class="inputButton" value="ë ˆë²¨ ë³„ ì •ë³´ ìˆ˜ì • í˜ì´ì§€ë¡œ">
+			</form>
+			<form>
+				<input class="inputButton" value="ì±”í”¼ì–¸ ë¦¬ìŠ¤íŠ¸ë¡œ" onclick="goToListPageFnc();">
+			</form>
 		</div>
 	</div>
 	

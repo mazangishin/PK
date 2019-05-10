@@ -10,10 +10,10 @@
 		var parentObj = document.getElementById("statusBox");
 		var li_Obj = parentObj.getElementsByClassName("label");
 		
-		li_Obj[value - 1].style.display="inline-block";
+		li_Obj[value - 1].style.display="block";
 	}
 	function deleteFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champDeleteCtr.hm";
+		var url = "/PK_LOL_Sim_Site/champ/champDeleteCtr.hm?championNumber=${champVo.championNumber}";
 		location.href = url;		
 	} 
 	function goToUpdateFnc() {
@@ -23,10 +23,6 @@
 	function goToBackFnc() {
 		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 		location.href = url;
-	}
-	function goToLevelUpdateFnc() {
-		var url = "/PK_LOL_Sim_Site/champ/champLevelUpdate.hm";
-		location.ghref = url;
 	}
 </script>
 <style type="text/css">
@@ -138,9 +134,6 @@
 	<div id="container">
 		<div id="championBox">
 			<ul>
-<!-- 				<li style="display: hidden;"> -->
-<%-- 					<span name="championNumber">${champVo.championNumber}</span> --%>
-<!-- 				</li> -->
 				<li>
 					<img class="championArt" 
 						src="<c:url value='/images/${fileName.STORED_FILE_NAME}'/>">
@@ -181,18 +174,38 @@
 			</table>
 		</div>
 		<div id="buttonBox">
-			<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
-				<div>
-					<input type="button" class="inputButton" 
-						value="수정하기" onclick="goToUpdateFnc();">
-					<input type="button" class="inputButton" 
-						value="레벨별 정보 수정" onclick="goToLevelUpdateFnc();">
-					<input type="button" class="inputButton" 
-						value="삭제하기" onclick="deleteFnc();">
-				</div>
-			</c:if>
-			<input type="button" class="inputButton"
-				value="돌아가기" onclick="goToBackFnc();">
+			
+				<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
+					<div>
+						<form>
+							<input type="button" class="inputButton" 
+								value="수정하기" onclick="goToUpdateFnc();">
+							<input type="button" class="inputButton" 
+								value="삭제하기" onclick="deleteFnc();">
+						</form>
+					</div>
+					<div>
+						<form action="./champLevelUpdate.hm">
+							<input type="hidden" id="championNumber" name="championNumber"
+							value="${champVo.championNumber}">
+							<input type="hidden" id="championName" name="championName" 
+							value="${champVo.championName}">
+							<input type="hidden" id="championNick" name="championNick" 
+							value="${champVo.championNick}">
+							<input type="hidden" id="position" name="position" 
+							value="${champVo.position}">
+							<input type="hidden" id="hp" name="hp" value="${champVo.hp}">
+							<input type="hidden" id="mp" name="mp" value="${champVo.mp}">
+							<input type="hidden" id="ad" name="ad" value="${champVo.ad}">
+							<input type="hidden" id="ap" name="ap" value="${champVo.ap}">
+							<input type="submit" class="inputButton" 
+									value="레벨별 정보 수정">
+						</form>
+					</div>
+				</c:if>
+				<input type="button" class="inputButton"
+					value="돌아가기" onclick="goToBackFnc();">
+			</form>		
 		</div>
 	</div>
 

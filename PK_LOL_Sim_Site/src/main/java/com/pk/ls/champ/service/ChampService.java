@@ -24,7 +24,9 @@ public interface ChampService {
 			multipartHttpServletRequest) throws Exception;
 	// 챔피언 정보 업데이트
 	public int champUpdateOne(ChampVo champVo, MultipartHttpServletRequest
-			multipartHttpServletRequest, int file_Index) throws Exception; 
+			multipartHttpServletRequest) throws Exception; 
 	// 챔피언 삭제
 	public int champDelete(int championNumber) throws Exception;
+	// 챔피언 이미지 불러오기
+	public List<Map<String, Object>> imageSelect(int championNumber);
 }
