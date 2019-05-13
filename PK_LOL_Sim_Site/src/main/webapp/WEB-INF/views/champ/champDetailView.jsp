@@ -5,12 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script type="text/javascript">
 	function levelSelectFnc(value){
 		var parentObj = document.getElementById("statusBox");
-		var li_Obj = parentObj.getElementsByClassName("label");
-		
-		li_Obj[value - 1].style.display="block";
+		var li_Obj = parentObj.getElementsByClassName("status");
+		for (var i = 0; i < li_Obj.length; i++) {
+			if (value == (i + 1)) {
+				li_Obj[i].style.display="block"; 
+			} else if (value != (i + 1)) {
+				li_Obj[i].style.display="none";
+			}
+		}
 	}
 	function deleteFnc() {
 		var url = "/PK_LOL_Sim_Site/champ/champDeleteCtr.hm?championNumber=${champVo.championNumber}";
@@ -37,10 +43,54 @@
 		font-family: sans-serif;
 		opacity: 0.8;
 	}
+	#menu li {
+		display:inline-block;
+	}
+  	#menu li a {
+  		text-decoration:none; 
+  		color: #EDBB6A;  
+  		padding: 41px 20px; 
+  		display:block;
+  	}
+   	#menu{
+      position:fixed; 
+      z-index: 500;
+      top:0; 
+      left:0; 
+      width: 200px; 
+      height: 100%;
+      padding: 0; 
+      margin: 0 auto;
+      background-image:url(/PK_LOL_Sim_Site/resources/images/l_menu_img.png); 
+      text-align: center; 
+      overflow: hidden;      
+   	}
+   	#menu li:hover {
+   		background: rgba(255,255,255, 0.2);
+   	}
+   	#menu>.act {
+   		background:rgba(255,255,255, 0.1);
+   	}
+   	#menu>.act>a:hover {
+   		color:black;
+   	}
+   	#menu>.act>a {
+   		color:white;
+   	}
+    #logo{
+      position:fixed; 
+      z-index: 550;
+      top:15px; 
+      left:15px; 
+      width: 220px; 
+      height: 200px;
+      padding: 0; 
+      margin: 0 auto;
+   	}
 	ul li {
 		list-style: none;
 	}
-	ul li select{
+	select{
 		margin: auto;
 		width: 100px;
 		height: 25px;
@@ -57,12 +107,14 @@
 	}
 	#championBox {
 		float: left;
+		width: 450px;
 		padding: 10px;
 		height: 600px;
 		margin: 0px 10px 0px 10px;
 	}
 	#championBox div {
 		margin: auto;
+		width: 400px;
 		margin: 20px 10px 20px 10px;
 	}
 	#statusBox {
@@ -71,6 +123,18 @@
 		padding: 10px;
 		margin: 0px 10px 0px 10px;
 		color: white;
+	}
+	#selector {
+		position: relative;
+		top: 10%;
+		color: #F7EA6E;
+	}
+	#selector ul li {
+		padding: 5px;
+	}
+	.label {
+		width: 70px;
+		height: 70px;
 	}
 	.label:nth-child(odd) {
 		border: 2px solid #E3C4FF;
@@ -83,16 +147,17 @@
 		color: white;
 	}
 	#statusBox table {
-		width: 320px;
+		width: 380px;
 	}
 	#statusBox table tr{
 		text-align: center;
-		width: 250px;
+		width: 350px;
+		height: 70px;
 	}
 	#statusBox table tr td{
 		border-color: 2px solid white;
 		text-align: center;
-		width: 45px;
+		width: 80px;
 	}
 	.championArt {
 		float: left;
@@ -101,6 +166,8 @@
 		margin: 10px 10px 10px 10px;
 	}
 	#buttonBox {
+		position: relative;
+		top: 30%;
 		float: left;
 		width: 400px;
 		height: 150px;
@@ -130,6 +197,20 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
+	
+	<div id="logo">
+   		<a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage"><img src="/PK_LOL_Sim_Site/resources/images/logo.png" width="80%"></a><br>
+   	</div>
+
+	<div>
+		<ul id="menu">
+		   <br><br><br><br><br><br><br><br><br><br>
+		   <li id=first_m><b><a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage">HOME</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#secondPage">11111</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#3rdPage">챔피언 리스트</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#4thpage">자유 게시판</a></b></li><br>
+		</ul>
+	</div>
 
 	<div id="container">
 		<div id="championBox">
@@ -137,6 +218,40 @@
 				<li>
 					<img class="championArt" 
 						src="<c:url value='/images/${fileName.STORED_FILE_NAME}'/>">
+				</li>
+			</ul>
+			<div id="statusBox">
+				<table>
+					<tr>
+						<td class="label">레벨</td>
+						<td class="label">HP</td>
+						<td class="label">MP</td>
+						<td class="label">AD</td>
+						<td class="label">AP</td>
+					</tr>
+				</table>
+				<table>
+					<c:forEach var="champLevelVoList" items="${champLevelVoList}">
+						<tr class="status" style="display:none;">
+							<td class="label">${champLevelVoList.championLevel}</td>
+							<td class="label">${champLevelVoList.hp}</td>
+							<td class="label">${champLevelVoList.mp}</td>
+							<td class="label">${champLevelVoList.ad}</td>
+							<td class="label">${champLevelVoList.ap}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+		
+		
+		<div id="selector">
+			<ul>
+				<li>
+					<h1>${champVo.championName}</h1>
+				</li>
+				<li>
+					<h2>${champVo.championNick}</h2>
 				</li>
 				<li>
 					<select id="championLevel" name="championLevel" 
@@ -146,35 +261,10 @@
 						</c:forEach>
 					</select>
 				</li>
-				<li>
-					<table id="viewTable">
-					
-					</table>
-				</li>
 			</ul>
 		</div>
-		<div id="statusBox">
-			<table>
-				<tr>
-					<td>레벨</td>
-					<td>HP</td>
-					<td>MP</td>
-					<td>AD</td>
-					<td>AP</td>
-				</tr>
-				<c:forEach var="champLevelVoList" items="${champLevelVoList}">
-					<tr class="label" style="display: none;">
-						<td>${champLevelVoList.championLevel}</td>
-						<td>${champLevelVoList.hp}</td>
-						<td>${champLevelVoList.mp}</td>
-						<td>${champLevelVoList.ad}</td>
-						<td>${champLevelVoList.ap}</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
+		
 		<div id="buttonBox">
-			
 				<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
 					<div>
 						<form>
@@ -203,6 +293,7 @@
 						</form>
 					</div>
 				</c:if>
+			<form>
 				<input type="button" class="inputButton"
 					value="돌아가기" onclick="goToBackFnc();">
 			</form>		

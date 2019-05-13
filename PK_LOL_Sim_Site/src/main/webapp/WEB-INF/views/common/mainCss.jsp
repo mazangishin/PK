@@ -172,6 +172,13 @@
 	margin:0 0 29px 0;padding:0 10px;font-size:16px;line-height:20px;}
 	{
 	
+	.3rdSectionImage {
+		height: 100vh;
+		width: 100vw;
+	}
+	.dust {
+	  position: absolute;
+	}
 
 </style>
 

@@ -97,8 +97,6 @@
 		
 	<script >	
 	
-	
-	
 		 $(document).ready(function() {
 			
 			$('#fullpage').fullpage({
@@ -215,10 +213,10 @@
 	</div>
 	
 	<div class="section">11111</div>
-	<div class="section" >
-		<div id="board" style="margin: auto;">
-			<a href="/PK_LOL_Sim_Site/champ/champList.hm">
-				<h1>Go To Champion List</h1>
+	<div class="section">
+		<div class="3rdSectionImage">
+			<a href="/PK_LOL_Sim_Site/champ/champList.hm" id="startThanos">
+				<img alt="hexagonChampList" src="./resources/images/hexagonChampList.jpg">
 			</a>
 		</div>
 	</div>

@@ -65,6 +65,50 @@
 		font-family: sans-serif;
 		opacity: 0.8;
 	}
+	#menu li {
+		display:inline-block;
+	}
+  	#menu li a {
+  		text-decoration:none; 
+  		color: #EDBB6A;  
+  		padding: 41px 20px; 
+  		display:block;
+  	}
+   	#menu{
+      position:fixed; 
+      z-index: 500;
+      top:0; 
+      left:0; 
+      width: 200px; 
+      height: 100%;
+      padding: 0; 
+      margin: 0 auto;
+      background-image:url(/PK_LOL_Sim_Site/resources/images/l_menu_img.png); 
+      text-align: center; 
+      overflow: hidden;      
+   	}
+   	#menu li:hover {
+   		background: rgba(255,255,255, 0.2);
+   	}
+   	#menu>.act {
+   		background:rgba(255,255,255, 0.1);
+   	}
+   	#menu>.act>a:hover {
+   		color:black;
+   	}
+   	#menu>.act>a {
+   		color:white;
+   	}
+    #logo{
+      position:fixed; 
+      z-index: 550;
+      top:15px; 
+      left:15px; 
+      width: 220px; 
+      height: 200px;
+      padding: 0; 
+      margin: 0 auto;
+   	}
 	ul li {
 		list-style: none;
 	}
@@ -73,7 +117,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 1100px;
+		width: 1200px;
 		padding: 40px;
 		background: #353535;
 		text-align: center;
@@ -88,18 +132,20 @@
 	#controlBox {
 		float: left;
 		color: #F7EA6E;
+		margin-right: 40px;
 	}
 	#tableBox {
 		float: left;
+		width: 400px;
 		padding: 10px;
-		margin: 20px 20px 20px 20px;
+		margin: 20px 20px 20px 80px;
 		border: 4px solid #F7EA6E;
 	}
 	.status {
 		border: 2px solid #F7EA6E;
 		background: none;
 		display: block;
-		margin: 20px auto;
+		margin: 10px auto;
 		text-align: center;
 		width: 200px;
 		height: 30px;
@@ -116,7 +162,7 @@
 		border: 2px solid #B778FF;
 		background: none;
 		display: block;
-		margin: 15px auto;
+		margin: 10px auto;
 		text-align: center;
 		width: 100px;
 		height: 30px;
@@ -166,6 +212,9 @@
 		border-radius: 24px;
 		transition: 0.25s; 
 	}
+	ul li select option {
+		color: black;
+	}
 </style>
 </head>
 <body>
@@ -173,6 +222,21 @@
 <jsp:include page="/WEB-INF/views/PageHeader.jsp" />
 
 <div id="container">
+	
+	<div id="logo">
+   		<a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage"><img src="/PK_LOL_Sim_Site/resources/images/logo.png" width="80%"></a><br>
+   	</div>
+
+	<div>
+		<ul id="menu">
+		   <br><br><br><br><br><br><br><br><br><br>
+		   <li id=first_m><b><a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage">HOME</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#secondPage">11111</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#3rdPage">챔피언 리스트</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#4thpage">자유 게시판</a></b></li><br>
+		</ul>
+	</div>
+
 	<div id="before">
 		<div class="tableBox">
 			<table class="headTable">
@@ -225,18 +289,6 @@
 					<li>
 						<input type="hidden" class="status" id="championNumber" 
 						name="championNumber" value="${champVo.championNumber}">
-					</li>
-					<li>
-						<input type="hidden" class="status" id="championName" 
-						name="championName" value="${champVo.championName}">
-					</li>
-					<li>
-						<input type="hidden" class="status" id="championNick" 
-						name="championNick" value="${champVo.championNick}">
-					</li>
-					<li>
-						<input type="hidden" class="status" id="position" 
-						name="position" value="${champVo.position}">
 					</li>
 					<li>
 						<input type="hidden" class="status" id="championLevel"
@@ -297,6 +349,24 @@
 					
 					<!--입력부 -->
 					<li>
+						<input type="text" class="status" id="championName" 
+						name="championName" value="${champVo.championName}">
+					</li>
+					<li>
+						<input type="text" class="status" id="championNick" 
+						name="championNick" value="${champVo.championNick}">
+					</li>
+					<li>
+						<select id="positionOption" class="status" name="position"
+						dir="rtl">
+							<option value="top">탑</option> 
+							<option value="jungle">정글</option>
+							<option value="mid">미드</option>
+							<option value="carry">원딜</option>
+							<option value="support">서폿</option>
+						</select>
+					</li>
+					<li>
 						<span>HP</span>
 						<input type="text" class="status" id="hp" name="hp" 
 						value="${champVo.hp}">
@@ -319,9 +389,6 @@
 					<li>
 						<input type="button" class="inputButton" value="반영" 
 						onclick="createTableFnc();">
-					</li>
-					<li>
-						<input type="reset" class="inputButton" value="취소">
 					</li>
 					<li>
 						<input type="submit" class="inputButton" value="수정">
