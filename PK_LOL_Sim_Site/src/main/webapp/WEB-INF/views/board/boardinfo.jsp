@@ -292,7 +292,7 @@
 	<jsp:include page="/WEB-INF/views/PageHeader.jsp" /> 
 	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 
-
+	
 	
 			
 	<div id="board">
@@ -350,10 +350,13 @@
 						</td>
 						
 						<td>
-						<form action="./update.hm" method="get">
-						<input type="hidden" id="boardNum" name="boardNum" value="${binfo.board_Number}">
-						<input type="submit" class="SubButton" value="수정하기">
-						</form>
+						<c:if test="${sessionScope.memberVo.memberId==binfo.member_id}">
+				           	<form action="./update.hm" method="get">
+							<input type="hidden" id="boardNum" name="boardNum" value="${binfo.board_Number}">
+							<input type="submit" class="SubButton" value="수정하기">
+							</form>
+			            </c:if>
+						
 						</td>
 						</tr>
 					</table>

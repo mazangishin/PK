@@ -51,6 +51,18 @@ public class MemberDaoImplement implements MemberDao{
 		return sqlSession.selectOne(namespace + "memberInfo2", memberNumber);
 	}
 
+	@Override
+	public String findMemberId(String email) {
+
+		return sqlSession.selectOne(namespace + "findId", email);
+	}
+
+	@Override
+	public String findMemberPassword(Map<String, Object> memberMap) {
+
+		return sqlSession.selectOne(namespace + "findPassword", memberMap);
+	}
+
 
 
 }

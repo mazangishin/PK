@@ -8,6 +8,9 @@
 	function goToRegisterFnc() {
 		location.href="/PK_LOL_Sim_Site/member/register.hm";		
 	}
+	function findAccountFnc() {
+		location.href="/PK_LOL_Sim_Site/member/findAccount.hm";
+	}
 </script>
 <style type="text/css">
 	body {
@@ -90,6 +93,8 @@
 <title>환영합니다.</title>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
+
 	<div id="loginBox">
 		<form action="loginCtr.hm" method="post">
 			<h1>Login Plz</h1>
@@ -97,9 +102,13 @@
 			PW <input type="password" class="inputButton" name="password">
 			<input type="submit" class="loginButton" value="로그인">
 			<input type="reset" class="loginButton" value="취소">
+			<input type="button" class="loginButton" value="id찾기"
+				onclick="findAccountFnc();">
 			<input type="button" class="register" value="회원가입"
 				onclick="goToRegisterFnc();">
 		</form>
 	</div>
+	
+	<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>

@@ -97,8 +97,6 @@
 		
 	<script >	
 	
-	
-	
 		 $(document).ready(function() {
 			
 			$('#fullpage').fullpage({
@@ -159,8 +157,8 @@
 <ul id="menu">
 	<br><br><br><br><br><br><br><br><br><br>
 	<li id=first_m><b><a href="#firstPage">HOME</a></b></li><br>
-	<li><b><a href="#secondPage">11111</a></b></li><br>
-	<li><b><a href="#3rdPage">22222</a></b></li><br>
+	<li><b><a href="#secondPage">게임 소개</a></b></li><br>
+	<li><b><a href="#3rdPage">챔피언 리스트</a></b></li><br>
 	<li><b><a href="#4thpage">자유 게시판</a></b></li><br>
 </ul>
 
@@ -211,217 +209,139 @@
 	
 	</div>
 	
-	<div class="section">
-	
-	
-	
-	</div>
-	
-	
-	
-	
 
-	<div class="section">헤헤헤헤헤</div>
-	
-	<div class="section">
-<div id="board2">
-	<img src="/PK_LOL_Sim_Site/resources/images/kda.jpg" width="2000px" height="1200px">
-
-	<div id="board">
-	
-		<div id="board_table">
-			
-			<table id="btable">
-				<tr>
-					<td width="150" height="80">
-					
-					</td>
-					
-					<td width="150" height="80">
-					
-					</td>
-					
-					<td width="150" height="80">
-					
-					</td>
-					
-					<td width="150" height="80">
-					
-					</td>
+	<div class="section" style="background-color:black;">
+		<div id="gameinfo">
 				
-				</tr>
-			
-			
-				<tr>
-					<td>
-					<a href="./board/list.hm">게시판 리스트로 가기</a><br>
-					<font style="font-size: 11px; color: black;">자유롭게 의견을 나누세요.</font>
-					</td>
-					
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-				
-				</tr>
-				
-				<tr>
-					<td>
-					 
-					</td>
-					
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-				
-				</tr>
-				
-				<tr>
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-				
-				</tr>
-				
-				<tr>
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-					
-					<td>
-					
-					</td>
-				
-				</tr>
-			
-			
-			
-			</table>
-		
-		
 		</div>
-				
-			<%-- <table id="customers">
-			
-						 <caption>소환사 광장</caption>
-			        <colgroup>
-			        	<col style="width:13%">
-			            <col style="width:*%">
-			            <col style="width:13%">
-			            <col style="width:10%">
-			           
-			        </colgroup>
-			        <thead>
-			        <tr>
-			            <th scope="col">게시번호</th>
-			            <th scope="col" class="first" >제목</th>
-			            <th scope="col">작성자</th>
-			            <th scope="col">작성일</th>
-			        </tr>
-			        </thead>
-			        <tbody>
-			
-				<c:forEach var="boardVo" items="${boardList}">
-					<thead>
-			        <tr>
-			        	<th scope="col">${boardVo.board_Number}</th>
-			            <th scope="col" class="first" ><a href="#" onclick="goBoardInfo(${boardVo.board_Number});">${boardVo.title}
-			             <c:if test="${boardVo.commet_Num>=1}">
-			           	[${boardVo.commet_Num}]
-			            </c:if></a></th>
-			            <th scope="col">${boardVo.member_id}</th>  
-			            <th scope="col">작성일</th>
-			        </tr>
-			        </thead>
-				</c:forEach>
-				
-				
-				
-		</table>
-				<form action="./board/info.hm" id="infoForm" method="post">
-				<input type="text" id="boardNum" name="boardNum" value="${boardVo.board_Number}">
-				</form>
-		
-			 
-			<div id="pageBox">
-				
-				
-					
-					
-					<c:forEach var="num" begin="${page.blockStartPage}" end="${page.blockEndPage}">
-
-								<a href="#" onclick="goPage(${num}, '${scTextObj}');">
-									<c:out value="${num}"/>
-								</a>
-							
-						
-					</c:forEach>
-					
-					
-				
-				
-				<form action="./board/list.hm" id="pagingForm" method="post">
-				<input type="hidden" id="nowPage" name="nowPage" value="${page.nowPage}">
-				<input type="hidden" id="scText2" name="scText2" value="${scText}">
-				</form>
-				
-				<div id="suDiv">
-				<div id="suDiv2">
-				
-				<form action="./board/list.hm" method="get">
-					<select name="key">
-						<option value="title">제목</option>  <!-- 글쓴이 -->
-						<option value="content">내용</option>  <!-- 내용 -->
-						<option value="mno">회원번호</option>  <!-- 번호 -->
-					</select>
-						
-						<input type="text" id="scText" name="scText" value="${scText}" > 
-						<input type="submit" value="검색하기"> 
-						
-				</form>
-				
-				</div>
-				</div>
-				
-		
-				
-			</div> --%>
 	</div>
+	
+	<div class="section">
+		<div class="3rdSectionImage" style="width: 1920px; height: 930px; background-color: black;">
+			<a href="/PK_LOL_Sim_Site/champ/champList.hm" id="champListImg" 
+			style="width: 1920px; height: 930px;">
+				<img alt="hexagonChampList" src="./resources/images/hexagonChampList.jpg" 
+				style="width: 1000px; height: 500px; position: absolute; top: 22%; left: 25%;">
+			</a>
+		</div>
+	</div>
+
+
+	<div class="section"  style="background-color:black;" >
+	<div id="board2">
+		
+	
+		<div id="board">
+		
+			<div id="board_table">
+				
+				<table id="btable">
+					<tr>
+						<td width="150" height="80">
+						
+						</td>
+						
+						<td width="150" height="80">
+						
+						</td>
+						
+						<td width="150" height="80">
+						
+						</td>
+						
+						<td width="150" height="80">
+						
+						</td>
+					
+					</tr>
+				
+				
+					<tr>
+						<td>
+						<a href="./board/list.hm">게시판 리스트로 가기</a><br>
+						<font style="font-size: 11px; color: black;">자유롭게 의견을 나누세요.</font>
+						</td>
+						
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+					
+					</tr>
+					
+					<tr>
+						<td>
+						 
+						</td>
+						
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+					
+					</tr>
+					
+					<tr>
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+					
+					</tr>
+					
+					<tr>
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+						
+						<td>
+						
+						</td>
+					
+					</tr>
+				
+				
+				
+				</table>
+			
+			
+			</div>
+					
+				
+		</div>
 	</div>
 			
 	</div>	

@@ -40,23 +40,11 @@ public class ChampDaoImplement implements ChampDao{
 
 		return sqlSession.selectOne(namespace + "champPositionTotalCount", positionMap);
 	}
-	// 챔피언 리스트에 던져 줄 이미지 파일 리스트 가지고 오기
-	@Override
-	public List<Map<String, Object>> fileSelectList(int championNumber) {
-
-		return sqlSession.selectList(namespace + "fileSelectList", championNumber);
-	}
 	// 챔피언 등록
 	@Override
 	public int champCreate(ChampVo champVo) {
 
 		return sqlSession.insert(namespace + "champCreate", champVo);
-	}
-	// 챔피언 등록 시에 이미지 파일 등록
-		@Override
-	public void insertFile(Map<String, Object> map) {
-			
-		sqlSession.insert(namespace + "insertFile", map);
 	}
 	// 챔피언 하나 상세 보기
 	@Override
@@ -75,6 +63,18 @@ public class ChampDaoImplement implements ChampDao{
 	public int champDelete(int championNumber) {
 
 		return sqlSession.delete(namespace + "champDelete", championNumber);
+	}
+	// 챔피언 등록 시에 이미지 파일 등록
+	@Override
+	public void insertFile(Map<String, Object> map) {
+			
+		sqlSession.insert(namespace + "insertFile", map);
+	}
+	// 챔피언 리스트에 던져 줄 이미지 파일 리스트 가지고 오기
+	@Override
+	public List<Map<String, Object>> fileSelectList(int championNumber) {
+
+		return sqlSession.selectList(namespace + "fileSelectList", championNumber);
 	}
 	// 챔피언 삭제 때 이미지 파일 같이 삭제
 	@Override

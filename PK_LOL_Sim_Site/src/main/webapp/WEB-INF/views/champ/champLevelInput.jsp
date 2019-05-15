@@ -5,9 +5,13 @@
 <html>
 
 <head>
-<title>innerHTML Test Page</title>
+<title>챔피언 레벨별 정보 입력</title>
 
 <script type="text/javascript">
+		function goToBackFnc() {
+			var url = "/PK_LOL_Sim_Site/champ/champList.hm";
+			location.href = url;
+		}
 		function createTableFnc() {
 			
 			var level = parseInt(document.getElementById('championLevel').value);
@@ -48,6 +52,91 @@
 				document.getElementById('statusTable').innerHTML = htmlStr;	
 			}
 		}
+		function hpGrowthCheck(hpGrowth) {
+			if (hpGrowth == "" || hpGrowth == undefined) {
+				document.getElementById("hpGrowthCheck").innerHTML = "hpGrowth를 입력해주세요.";
+				return false;
+			}
+			
+			if(isNaN(hpGrowth)){
+				document.getElementById("hpGrowthCheck").innerHTML = "숫자만 입력 가능합니다.";
+				document.getElementById("hpGrowth").select();
+				return false;
+			} else {
+				document.getElementById("hpGrowthCheck").innerHTML = "hpGrowth 체크 완료";
+			}
+		}
+		function mpGrowthCheck(mpGrowth) {
+			if (mpGrowth == "" || mpGrowth == undefined) {
+				document.getElementById("mpGrowthCheck").innerHTML = "mpGrowth를 입력해주세요.";
+				return false;
+			}
+			
+			if(isNaN(mpGrowth)){
+				document.getElementById("mpGrowthCheck").innerHTML = "숫자만 입력 가능합니다.";
+				document.getElementById("mpGrowth").select();
+				return false;
+			} else {
+				document.getElementById("mpGrowthCheck").innerHTML = "mpGrowth 체크 완료";
+			}
+		}
+		function adGrowthCheck(adGrowth) {
+			if (adGrowth == "" || adGrowth == undefined) {
+				document.getElementById("adGrowthCheck").innerHTML = "adGrowth를 입력해주세요.";
+				return false;
+			}
+			
+			if(isNaN(adGrowth)){
+				document.getElementById("adGrowthCheck").innerHTML = "숫자만 입력 가능합니다.";
+				document.getElementById("adGrowth").select();
+				return false;
+			} else {
+				document.getElementById("adGrowthCheck").innerHTML = "adGrowth 체크 완료";
+			}
+		}
+		function apGrowthCheck(apGrowth) {
+			if (apGrowth == "" || apGrowth == undefined) {
+				document.getElementById("apGrowthCheck").innerHTML = "apGrowth를 입력해주세요.";
+				return false;
+			}
+			
+			if(isNaN(apGrowth)){
+				document.getElementById("apGrowthCheck").innerHTML = "숫자만 입력 가능합니다.";
+				document.getElementById("apGrowth").select();
+				return false;
+			} else {
+				document.getElementById("apGrowthCheck").innerHTML = "apGrowth 체크 완료";
+			}
+		}
+		function fileCheck(file) {
+			if (file == null) {
+				document.getElementById("fileCheck").innerHTML = "파일을 선택해주세요.";
+				return false;
+			} else if(file != null) {
+				document.getElementById("fileCheck").innerHTML = "파일 체크 완료";
+			}
+			
+		}
+		
+		function validationCheckFnc() {
+			
+			var hpHTML = document.getElementById("hpGrowthCheck").innerHTML;
+			var mpHTML = document.getElementById("mpGrowthCheck").innerHTML;
+			var adHTML = document.getElementById("adGrowthCheck").innerHTML;
+			var apHTML = document.getElementById("apGrowthCheck").innerHTML;
+			var fileHTML = document.getElementById("fileCheck").innerHTML;
+			
+			var hpComplete = "hp 체크 완료";
+			var mpComplete = "mp 체크 완료";
+			var adComplete = "ad 체크 완료";
+			var apComplete = "ap 체크 완료";
+			var fileComplete = "file 체크 완료";
+			
+			if (hpHTML == hpComplete && mpHTML == mpComplete && adHTML == adComplete
+				&& apHTML == apComplete && fileHTML == fileComplete) {
+				document.getElementById("champCreate").submit();
+			}
+		}
 	</script>
 <style type="text/css">
 	body {
@@ -61,6 +150,51 @@
 		font-family: sans-serif;
 		opacity: 0.8;
 	}
+	#menu li {
+		display:inline-block;
+		width: 150px;
+	}
+  	#menu li a {
+  		text-decoration:none; 
+  		color: #EDBB6A;  
+  		padding: 41px 20px; 
+  		display:block;
+  	}
+   	#menu{
+      position:fixed; 
+      z-index: 500;
+      top:0; 
+      left:0; 
+      width: 200px; 
+      height: 100%;
+      padding: 0; 
+      margin: 0 auto;
+      background-image:url(/PK_LOL_Sim_Site/resources/images/l_menu_img.png); 
+      text-align: center; 
+      overflow: hidden;      
+   	}
+   	#menu li:hover {
+   		background: rgba(255,255,255, 0.2);
+   	}
+   	#menu>.act {
+   		background:rgba(255,255,255, 0.1);
+   	}
+   	#menu>.act>a:hover {
+   		color:black;
+   	}
+   	#menu>.act>a {
+   		color:white;
+   	}
+    #logo{
+      position:fixed; 
+      z-index: 550;
+      top:15px; 
+      left:15px; 
+      width: 220px; 
+      height: 200px;
+      padding: 0; 
+      margin: 0 auto;
+   	}
 	ul li {
 		list-style: none;
 	}
@@ -154,10 +288,33 @@
 		border-radius: 24px;
 		transition: 0.25s; 
 	}
+	.validateResult {
+		height: 30px;
+		width: 225px;
+		color: #AAFFA3;
+	}
 </style>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
+
+<div id="logo">
+   		<a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage"><img src="/PK_LOL_Sim_Site/resources/images/logo.png" width="80%"></a><br>
+   	</div>
+
+	<div>
+		<ul id="menu">
+		   <br><br><br><br><br><br><br><br><br><br>
+		   <li id=first_m><b><a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage">HOME</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#secondPage">11111</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#3rdPage">챔피언 리스트</a></b></li><br>
+		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#4thpage">자유 게시판</a></b></li><br>
+		</ul>
+</div>
+
 <div id="container">
+
 	<div id="controlBox">
 		<form id="champCreate" action="champCreateCtr.hm" method="post"
 		enctype="multipart/form-data">
@@ -204,19 +361,31 @@
 				</li>
 				<li>
 					<input type="text" class="status" id="hpGrowth" name="hpGrowth" 
-					placeholder="hp 성장치를 입력해주세요">
+					placeholder="hp 성장치를 입력해주세요" onblur="hpGrowthCheck(this.value);">
+				</li>
+				<li>
+					<span class="validateResult" id="hpGrowthCheck"></span>
 				</li>
 				<li>
 					<input type="text" class="status" id="mpGrowth" name="mpGrowth" 
-					placeholder="mp 성장치를 입력해주세요">
+					placeholder="mp 성장치를 입력해주세요" onblur="mpGrowthCheck(this.value);">
+				</li>
+				<li>
+					<span class="validateResult" id="mpGrowthCheck"></span>
 				</li>
 				<li>
 					<input type="text" class="status" id="adGrowth" name="adGrowth" 
-					placeholder="ad 성장치를 입력해주세요">
+					placeholder="ad 성장치를 입력해주세요" onblur="adGrowthCheck(this.value);">
+				</li>
+				<li>
+					<span class="validateResult" id="adGrowthCheck"></span>
 				</li>
 				<li>
 					<input type="text" class="status" id="apGrowth" name="apGrowth" 
-					placeholder="ap 성장치를 입력해주세요">
+					placeholder="ap 성장치를 입력해주세요" onblur="apGrowthCheck(this.value);">
+				</li>
+				<li>
+					<span class="validateResult" id="apGrowthCheck"></span>
 				</li>
 				<li>
 					<input type="button" class="inputButton" value="반영" 
@@ -229,8 +398,16 @@
 					<input type="submit" class="inputButton" value="저장">
 				</li>
 				<li>
+					<input type="button" class="inputButton" value="리스트로"
+					onclick="goToBackFnc();">
+				</li>
+				<li>
 					<input class="longwidth" type="file" name="original_file_name" 
-					placeholder="챔피언의 이미지를 올려주세요">
+					placeholder="챔피언의 이미지를 올려주세요" id="file" 
+					onblur="fileCheck(this.value);">
+				</li>
+				<li>
+					<span class="validateResult" id="fileCheck"></span>
 				</li>
 			</ul>
 		</form>
@@ -260,5 +437,7 @@
 		</table>
 	</div>
 </div>	
+
+<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>

@@ -54,6 +54,7 @@
         WHERE MEMBER_NUMBER = #{memberNumber}
     </delete>
     
+
     <select id="memberInfo2" parameterType="int"
         resultMap="memberResultMap">
         SELECT MEMBER_NUMBER, MEMBER_ID, EMAIL, AUTHORITY, CREATE_DATE, MODIFIED_DATE
@@ -61,4 +62,18 @@
         WHERE MEMBER_NUMBER = #{memberNumber}
     </select>
 
+    <select id="findId" parameterType="String"
+    resultType="string">
+    	SELECT MEMBER_ID
+    	FROM MEMBERS
+    	WHERE EMAIL = #{value}
+    </select>
+    
+    <select id="findPassword" parameterType="map"
+    resultType="string">
+    	SELECT PASSWORD
+    	FROM MEMBERS
+    	WHERE MEMBER_ID = #{id} AND EMAIL = #{email}
+
+    </select>
 </mapper>

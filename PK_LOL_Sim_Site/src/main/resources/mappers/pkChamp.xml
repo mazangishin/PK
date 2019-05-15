@@ -31,10 +31,10 @@
 
 	<select id="champList" parameterType="map"
         resultMap="champResultMap">
-        SELECT CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, POSITION,
+        SELECT RNUM, CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, POSITION,
         HP, MP, AD, AP
 	        FROM (
-	        SELECT ROWNUM, C.CHAMPION_NUMBER, C.CHAMPION_NAME, C.CHAMPION_NICK,
+	        SELECT ROWNUM AS RNUM, C.CHAMPION_NUMBER, C.CHAMPION_NAME, C.CHAMPION_NICK,
         		C.POSITION, C.HP, C.MP, C.AD, C.AP
         		FROM (
 	        		SELECT CHAMPION_NUMBER, CHAMPION_NAME, CHAMPION_NICK, POSITION,
@@ -43,7 +43,7 @@
 	       			WHERE POSITION = #{position}
         			ORDER BY CHAMPION_NUMBER) C
         ) CHAMPION
-        WHERE ROWNUM BETWEEN #{start} AND #{end}
+        WHERE RNUM BETWEEN #{start} AND #{end}
     </select>
 
     <select id="champPositionTotalCount" parameterType="map"
@@ -68,17 +68,16 @@
         WHERE CHAMPION_NUMBER = #{championNumber}
     </select>
 
-    <update id="champUpdate" parameterType="map">
+    <update id="champUpdateOne" parameterType="com.pk.ls.champ.vo.ChampVo">
 		UPDATE CHAMPION
-		<set>
-			<if test="championName != ''">CHAMPION_NAME = #{CHAMPION_NAME},</if>
-			<if test="championNick != ''">CHAMPION_NICK = #{championNick},</if>
-			<if test="position != ''">POSITION = #{position},</if>
-			<if test="hp != ''">HP = #{hp},</if>
-			<if test="mp != ''">MP = #{mp},</if>
-			<if test="ad != ''">AD = #{ad},</if>
-			<if test="ap != ''">AP = #{ap},</if>
-		</set>
+		SET
+			CHAMPION_NAME = #{championName},
+			CHAMPION_NICK = #{championNick},
+			POSITION = #{position},
+			HP = #{hp},
+			MP = #{mp},
+			AD = #{ad},
+			AP = #{ap}
 		WHERE CHAMPION_NUMBER = #{championNumber}
 	</update>
 
@@ -98,8 +97,7 @@
 	
 	<select id="fileSelectList" parameterType="int"
 		resultType="map">
-		SELECT FILE_INDEX, ORIGINAL_FILE_NAME, STORED_FILE_NAME, 
-			ROUND(FILE_SIZE/1024, 1) AS FILE_SIZE
+		SELECT FILE_INDEX, ORIGINAL_FILE_NAME, STORED_FILE_NAME, FILE_SIZE
 		FROM CHAMPION_FILE
         WHERE CHAMPION_NUMBER = #{championNumber}
         ORDER BY CHAMPION_NUMBER

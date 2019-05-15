@@ -18,7 +18,7 @@
 
 	
 	
-	#menu li 		{display:inline-block;}
+	#menu li 		{display:inline-block; width: 150px;}
 	#menu li a		{text-decoration:none; color: #EDBB6A;  padding: 41px 20px; display:block;}
 	#menu{
 		position:fixed; z-index: 500;
@@ -168,7 +168,8 @@
 	 background-repeat: no-repeat;
      background-image:url(/PK_LOL_Sim_Site/resources/images/board_imgggggg.png);
      color:white;
-  	 background-image: green;
+  	
+  	 overflow: hidden;
 	}	
 	
 	#board2{
@@ -177,7 +178,27 @@
     	 left: 0%;
     	 width: 100%;
      	 height: 100%;
+     	 overflow: hidden;
 	}	
+	
+	
+	#gameinfo{
+		position: absolute;
+     top: 1%;
+     left: 25%;
+     width: 75%;
+     height: 90%;
+   
+     z-index: 10;
+     overflow:scroll;
+	 overflow-x:hidden; 
+	 background-repeat: no-repeat;
+     background-image:url(/PK_LOL_Sim_Site/resources/images/game_info_img.png);
+     color:white;
+  	
+  	 overflow: hidden;
+     	
+	}
 	
 		
 	#customers{
@@ -196,10 +217,25 @@
 	top: 90%;
 	}
 	
+	
+	
 	#first{
 	margin:0 0 29px 0;padding:0 10px;font-size:16px;line-height:20px;}
 	{
-	
+
+
+	.dust {
+	  position: absolute;
+	}
+
+	.3rdSectionImage {
+		position : absolute;
+		width: 100%;
+		height: 100%;
+		top: 0%;
+		left: 0%;
+	}
+
 	
 </style>
 

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +17,14 @@ import com.pk.ls.util.FileUtils;
 
 @Service
 public class ChampLevelServiceImplment implements ChampLevelService{
+	private static final Logger log = LoggerFactory.getLogger(ChampLevelServiceImplment.class);
 
 	@Autowired
 	ChampLevelDao champLevelDao;
 	
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
+	
 	
 	@Override
 	public ChampLevelVo champLevelSelectOne(Map<String, Object> map) {
@@ -53,10 +57,34 @@ public class ChampLevelServiceImplment implements ChampLevelService{
 		}
 	}
 
+	@Transactional
 	@Override
 	public int champLevelUpdate(ChampLevelVo champLevelVo) {
-
-		return champLevelDao.champLevelUpdate(champLevelVo);
+		
+		int resultCount = 0;
+		champLevelDao.champLevelUpdate(champLevelVo);
+		
+		log.debug("챔피언 정보 {}", champLevelVo);
+		
+		for (int i = 2; i <= 18; i++) {
+			champLevelVo.setChampionLevel(i);
+			champLevelVo.setHp(champLevelVo.getHp() + champLevelVo.getHpGrowth());
+			champLevelVo.setMp(champLevelVo.getMp() + champLevelVo.getMpGrowth());
+			champLevelVo.setAd(champLevelVo.getAd() + champLevelVo.getAdGrowth());
+			champLevelVo.setAp(champLevelVo.getAp() + champLevelVo.getApGrowth());
+		
+			champLevelDao.champLevelUpdate(champLevelVo);
+			resultCount = i;
+		}
+		
+		return resultCount;
 	}
+
+	@Override
+	public int champLevelDelete(int championNumber) {
+
+		return champLevelDao.champLevelDelete(championNumber);
+	}
+	
 
 }

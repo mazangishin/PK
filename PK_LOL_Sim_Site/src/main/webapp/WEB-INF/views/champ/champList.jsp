@@ -14,14 +14,71 @@
 			
 		location.href = url;		
 	}
+	function backToMainFnc() {
+		var url = "/PK_LOL_Sim_Site/mainPage.hm";
+		
+		location.href = url;
+	}
+	function goPage(pageNumber) {
+		var curPage = document.getElementById("curPage");
+		curPage.value = pageNumber;
+
+		document.getElementById("pagingForm").submit();
+	}
 </script>
 <style type="text/css">
 	body {
 		background-color: black;
 	}
+	#menu li {
+		display:inline-block;
+		width: 150px;
+	}
+  	#menu li a {
+  		text-decoration:none; 
+  		color: #EDBB6A;  
+  		padding: 41px 20px; 
+  		display:block;
+  	}
+   	#menu{
+      position:fixed; 
+      z-index: 500;
+      top:0; 
+      left:0; 
+      width: 200px; 
+      height: 100%;
+      padding: 0; 
+      margin: 0 auto;
+      background-image:url(/PK_LOL_Sim_Site/resources/images/l_menu_img.png); 
+      text-align: center; 
+      overflow: hidden;      
+   	}
+   	#menu li:hover {
+   		background: rgba(255,255,255, 0.2);
+   	}
+   	#menu>.act {
+   		background:rgba(255,255,255, 0.1);
+   	}
+   	#menu>.act>a:hover {
+   		color:black;
+   	}
+   	#menu>.act>a {
+   		color:white;
+   	}
+    #logo{
+      position:fixed; 
+      z-index: 550;
+      top:15px; 
+      left:15px; 
+      width: 220px; 
+      height: 200px;
+      padding: 0; 
+      margin: 0 auto;
+   	}
 	#container {
-		margin: auto;
-		vertical-align: middle;
+		position: fixed;
+		top: 10%;
+		left: 20%;
 		width: 1100px;
 		height: 700px;
 		padding: 10px;
@@ -105,7 +162,14 @@
 	.paging:hover {
 		background-color: #F5D6FF;
 	}
-	.clear { clear: both }
+	#outerBox {
+		position: fixed;
+		top: 83%;
+		left: 20%;
+		width: 1100px;
+		height: 700px;
+		padding: 10px;
+	}
 	.adminButton {
 		border: 2px solid #B778FF;
 		background: none;
@@ -128,8 +192,23 @@
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/views/PageHeader.jsp" />
 
 <div id="container">
+
+	<div id="logo">
+	   		<a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage"><img src="/PK_LOL_Sim_Site/resources/images/logo.png" width="80%"></a><br>
+	   	</div>
+	
+		<div>
+			<ul id="menu">
+			   <br><br><br><br><br><br><br><br><br><br>
+			   <li id=first_m><b><a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage">HOME</a></b></li><br>
+			   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#secondPage">11111</a></b></li><br>
+			   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#3rdPage">챔피언 리스트</a></b></li><br>
+			   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#4thpage">자유 게시판</a></b></li><br>
+			</ul>
+	</div>
 
 	<div id="positionBox">
 	
@@ -171,41 +250,51 @@
 	</div>
 	
 	<div class="paging">
-			<a href="#" onclick="goPage(${pagingMap.champPaging.prevPage});">
-				<img alt="앞으로" src="../resources/images/arrowToLeft.png"
-				width="70" height="300">
-			</a>
+		<a href="#" onclick="goPage(${pagingMap.champPaging.prevPage});">
+			<img alt="뒤로" src="../resources/images/arrowToLeft.png"
+			width="70" height="300">
+		</a>
+		
 	</div>
 	
 	<div id="championBox">
-		<c:forEach var="flieList" items="${champList}" varStatus="status">
+		<c:forEach var="champList" items="${champList}" varStatus="status">
 			<div class="championArt">
 				<a href="/PK_LOL_Sim_Site/champ/champDetailView.hm?championNumber=
-				${champList[flieList.championNumber].championNumber}">
-					<img src="<c:url value='/images/${flieList.STORED_FILE_NAME}'/>"
+				${champList.championNumber}">
+					<img src="<c:url value='/images/${champList.STORED_FILE_NAME}'/>"
 					width=300px; height=300px;/>
 				</a>
 			</div>
 		</c:forEach>
+		<form action="./champList.hm" id="pagingForm" method="get">
+			<input type="hidden" id="curPage" name="curPage" 
+				value="${pagingMap.champPaging.curPage}">
+		</form>
 	</div>
 	
 	<div class="paging">
-			<a href="#" onclick="goPage(${pagingMap.champPaging.nextPage});">
-				<img alt="뒤로" src="../resources/images/arrowToRight.png" 
-				width="70" height="300" >
-			</a>
+		<a href="#" onclick="goPage(${pagingMap.champPaging.nextPage});">
+			<img alt="앞으로" src="../resources/images/arrowToRight.png" 
+			width="70" height="300" >
+		</a>
 	</div>
 </div>
 
 
-	<div>
-		<c:if test="${sessionScope.memberVo.authority eq 'Y'}">
+	<div id="outerBox">
+		<c:if test="${memberVo.authority eq 'Y'}">
 			<form>
 				<input type="button" value="챔피언 생성" class="adminButton" 
 				onclick="champCreateFnc();">
 			</form>
 		</c:if>
+		<form>
+			<input type="button" value="돌아가기" class="adminButton"
+			onclick="backToMainFnc();">
+		</form>
 	</div>
 
+<jsp:include page="/WEB-INF/views/Tail.jsp" />
 </body>
 </html>

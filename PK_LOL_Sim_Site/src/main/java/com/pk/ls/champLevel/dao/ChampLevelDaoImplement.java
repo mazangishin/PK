@@ -19,30 +19,27 @@ public class ChampLevelDaoImplement implements ChampLevelDao{
 
 	@Override
 	public ChampLevelVo champLevelSelectOne(Map<String, Object> keyWordmap) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + "champLevelSelectOne", keyWordmap);
 	}
 
 	@Override
 	public List<Map<String, Object>> champLevelSelectList(int championNumber) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + "champLevelSelectList", championNumber);
 	}
 	
 	@Override
 	public int champLevelCreate(ChampLevelVo champLevelVo) {
-		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace + "champLevelCreate", champLevelVo);
 	}
 
 	@Override
 	public int champLevelUpdate(ChampLevelVo champLevelVo) {
-		// TODO Auto-generated method stub
 		return sqlSession.update(namespace + "champLevelUpdate", champLevelVo);
 	}
 
-	
-	
-	
-	
+	@Override
+	public int champLevelDelete(int championNumber) {
+		return sqlSession.delete(namespace + "champLevelDelete", championNumber);
+	}
+
 }

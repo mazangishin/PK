@@ -15,5 +15,7 @@ public interface MemberService {
 	public MemberVo memberInfo2(int memberNumber);
 	public int memberUpdate(MemberVo memberVo);
 	public int memberDelete(int memberNumber);
+	public String findMemberId(String email);
+	public String findMemberPassword(String email, String id);
 
 }

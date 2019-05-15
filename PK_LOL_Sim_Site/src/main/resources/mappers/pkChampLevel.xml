@@ -32,6 +32,7 @@
         HPGROWTH, MPGROWTH, ADGROWTH, APGROWTH
         FROM CHAMPION_PER_LEVEL
         WHERE CHAMPION_NUMBER = #{championNumber}
+        ORDER BY ROW_NUMBER
     </select>
 
     <select id="champLevelSelectOne" parameterType="map"
@@ -39,23 +40,28 @@
         SELECT ROW_NUMBER, CHAMPION_NUMBER, CHAMPION_LEVEL, HP, MP, AD, AP, 
         HPGROWTH, MPGROWTH, ADGROWTH, APGROWTH
         FROM CHAMPION_PER_LEVEL
-        WHERE CHAPION_NUMBER = #{championNumber}
+        WHERE CHAMPION_NUMBER = #{championNumber}
         AND CHAMPION_LEVEL = #{championLevel}
     </select>
 
-    <update id="champLevelUpdate" parameterType="map">
+    <update id="champLevelUpdate" parameterType="com.pk.ls.champLevel.vo.ChampLevelVo">
 		UPDATE CHAMPION_PER_LEVEL
-		<set>
-			<if test="hp != ''">HP = #{hp},</if>
-			<if test="mp != ''">MP = #{mp},</if>
-			<if test="ad != ''">AD = #{ad},</if>
-			<if test="ap != ''">AP = #{ap},</if>
-			<if test="hpGrowth != ''">HPGROWTH = #{hpGrowth},</if>
-			<if test="mpGrowth != ''">MPGROWTH = #{mpGrowth},</if>
-			<if test="adGrowth != ''">ADGROWTH = #{adGrowth},</if>
-			<if test="adGrowth != ''">APGROWTH = #{adGrowth},</if>
-		</set>
+		SET
+			HP = #{hp},
+			MP = #{mp},
+			AD = #{ad},
+			AP = #{ap},
+			HPGROWTH = #{hpGrowth},
+			MPGROWTH = #{mpGrowth},
+			ADGROWTH = #{adGrowth},
+			APGROWTH = #{adGrowth}
 		WHERE CHAMPION_NUMBER = #{championNumber}
+		AND CHAMPION_LEVEL = #{championLevel}
 	</update>
+	
+	<delete id="champLevelDelete" parameterType="int">
+		DELETE FROM CHAMPION_PER_LEVEL
+		WHERE CHAMPION_NUMBER = #{championLevel} 
+	</delete>
    
 </mapper>
