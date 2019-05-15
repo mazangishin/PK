@@ -162,15 +162,10 @@ public class MemberController {
 				// 세션의 값과 새로운 값이 일치하는지 여부
 				if(sessionMemberVo.getMemberNumber() 
 						== memberVo.getMemberNumber()) {
-					MemberVo newMemberVo = new MemberVo();
-					
-					sessionMemberVo.setMemberNumber(memberVo.getMemberNumber());
-					sessionMemberVo.setEmail(memberVo.getEmail());
-					sessionMemberVo.setMemberId(memberVo.getMemberId());
 								
 					httpSession.removeAttribute("memberVo");
 					
-					httpSession.setAttribute("memberVo", newMemberVo);
+					httpSession.setAttribute("memberVo", memberVo);
 				}
 			}
 		}

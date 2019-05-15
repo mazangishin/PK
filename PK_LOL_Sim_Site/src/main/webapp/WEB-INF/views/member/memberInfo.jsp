@@ -96,21 +96,21 @@
 					value='${memberVo.memberNumber}'/>
 				</div>
 				<div>
-					<span>ID:</span> 
+					<span>ID</span> 
 				</div>
 				<div>
 					<input type="text" name='id' readonly="readonly" class="inputArea"
 						id='memberId' value='${memberVo.memberId}'/>
 				</div>
 				<div>
-					<span>이메일:</span> 
+					<span>이메일</span> 
 				</div>
 				<div>
-					<input type="text" name="eMail" class="inputArea"
-						value='${memberVo.email}'/>
+					<input type="text" name="eMail" readonly="readonly"
+						class="inputArea" value='${memberVo.email}'/>
 				</div>
 				<div>
-					<span>가입일:</span>
+					<span>가입일</span>
 				</div>
 				<div>
 					<input type="text" name="createDate" class="inputArea"
@@ -118,7 +118,7 @@
 					 readonly="readonly"/>
 				</div>
 				<div>
-					<span>최종수정일:</span>
+					<span>최종수정일</span>
 				</div>
 				<div>
 					<input type="text" name="createDate" class="inputArea"
