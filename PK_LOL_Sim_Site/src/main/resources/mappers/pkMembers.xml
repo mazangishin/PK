@@ -53,5 +53,19 @@
         DELETE FROM MEMBERS
         WHERE MEMBER_NUMBER = #{memberNumber}
     </delete>
+    
+    <select id="findId" parameterType="String"
+    resultType="string">
+    	SELECT MEMBER_ID
+    	FROM MEMBERS
+    	WHERE EMAIL = #{value}
+    </select>
+    
+    <select id="findPassword" parameterType="map"
+    resultType="string">
+    	SELECT PASSWORD
+    	FROM MEMBERS
+    	WHERE MEMBER_ID = #{id} AND EMAIL = #{email}
+    </select>
 
 </mapper>

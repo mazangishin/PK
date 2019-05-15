@@ -110,20 +110,6 @@
 
 	<div id="container">
 	
-		<div id="logo">
-   			<a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage"><img src="/PK_LOL_Sim_Site/resources/images/logo.png" width="80%"></a><br>
-	   	</div>
-	
-		<div>
-			<ul id="menu">
-			   <br><br><br><br><br><br><br><br><br><br>
-			   <li id=first_m><b><a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage">HOME</a></b></li><br>
-			   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#secondPage">11111</a></b></li><br>
-			   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#3rdPage">챔피언 리스트</a></b></li><br>
-			   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#4thpage">자유 게시판</a></b></li><br>
-			</ul>
-		</div>
-	
 		<div id="textArea">
 			<h1>
 				다음 작업을 선택해주십시오.

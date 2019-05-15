@@ -20,9 +20,7 @@
 		location.href = url;
 	}
 	function goPage(pageNumber) {
-// 		var curPage = $("#curPage");
 		var curPage = document.getElementById("curPage");
-// 		curPage.val(pageNumber);
 		curPage.value = pageNumber;
 
 		document.getElementById("pagingForm").submit();
@@ -34,6 +32,7 @@
 	}
 	#menu li {
 		display:inline-block;
+		width: 150px;
 	}
   	#menu li a {
   		text-decoration:none; 

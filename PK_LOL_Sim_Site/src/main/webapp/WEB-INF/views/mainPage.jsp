@@ -214,9 +214,11 @@
 	
 	<div class="section">11111</div>
 	<div class="section">
-		<div class="3rdSectionImage">
-			<a href="/PK_LOL_Sim_Site/champ/champList.hm" id="startThanos">
-				<img alt="hexagonChampList" src="./resources/images/hexagonChampList.jpg">
+		<div class="3rdSectionImage" style="width: 1920px; height: 930px;">
+			<a href="/PK_LOL_Sim_Site/champ/champList.hm" id="champListImg" 
+			style="width: 1920px; height: 930px;">
+				<img alt="hexagonChampList" src="./resources/images/hexagonChampList.jpg" 
+				style="width: 1920px; height: 930px;">
 			</a>
 		</div>
 	</div>

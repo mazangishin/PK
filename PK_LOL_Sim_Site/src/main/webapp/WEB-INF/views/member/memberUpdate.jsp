@@ -10,6 +10,51 @@
 	function backToPrePageFnc() {
 		location.href = "/PK_LOL_Sim_Site/member/memberInfo.hm";		
 	}
+	function passwordCheck(password) {
+		var validate = /^[a-zA-Z0-9]{4,12}$/;
+		
+		if (password == "" || password == undefined) {
+			document.getElementById("pwdcheck").innerHTML = "비밀번호를 입력해주세요.";
+		}
+		
+		if (!validate.test(password)) {
+			document.getElementById("pwdcheck").innerHTML = "비밀번호는 4글자 이상 12글자 이하여야 합니다.";
+			document.getElementById("password").select();
+		    return false;
+		} else {
+			document.getElementById("pwdcheck").innerHTML = "비밀번호 체크 완료";
+		} 
+	}
+	function emailCheck(email) {
+		var validateEmail 
+		=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+			    
+		if (email == '' || email == 'undefined') {
+	    	document.getElementById("emailCheck").innerHTML = "email을 입력해주세요.";
+	    	return false;
+	    }
+
+		if(!validateEmail.test(email)) {
+			document.getElementById("emailCheck").innerHTML = "올바른 email 형식이 아닙니다.";
+			document.getElementById("email").select();
+		    return false;
+		}
+		else {
+			document.getElementById("emailCheck").innerHTML = "올바른 email 형식";
+		}
+	}
+	function validationCheckFnc() {
+		
+		var passwordHTML = document.getElementById("pwdcheck").innerHTML;
+		var emailHTML = document.getElementById("emailCheck").innerHTML;
+		
+		var passwordcomplete = "비밀번호 체크 완료";
+		var emailcomplete = "올바른 email 형식";
+		
+		if (passwordHTML == passwordcomplete && emailHTML == emailcomplete) {
+			document.getElementById("update").submit();
+		}
+	}
 </script>
 <style type="text/css">
 	body {
@@ -37,6 +82,9 @@
 	}
 	#title {
 		color: #F7EA6E;
+	}
+	.validateResult {
+		color: #AAFFA3;
 	}
 	.inputArea {
 		border: 2px solid #F7EA6E;
@@ -84,34 +132,40 @@
 			<h1>회원 정보</h1>
 		</div>
 		<div>
-			<form action="memberUpdateCtr.hm" method="post">
+			<form id="update" action="memberUpdateCtr.hm" method="post">
 				<div>
 					<input type="hidden" name="memberNumber" 
 					value="${memberVo.memberNumber}"/>
 				</div>
 				<div>
-					ID :
+					<span>ID</span>
 				</div>
 				<div>
 					<input type="text" name="memberId" class="inputArea"
 					value="${memberVo.memberId}" readonly="readonly">
 				</div>
 				<div>
-					비밀번호 :
+					<span>비밀번호</span>
 				</div>
 				<div>
 					<input type="text" name="password" class="inputArea"
-					value="${memberVo.password}">		
+					value="${memberVo.password}" onblur="passwordCheck(this.value)">		
+				</div>
+				<div>
+					<span class="validteResult" id="pwdcheck"></span>
 				</div>
 			 	<div>
-					E-메일 :
+					<span>E-메일</span>
 			 	</div>
 				<div>
 					<input type="text" name="email" class="inputArea"
-					value="${memberVo.email}">
+					value="${memberVo.email}" onblur="emailCheck(this.value)">
 				</div>
 				<div>
-					<span>가입일 :</span>
+					<span class="validteResult" id="emailCheck"></span>
+				</div>
+				<div>
+					<span>가입일</span>
 				</div>
 				<div>
 					<span class="inputArea">
@@ -119,7 +173,7 @@
 					 </span>
 				</div>
 				<div>
-					<span>최종수정일 :</span>
+					<span>최종수정일</span>
 				</div>
 				<div>
 					<span class="inputArea">
@@ -127,7 +181,8 @@
 					 </span>
 				</div>
 				<div>
-					<input type="submit" value="수정" class="inputButton">	
+					<input type="button" value="수정" class="inputButton"
+					onclick="validationCheckFnc();">	
 				</div>
 				<div>
 					<input type="button" value="돌아가기" class="inputButton"

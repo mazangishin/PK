@@ -206,5 +206,39 @@ public class MemberController {
 	public String memberTest(Model model) {
 		return "/memberTest";
 	}
+	
+	@RequestMapping(value = "/member/findAccount.hm", method = RequestMethod.GET)
+	public String memberFind(Model model) {
+		return "/member/findAccount";
+	}
+	
+	@RequestMapping(value = "/member/findId.hm", method=RequestMethod.POST)
+	public String findId(Model model, String email) {
+		
+		String memberId = memberService.findMemberId(email);
+		
+		model.addAttribute("memberId", memberId);
+		
+		return "/member/findResult";
+	}
+	
+	@RequestMapping(value = "/member/findPassword.hm", method=RequestMethod.POST)
+	public String findPassword(Model model, String email, String id) {
+		
+		String memberPassword = memberService.findMemberPassword(email, id);
+		
+		if (memberPassword != null) {
+			model.addAttribute("memberId", id);
+			model.addAttribute("memberPassword", memberPassword);
+		} else if (memberPassword == null) {
+			id = null;
+			memberPassword = null;
+			
+			model.addAttribute("memberId", id);
+			model.addAttribute("memberPassword", memberPassword);
+		}
+		
+		return "/member/findResult";
+	}
 
 }

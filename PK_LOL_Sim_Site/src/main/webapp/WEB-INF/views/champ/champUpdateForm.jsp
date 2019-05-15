@@ -52,7 +52,126 @@
 			var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 			location.href = url;
 		}
-	</script>
+		function nameCheck(name) {
+			var validate = /^[a-zA-Z0-9가-힣\s]{1,12}$/;
+			
+			if (name == "" || name == undefined) {
+				document.getElementById("nameCheck").innerHTML = "이름을 입력해주세요.";
+				return false;
+			}
+			
+			if (!validate.test(name)) {
+				document.getElementById("nameCheck").innerHTML = "이름은 1글자 이상 12글자 이하여야 합니다.";
+				document.getElementById("championName").select();
+			    return false;
+			} else {
+				document.getElementById("nameCheck").innerHTML = "이름 체크 완료";
+			}
+		}
+		function nicknameCheck(nickname) {
+			var validate = /^[a-zA-Z0-9가-힣\s]{1,12}$/;
+			
+			if (nickname == "" || nickname == undefined) {
+				document.getElementById("nicknameCheck").innerHTML = "별명을 입력해주세요.";
+				return false;
+			}
+			
+			if (!validate.test(nickname)) {
+				document.getElementById("nicknameCheck").innerHTML = "별명은 1글자 이상 12글자 이하여야 합니다.";
+				document.getElementById("championNick").select();
+			    return false;
+			} else {
+				document.getElementById("nicknameCheck").innerHTML = "별명 체크 완료";
+			}
+		}
+		function hpCheck(hp) {
+			if (hp == "" || hp == undefined) {
+				document.getElementById("hpCheck").innerHTML = "hp를 입력해주세요.";
+				return false;
+			}
+			
+			if(isNaN(hp)){
+				document.getElementById("hpCheck").innerHTML = "숫자만 입력 가능합니다.";
+				document.getElementById("hp").select();
+				return false;
+			} else {
+				document.getElementById("hpCheck").innerHTML = "hp 체크 완료";
+			}
+		}
+		function mpCheck(mp) {
+			if (mp == "" || mp == undefined) {
+				document.getElementById("mpCheck").innerHTML = "mp를 입력해주세요.";
+				return false;
+			}
+			
+			if(isNaN(mp)){
+				document.getElementById("mpCheck").innerHTML = "숫자만 입력 가능합니다.";
+				document.getElementById("mp").select();
+				return false;
+			} else {
+				document.getElementById("mpCheck").innerHTML = "mp 체크 완료";
+			}
+		}
+		function adCheck(ad) {
+			if (ad == "" || ad == undefined) {
+				document.getElementById("adCheck").innerHTML = "ad를 입력해주세요.";
+				return false;
+			}
+			
+			if(isNaN(ad)){
+				document.getElementById("adCheck").innerHTML = "숫자만 입력 가능합니다.";
+				document.getElementById("ad").select();
+				return false;
+			} else {
+				document.getElementById("adCheck").innerHTML = "ad 체크 완료";
+			}
+		}
+		function apCheck(ap) {
+			if (ap == "" || ap == undefined) {
+				document.getElementById("apCheck").innerHTML = "ap를 입력해주세요.";
+				return false;
+			}
+			
+			if(isNaN(ap)){
+				document.getElementById("apCheck").innerHTML = "숫자만 입력 가능합니다.";
+				document.getElementById("ap").select();
+				return false;
+			} else {
+				document.getElementById("apCheck").innerHTML = "ap 체크 완료";
+			}
+		}
+		function fileCheck(file) {
+			if (file == null || file == '선택된 파일 없음') {
+				document.getElementById("fileCheck").innerHTML = "파일을 선택해주세요.";
+				return false;
+			} else if(file != null) {
+				document.getElementById("fileCheck").innerHTML = "파일 체크 완료";
+			}
+		}
+		function validationCheckFnc() {
+			
+			var nameHTML = document.getElementById("nameCheck").innerHTML;
+			var nicknameHTML = document.getElementById("nicknamecheck").innerHTML;
+			var hpHTML = document.getElementById("hpCheck").innerHTML;
+			var mpHTML = document.getElementById("mpCheck").innerHTML;
+			var adHTML = document.getElementById("adCheck").innerHTML;
+			var apHTML = document.getElementById("apCheck").innerHTML;
+			var fileHTML = document.getElementById("fileCheck").innerHTML;
+			
+			var nameComplete = "이름 체크 완료";
+			var nicknameComplete = "별명 체크 완료";
+			var hpComplete = "hp 체크 완료";
+			var mpComplete = "mp 체크 완료";
+			var adComplete = "ad 체크 완료";
+			var apComplete = "ap 체크 완료";
+			var fileComplete = "file 체크 완료";
+			
+			if (idHTML == idcomplete && passwordHTML == passwordcomplete 
+					&& pwdCfHTML == pwdCfcomplete && emailHTML == emailcomplete) {
+				document.getElementById("champUpdate").submit();
+			}
+		}
+</script>
 <style type="text/css">
 	body {
 		background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
@@ -67,6 +186,7 @@
 	}
 	#menu li {
 		display:inline-block;
+		width: 150px;
 	}
   	#menu li a {
   		text-decoration:none; 
@@ -77,7 +197,7 @@
    	#menu{
       position:fixed; 
       z-index: 500;
-      top:0; 
+      top:1; 
       left:0; 
       width: 200px; 
       height: 100%;
@@ -215,15 +335,19 @@
 	ul li select option {
 		color: black;
 	}
+	.validateResult {
+		height: 30px;
+		width: 225px;
+		color: #AAFFA3;
+	}
 </style>
 </head>
 <body>
 
 <jsp:include page="/WEB-INF/views/PageHeader.jsp" />
 
-<div id="container">
-	
-	<div id="logo">
+<div>
+<div id="logo">
    		<a href="/PK_LOL_Sim_Site/mainPage.hm#firstPage"><img src="/PK_LOL_Sim_Site/resources/images/logo.png" width="80%"></a><br>
    	</div>
 
@@ -236,6 +360,9 @@
 		   <li><b><a href="/PK_LOL_Sim_Site/mainPage.hm#4thpage">자유 게시판</a></b></li><br>
 		</ul>
 	</div>
+</div>
+
+<div id="container">
 
 	<div id="before">
 		<div class="tableBox">
@@ -350,11 +477,19 @@
 					<!--입력부 -->
 					<li>
 						<input type="text" class="status" id="championName" 
-						name="championName" value="${champVo.championName}">
+						name="championName" value="${champVo.championName}"
+						onblur="nameCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="nameCheck"></span>
 					</li>
 					<li>
 						<input type="text" class="status" id="championNick" 
-						name="championNick" value="${champVo.championNick}">
+						name="championNick" value="${champVo.championNick}"
+						onblur="nicknameCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="nicknameCheck"></span>
 					</li>
 					<li>
 						<select id="positionOption" class="status" name="position"
@@ -369,22 +504,34 @@
 					<li>
 						<span>HP</span>
 						<input type="text" class="status" id="hp" name="hp" 
-						value="${champVo.hp}">
+						value="${champVo.hp}" onblur="hpCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="hpCheck"></span>
 					</li>
 					<li>
 						<span>MP</span>
 						<input type="text" class="status" id="mp" name="mp" 
-						value="${champVo.mp}">
+						value="${champVo.mp}" onblur="mpCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="mpCheck"></span>
 					</li>
 					<li>
 						<span>AD</span>
 						<input type="text" class="status" id="ad" name="ad" 
-						value="${champVo.ad}">
+						value="${champVo.ad}" onblur="adCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="adCheck"></span>
 					</li>
 					<li>
 						<span>AP</span>
 						<input type="text" class="status" id="ap" name="ap" 
-						value="${champVo.ap}">
+						value="${champVo.ap}" onblur="apCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="apCheck"></span>
 					</li>
 					<li>
 						<input type="button" class="inputButton" value="반영" 
@@ -399,7 +546,10 @@
 					</li>
 					<li>
 						<input class="longwidth" type="file" name="original_file_name" 
-						value="">
+						id="file" onblur="fileCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="fileCheck"></span>
 					</li>
 				</ul>
 				<input type="hidden" name="stored_file_name" value="${fileName.STORED_FILE_NAME}">

@@ -50,6 +50,62 @@
 			document.getElementById('updateStatusTable').innerHTML = htmlStr;	
 		}
 	}
+	function hpGrowthCheck(hpGrowth) {
+		if (hpGrowth == "" || hpGrowth == undefined) {
+			document.getElementById("hpGrowthCheck").innerHTML = "hpGrowth를 입력해주세요.";
+			return false;
+		}
+		
+		if(isNaN(hpGrowth)){
+			document.getElementById("hpGrowthCheck").innerHTML = "숫자만 입력 가능합니다.";
+			document.getElementById("hpGrowth").select();
+			return false;
+		} else {
+			document.getElementById("hpGrowthCheck").innerHTML = "hpGrowth 체크 완료";
+		}
+	}
+	function mpGrowthCheck(mpGrowth) {
+		if (mpGrowth == "" || mpGrowth == undefined) {
+			document.getElementById("mpGrowthCheck").innerHTML = "mpGrowth를 입력해주세요.";
+			return false;
+		}
+		
+		if(isNaN(mpGrowth)){
+			document.getElementById("mpGrowthCheck").innerHTML = "숫자만 입력 가능합니다.";
+			document.getElementById("mpGrowth").select();
+			return false;
+		} else {
+			document.getElementById("mpGrowthCheck").innerHTML = "mpGrowth 체크 완료";
+		}
+	}
+	function adGrowthCheck(adGrowth) {
+		if (adGrowth == "" || adGrowth == undefined) {
+			document.getElementById("adGrowthCheck").innerHTML = "adGrowth를 입력해주세요.";
+			return false;
+		}
+		
+		if(isNaN(adGrowth)){
+			document.getElementById("adGrowthCheck").innerHTML = "숫자만 입력 가능합니다.";
+			document.getElementById("adGrowth").select();
+			return false;
+		} else {
+			document.getElementById("adGrowthCheck").innerHTML = "adGrowth 체크 완료";
+		}
+	}
+	function apGrowthCheck(apGrowth) {
+		if (apGrowth == "" || apGrowth == undefined) {
+			document.getElementById("apGrowthCheck").innerHTML = "apGrowth를 입력해주세요.";
+			return false;
+		}
+		
+		if(isNaN(apGrowth)){
+			document.getElementById("apGrowthCheck").innerHTML = "숫자만 입력 가능합니다.";
+			document.getElementById("apGrowth").select();
+			return false;
+		} else {
+			document.getElementById("apGrowthCheck").innerHTML = "apGrowth 체크 완료";
+		}
+	}
 </script>
 <style type="text/css">
 	body {
@@ -65,6 +121,7 @@
 	}
 	#menu li {
 		display:inline-block;
+		width: 150px;
 	}
   	#menu li a {
   		text-decoration:none; 
@@ -146,7 +203,7 @@
 		border: 2px solid #F7EA6E;
 		background: none;
 		display: block;
-		margin: 20px auto;
+		margin: 10px auto;
 		text-align: center;
 		width: 170px;
 		height: 30px;
@@ -202,6 +259,11 @@
 		border: 2px solid #F7EA6E;
 		text-align: center;
 		color: white;
+	}
+	.validateResult {
+		height: 30px;
+		width: 225px;
+		color: #AAFFA3;
 	}
 </style>
 <title>챔피언 상세보기 페이지</title>
@@ -319,19 +381,31 @@
 					</li>
 					<li>
 						<input type="text" class="status" id="hpGrowth" name="hpGrowth" 
-						placeholder="hp 성장치를 입력해주세요">
+						placeholder="hp 성장치를 입력해주세요" onblur="hpGrowthCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="hpGrowthCheck"></span>
 					</li>
 					<li>
 						<input type="text" class="status" id="mpGrowth" name="mpGrowth" 
-						placeholder="mp 성장치를 입력해주세요">
+						placeholder="mp 성장치를 입력해주세요" onblur="mpGrowthCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="mpGrowthCheck"></span>
 					</li>
 					<li>
 						<input type="text" class="status" id="adGrowth" name="adGrowth" 
-						placeholder="ad 성장치를 입력해주세요">
+						placeholder="ad 성장치를 입력해주세요" onblur="adGrowthCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="adGrowthCheck"></span>
 					</li>
 					<li>
 						<input type="text" class="status" id="apGrowth" name="apGrowth" 
-						placeholder="ap 성장치를 입력해주세요">
+						placeholder="ap 성장치를 입력해주세요" onblur="apGrowthCheck(this.value)">
+					</li>
+					<li>
+						<span class="validateResult" id="apGrowthCheck"></span>
 					</li>
 					<li>
 							<!--버튼 두는 곳 -->

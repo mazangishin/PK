@@ -1,5 +1,6 @@
 package com.pk.ls.member.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -51,5 +52,21 @@ public class MemberServiceImplement implements MemberService{
 		return memberDao.memberDelete(memberNumber);
 	}
 
+	@Override
+	public String findMemberId(String email) {
+
+		return memberDao.findMemberId(email);
+	}
+
+	@Override
+	public String findMemberPassword(String email, String id) {
+
+		Map<String, Object> memberMap = new HashMap<String, Object>();
+		
+		memberMap.put("email", email);
+		memberMap.put("id", id);
+		
+		return memberDao.findMemberPassword(memberMap);
+	}
 	
 }

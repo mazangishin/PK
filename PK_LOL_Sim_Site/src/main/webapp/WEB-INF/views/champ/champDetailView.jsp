@@ -45,6 +45,7 @@
 	}
 	#menu li {
 		display:inline-block;
+		width: 150px;
 	}
   	#menu li a {
   		text-decoration:none; 
@@ -107,21 +108,20 @@
 	}
 	#championBox {
 		float: left;
-		width: 450px;
+		width: 500px;
 		padding: 10px;
 		height: 600px;
 		margin: 0px 10px 0px 10px;
 	}
 	#championBox div {
 		margin: auto;
-		width: 400px;
+		width: 450px;
 		margin: 20px 10px 20px 10px;
 	}
 	#statusBox {
 		overflow: auto;
-		width: 350px;
-		padding: 10px;
-		margin: 0px 10px 0px 10px;
+		width: 400px;
+		margin: 10px 10px 0px 10px;
 		color: white;
 	}
 	#selector {
@@ -132,38 +132,34 @@
 	#selector ul li {
 		padding: 5px;
 	}
-	.label {
-		width: 70px;
-		height: 70px;
-	}
 	.label:nth-child(odd) {
 		border: 2px solid #E3C4FF;
-		text-align: center;
 		color: white;
+		width: 80px;
+		height: 70px;
 	}
 	.label:nth-child(even) {
 		border: 2px solid #F7EA6E;
-		text-align: center;
 		color: white;
+		width: 80px;
+		height: 70px;
 	}
 	#statusBox table {
-		width: 380px;
+		width: 400px;
+		height: 80px;
 	}
 	#statusBox table tr{
 		text-align: center;
-		width: 350px;
-		height: 70px;
-	}
-	#statusBox table tr td{
-		border-color: 2px solid white;
-		text-align: center;
-		width: 80px;
+		width: 400px;
+		height: 80px;
 	}
 	.championArt {
+		padding: 10px;
 		float: left;
 		width: 300px;
 		height: 300px;
 		margin: 10px 10px 10px 10px;
+		border-color: 1px solid #989898;
 	}
 	#buttonBox {
 		position: relative;
@@ -190,6 +186,12 @@
 	}
 	.inputButton:hover {
 		background: #B778FF;
+	}
+	#headTr {
+		float: left;
+		position: relative;
+		left: 2px;
+		
 	}
 </style>
 <title>챔피언 상세보기 페이지</title>
@@ -221,7 +223,7 @@
 				</li>
 			</ul>
 			<div id="statusBox">
-				<table>
+				<table id="headTr">
 					<tr>
 						<td class="label">레벨</td>
 						<td class="label">HP</td>
@@ -230,14 +232,14 @@
 						<td class="label">AP</td>
 					</tr>
 				</table>
-				<table>
+				<table id="contentTr">
 					<c:forEach var="champLevelVoList" items="${champLevelVoList}">
-						<tr class="status" style="display:none;">
-							<td class="label">${champLevelVoList.championLevel}</td>
-							<td class="label">${champLevelVoList.hp}</td>
-							<td class="label">${champLevelVoList.mp}</td>
-							<td class="label">${champLevelVoList.ad}</td>
-							<td class="label">${champLevelVoList.ap}</td>
+						<tr class="status" style="width: 400px; display:none;">
+							<td class="label" style="width:80px; height:70px;">${champLevelVoList.championLevel}</td>
+							<td class="label" style="width:80px; height:70px;">${champLevelVoList.hp}</td>
+							<td class="label" style="width:80px; height:70px;">${champLevelVoList.mp}</td>
+							<td class="label" style="width:80px; height:70px;">${champLevelVoList.ad}</td>
+							<td class="label" style="width:80px; height:70px;">${champLevelVoList.ap}</td>
 						</tr>
 					</c:forEach>
 				</table>

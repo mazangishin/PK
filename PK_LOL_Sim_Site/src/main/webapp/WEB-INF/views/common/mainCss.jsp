@@ -18,7 +18,7 @@
 
 	
 	
-	#menu li 		{display:inline-block;}
+	#menu li 		{display:inline-block; width: 150px;}
 	#menu li a		{text-decoration:none; color: #EDBB6A;  padding: 41px 20px; display:block;}
 	#menu{
 		position:fixed; z-index: 500;
@@ -171,15 +171,18 @@
 	#first{
 	margin:0 0 29px 0;padding:0 10px;font-size:16px;line-height:20px;}
 	{
-	
-	.3rdSectionImage {
-		height: 100vh;
-		width: 100vw;
-	}
+
 	.dust {
 	  position: absolute;
 	}
 
+	.3rdSectionImage {
+		position : absolute;
+		width: 100%;
+		height: 100%;
+		top: 0%;
+		left: 0%;
+	}
 </style>
 
 

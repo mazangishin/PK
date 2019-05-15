@@ -9,6 +9,116 @@
 		var url = "/PK_LOL_Sim_Site/champ/champList.hm";
 		location.href = url;
 	}
+	function nameCheck(name) {
+		var validate = /^[a-zA-Z0-9가-힣\s]{1,12}$/;
+		
+		if (name == "" || name == undefined) {
+			document.getElementById("nameCheck").innerHTML = "이름을 입력해주세요.";
+			return false;
+		}
+		
+		if (!validate.test(name)) {
+			document.getElementById("nameCheck").innerHTML = "이름은 1글자 이상 12글자 이하여야 합니다.";
+			document.getElementById("name").select();
+		    return false;
+		} else {
+			document.getElementById("nameCheck").innerHTML = "이름 체크 완료";
+		}
+	}
+	function nicknameCheck(nickname) {
+		var validate = /^[a-zA-Z0-9가-힣\s]{1,12}$/;
+		
+		if (nickname == "" || nickname == undefined) {
+			document.getElementById("nicknameCheck").innerHTML = "별명을 입력해주세요.";
+			return false;
+		}
+		
+		if (!validate.test(nickname)) {
+			document.getElementById("nicknameCheck").innerHTML = "별명은 1글자 이상 12글자 이하여야 합니다.";
+			document.getElementById("nickname").select();
+		    return false;
+		} else {
+			document.getElementById("nicknameCheck").innerHTML = "별명 체크 완료";
+		}
+	}
+	function hpCheck(hp) {
+		if (hp == "" || hp == undefined) {
+			document.getElementById("hpCheck").innerHTML = "hp를 입력해주세요.";
+			return false;
+		}
+		
+		if(isNaN(hp)){
+			document.getElementById("hpCheck").innerHTML = "숫자만 입력 가능합니다.";
+			document.getElementById("hp").select();
+			return false;
+		} else {
+			document.getElementById("hpCheck").innerHTML = "hp 체크 완료";
+		}
+	}
+	function mpCheck(mp) {
+		if (mp == "" || mp == undefined) {
+			document.getElementById("mpCheck").innerHTML = "mp를 입력해주세요.";
+			return false;
+		}
+		
+		if(isNaN(mp)){
+			document.getElementById("mpCheck").innerHTML = "숫자만 입력 가능합니다.";
+			document.getElementById("mp").select();
+			return false;
+		} else {
+			document.getElementById("mpCheck").innerHTML = "mp 체크 완료";
+		}
+	}
+	function adCheck(ad) {
+		if (ad == "" || ad == undefined) {
+			document.getElementById("adCheck").innerHTML = "ad를 입력해주세요.";
+			return false;
+		}
+		
+		if(isNaN(ad)){
+			document.getElementById("adCheck").innerHTML = "숫자만 입력 가능합니다.";
+			document.getElementById("ad").select();
+			return false;
+		} else {
+			document.getElementById("adCheck").innerHTML = "ad 체크 완료";
+		}
+	}
+	function apCheck(ap) {
+		if (ap == "" || ap == undefined) {
+			document.getElementById("apCheck").innerHTML = "ap를 입력해주세요.";
+			return false;
+		}
+		
+		if(isNaN(ap)){
+			document.getElementById("apCheck").innerHTML = "숫자만 입력 가능합니다.";
+			document.getElementById("ap").select();
+			return false;
+		} else {
+			document.getElementById("apCheck").innerHTML = "ap 체크 완료";
+		}
+	}
+	
+	function validationCheckFnc() {
+		
+		var nameHTML = document.getElementById("nameCheck").innerHTML;
+		var nicknameHTML = document.getElementById("nicknamecheck").innerHTML;
+		var hpHTML = document.getElementById("hpCheck").innerHTML;
+		var mpHTML = document.getElementById("mpCheck").innerHTML;
+		var adHTML = document.getElementById("adCheck").innerHTML;
+		var apHTML = document.getElementById("apCheck").innerHTML;
+		
+		var nameComplete = "이름 체크 완료";
+		var nicknameComplete = "별명 체크 완료";
+		var hpComplete = "hp 체크 완료";
+		var mpComplete = "mp 체크 완료";
+		var adComplete = "ad 체크 완료";
+		var apComplete = "ap 체크 완료";
+		
+		if (idHTML == idcomplete && passwordHTML == passwordcomplete 
+				&& pwdCfHTML == pwdCfcomplete && emailHTML == emailcomplete) {
+			document.getElementById("champCreate").submit();
+		}
+	}
 </script>
 <title>챔피언 등록</title>
 <style type="text/css">
@@ -25,6 +135,7 @@
 	}
 	#menu li {
 		display:inline-block;
+		width: 150px;
 	}
   	#menu li a {
   		text-decoration:none; 
@@ -124,7 +235,11 @@
 	.inputButton:hover {
 		background: #B778FF;
 	}
-	.clear { clear: both }
+	.validateResult {
+		height: 30px;
+		width: 225px;
+		color: #AAFFA3;
+	}
 </style>
 </head>
 <body>
@@ -152,12 +267,24 @@
 			<tr>
 				<td>
 					<input class="normalwidth" type="text" name="championName" 
-					placeholder="챔피언의 이름을 입력해주세요">
+					placeholder="챔피언의 이름을 입력해주세요" id="name" 
+					onblur="nameCheck(this.value)">
 				</td>
+				
 				<td>
 					<input class="normalwidth" type="text" name="championNick" 
-					placeholder="챔피언의 별명을 입력해주세요">
+					placeholder="챔피언의 별명을 입력해주세요" id="nickname"
+					onblur="nicknameCheck(this.value)">
 				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="validateResult" id="nameCheck"></span>
+				</td>
+				<td>
+					<span class="validateResult" id="nicknameCheck"></span>
+				</td>
+			</tr>
 			<tr>
 				<td>			
 					<select id="positionOption" class="normalwidth" name="position"
@@ -169,34 +296,41 @@
 						<option value="support">서폿</option>
 					</select>
 				</td>
+			</tr>
+			<tr>
 				<td>
-					<input class="normalwidth" type="text" name="hp"
-				 	placeholder="챔피언의 기본 hp를 설정해주세요">
+					<input class="normalwidth" type="text" name="hp" id="hp"
+				 	placeholder="챔피언의 기본 hp를 설정해주세요" onblur="hpCheck(this.value)">
+				</td>
+				<td>
+					<input class="normalwidth" type="text" name="mp" id="mp"
+					placeholder="챔피언의 기본 mp를 설정해주세요" onblur="mpCheck(this.value)">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input class="normalwidth" type="text" name="mp"
-					placeholder="챔피언의 기본 mp를 설정해주세요">
+					<span class="validateResult" id="hpCheck"></span>
 				</td>
 				<td>
-					<input class="normalwidth" type="text" name="ad"
-					placeholder="챔피언의 기본 ad를 설정해주세요">
+					<span class="validateResult" id="mpCheck"></span>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input class="normalwidth" type="text" name="ap"
-					placeholder="챔피언의 기본 ap를 설정해주세요">
+					<input class="normalwidth" type="text" name="ad" id="ad"
+					placeholder="챔피언의 기본 ad를 설정해주세요" onblur="adCheck(this.value)">
 				</td>
 				<td>
-					
+					<input class="normalwidth" type="text" name="ap" id="ap"
+					placeholder="챔피언의 기본 ap를 설정해주세요" onblur="apCheck(this.value)">
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
-<!-- 					<input class="longwidth" type="file" name="original_file_name"  -->
-<!-- 					placeholder="챔피언의 이미지를 올려주세요"> -->
+				<td>
+					<span class="validateResult" id="adCheck"></span>
+				</td>
+				<td>
+					<span class="validateResult" id="apCheck"></span>
 				</td>
 			</tr>
 		</table>

@@ -47,6 +47,18 @@ public class MemberDaoImplement implements MemberDao{
 		return sqlSession.delete(namespace + "memberDelete", memberNumber);
 	}
 
+	@Override
+	public String findMemberId(String email) {
+
+		return sqlSession.selectOne(namespace + "findId", email);
+	}
+
+	@Override
+	public String findMemberPassword(Map<String, Object> memberMap) {
+
+		return sqlSession.selectOne(namespace + "findPassword", memberMap);
+	}
+
 
 
 }
