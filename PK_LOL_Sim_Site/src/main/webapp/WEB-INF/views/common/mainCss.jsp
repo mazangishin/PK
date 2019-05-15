@@ -100,6 +100,25 @@
 	
 	
 	
+	#board_table{
+	
+	 	position: absolute;
+    	 top: 4.5%;
+    	 left: 11%;
+    	 width: 100%;
+     	 height: 100%;
+     	 z-index: 5;
+     	
+	}
+	
+	#btable tr td{
+	
+	 	   	text-align: center;
+			/* border: 3px solid blue;
+  			border-collapse: collapse; */
+	}
+	
+	a { text-decoration:none ; color:black; font-weight: bold; font-size: 13px}
 	
 	
 	
@@ -138,7 +157,7 @@
 		
 	#board{
 	 position: absolute;
-     top: 5%;
+     top: 11%;
      left: 25%;
      width: 75%;
      height: 90%;
@@ -146,9 +165,18 @@
      z-index: 10;
      overflow:scroll;
 	 overflow-x:hidden; 
-    
+	 background-repeat: no-repeat;
+     background-image:url(/PK_LOL_Sim_Site/resources/images/board_imgggggg.png);
      color:white;
-  	 background-color: green;
+  	 background-image: green;
+	}	
+	
+	#board2{
+		 position: absolute;
+    	 top: 0%;
+    	 left: 0%;
+    	 width: 100%;
+     	 height: 100%;
 	}	
 	
 		
@@ -172,7 +200,7 @@
 	margin:0 0 29px 0;padding:0 10px;font-size:16px;line-height:20px;}
 	{
 	
-
+	
 </style>
 
 

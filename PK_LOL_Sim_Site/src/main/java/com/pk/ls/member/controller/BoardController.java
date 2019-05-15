@@ -47,17 +47,16 @@ public class BoardController {
 			@RequestParam(defaultValue ="")String scText){
 		
 		log.debug("게시글 컨트롤러 입장");
-		log.debug("현재페이지 값 : {}"
-				, nowPage);
+		log.debug("현재페이지 값 : {}", nowPage);
 		log.debug("검색컬럼 : {}", key);
 		log.debug("검색어 : {}", scText);
 		
 		
-		 String scTextObj=scText;
-		 int num=boardService.memberSelectTotalCount(key,scTextObj); 
+		// String scTextObj=scText;
+		 int num=boardService.memberSelectTotalCount(key,scText); 
 		 log.debug(": {}", num);
-		 Board_Page page=new Board_Page(num,nowPage);//총 페이지와 현재페이지
-		 Board_ReCount board_ReCount = new Board_ReCount();//총 페이지와 현재페이지
+		 Board_Page page=new Board_Page(num, nowPage);//총 페이지와 현재페이지
+		// Board_ReCount board_ReCount = new Board_ReCount();//리플 달린 숫자
 		 
 		 //받아올 게시물 
 		 List<BoardVo> boardList = boardService.boardSelectList(key,scText,(page.getFirstObj()),page.getLastObj());
@@ -71,11 +70,14 @@ public class BoardController {
 		 session.setAttribute("page", page);
 		 session.setAttribute("boardList", boardList);
 		 session.setAttribute("toCount", num);
-		 session.setAttribute("scTextObj", scTextObj);
+		 session.setAttribute("scTextObj", scText);
 		log.debug(session.toString()+"끼얏효효효효효효효효효효훃ㄹ");
 		 
-		return "redirect:/mainPage.hm#4thpage";
+		return "/board/boardlist";
+		
+		//return "redirect:/mainPage.hm#4thpage";
 		//return "forward:/mainPage.hm";
+		
 	}
 	
 	@RequestMapping(value="/board/info.hm")
@@ -192,6 +194,43 @@ public class BoardController {
 		  log.debug(session.toString()+"게시물 상세정보");
 		
 		 	return "/board/boardinfo";
+		//return "forward:/mainPage.hm";
+		 	
+	}
+	
+	@RequestMapping(value="/board/write.hm")//게시물 수정페이지로 가기
+	public String boardWrite(HttpSession session){
+		
+		
+		  log.debug("글쓰기 페이지로"); 
+		  MemberVo login_member_info = (MemberVo)session.getAttribute("memberVo");
+		 
+		  log.debug("글쓰는 멤버 넘버: {}", login_member_info);
+		 
+		
+		  log.debug("게시글 작정 페이지로 감"); 
+		  
+		
+		 	return "/board/boardwrite";
+		//return "forward:/mainPage.hm";
+		 	
+	}
+	
+	@RequestMapping(value="/board/boardwrite.hm")//게시물 수정페이지로 가기
+	public String boardWrite2(HttpSession session,String boardText2,String boardTitle2){
+		
+		MemberVo mem= (MemberVo)session.getAttribute("memberVo");
+		  log.debug("게시판 글쓰기 "); 
+		  log.debug("글내용: {}", boardText2);//내용
+		  log.debug("글제목: {}", boardTitle2);//제목
+		  log.debug("작성자번호: {}", mem.getMemberNumber());//제목
+		  log.debug("게시글 리스트로 감"); 
+		  
+		  
+		  
+		  int num= boardService.boardWrite(boardTitle2, boardText2, mem.getMemberNumber());
+		  log.debug("호우: {}",num); 
+		  return "redirect:/board/list.hm";
 		//return "forward:/mainPage.hm";
 		 	
 	}

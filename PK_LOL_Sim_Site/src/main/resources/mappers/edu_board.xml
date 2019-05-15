@@ -13,8 +13,7 @@
 		<result column="MODIFIED_DATE" property="modified_Date"
 			javaType="java.util.Date" />
 		<result column="MEMBER_NUMBER" property="member_Number"/>
-		
-		<!-- <result column="MEMBER_ID" property="member_id"/> -->
+		<result column="MEMBER_ID" property="member_id"/>
 </resultMap>
 
 
@@ -33,7 +32,7 @@
         B.CONTENT AS CONTENT, B.CREATE_DATE AS CREATE_DATE,M.MEMBER_ID AS MEMBER_ID,B.MEMBER_NUMBER as MEMBER_NUMBER
 	       	FROM BOARD B, MEMBERS M 	
 	        WHERE b.MEMBER_NUMBER=M.MEMBER_NUMBER
-	        ORDER BY B.BOARD_NUMBER ASC)
+	        ORDER BY B.BOARD_NUMBER DESC)
          	<choose>
 						<when test="key == 'title'">
 							WHERE TITLE LIKE '%'||#{scText}||'%'
@@ -100,6 +99,14 @@
 		UPDATE BOARD
 		SET CONTENT= #{content},CREATE_DATE = SYSDATE,TITLE=#{title}
 		WHERE BOARD_NUMBER = #{board_Number}
+		
+	</select>
+	
+	
+	<select id="boardWrite" parameterType="map">
+		
+		INSERT INTO BOARD(BOARD_NUMBER,TITLE,CONTENT,CREATE_DATE,MODIFIED_DATE,MEMBER_NUMBER)
+		VALUES (SEQ_BOARD_BOARD_NUMBER.nextval ,#{title},#{content},SYSDATE,SYSDATE,#{member_Number})
 		
 	</select>
 	

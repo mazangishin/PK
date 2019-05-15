@@ -70,7 +70,7 @@
 	});
 	
 		
-	
+	/*
 	function goPage(pageNumber,sc){
 		
 		var nowPage = $("#nowPage");
@@ -78,7 +78,7 @@
 		var scText = $("#scText2");
 		scText.val(sc);
  		$("#pagingForm").submit();
- 		/* $(location).attr('href', 'http://localhost:8090/PK_LOL_Sim_Site/board/list.hm?'); */
+ 		$(location).attr('href', 'http://localhost:8090/PK_LOL_Sim_Site/board/list.hm?'); 
 	}
 	
 	function goBoardInfo(boardNumber){
@@ -88,7 +88,7 @@
  		
 	}
 	
-	
+	*/
 	
 	</script>
 
@@ -108,16 +108,13 @@
 				//equivalent to jQuery `easeOutBack` extracted from http://matthewlein.com/ceaser/
 				easingcss3: 'cubic-bezier(0.175, 0.885, 0.320, 1.275)',
 				
-				onLeave: function(origin, destination, direction){
+				/* onLeave: function(origin, destination, direction){
 					var loadedSection = this;
 					//after leaving section 2
 					if(origin == 3 && direction =='down'){
 					$(location).attr('href', 'http://localhost:8090/PK_LOL_Sim_Site/board/list.hm?');
 					} 
-					
-					
-
-				}
+				} */
 			
 				
 			});
@@ -152,8 +149,8 @@
 
 <body>
 
-	<jsp:include page="/WEB-INF/views/PageHeader.jsp" /> 
-	<jsp:include page="/WEB-INF/views/common/mainCss.jsp" />
+	<jsp:include page="/WEB-INF/views/PageHeader.jsp" />  
+	<jsp:include page="/WEB-INF/views/common/mainCss.jsp" /> 
 
 	<div id="logo">
 	<a href="#firstPage"><img src="/PK_LOL_Sim_Site/resources/images/logo.png" width="80%"></a><br>
@@ -214,7 +211,11 @@
 	
 	</div>
 	
-	<div class="section"><a> </a></div>
+	<div class="section">
+	
+	
+	
+	</div>
 	
 	
 	
@@ -223,10 +224,119 @@
 	<div class="section">헤헤헤헤헤</div>
 	
 	<div class="section">
-			
+<div id="board2">
+	<img src="/PK_LOL_Sim_Site/resources/images/kda.jpg" width="2000px" height="1200px">
+
 	<div id="board">
 	
-			<table id="customers">
+		<div id="board_table">
+			
+			<table id="btable">
+				<tr>
+					<td width="150" height="80">
+					
+					</td>
+					
+					<td width="150" height="80">
+					
+					</td>
+					
+					<td width="150" height="80">
+					
+					</td>
+					
+					<td width="150" height="80">
+					
+					</td>
+				
+				</tr>
+			
+			
+				<tr>
+					<td>
+					<a href="./board/list.hm">게시판 리스트로 가기</a><br>
+					<font style="font-size: 11px; color: black;">자유롭게 의견을 나누세요.</font>
+					</td>
+					
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+				
+				</tr>
+				
+				<tr>
+					<td>
+					 
+					</td>
+					
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+				
+				</tr>
+				
+				<tr>
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+				
+				</tr>
+				
+				<tr>
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+					
+					<td>
+					
+					</td>
+				
+				</tr>
+			
+			
+			
+			</table>
+		
+		
+		</div>
+				
+			<%-- <table id="customers">
 			
 						 <caption>소환사 광장</caption>
 			        <colgroup>
@@ -247,20 +357,14 @@
 			        <tbody>
 			
 				<c:forEach var="boardVo" items="${boardList}">
-					
-				
-					  <thead>
-					   
+					<thead>
 			        <tr>
 			        	<th scope="col">${boardVo.board_Number}</th>
 			            <th scope="col" class="first" ><a href="#" onclick="goBoardInfo(${boardVo.board_Number});">${boardVo.title}
 			             <c:if test="${boardVo.commet_Num>=1}">
 			           	[${boardVo.commet_Num}]
 			            </c:if></a></th>
-			            <th scope="col">${boardVo.member_id}</th>
-			            
-			           
-			            
+			            <th scope="col">${boardVo.member_id}</th>  
 			            <th scope="col">작성일</th>
 			        </tr>
 			        </thead>
@@ -280,8 +384,7 @@
 					
 					
 					<c:forEach var="num" begin="${page.blockStartPage}" end="${page.blockEndPage}">
-					
-							
+
 								<a href="#" onclick="goPage(${num}, '${scTextObj}');">
 									<c:out value="${num}"/>
 								</a>
@@ -317,9 +420,10 @@
 				
 		
 				
-			</div>
+			</div> --%>
 	</div>
-	
+	</div>
+			
 	</div>	
 </div>
 </body>

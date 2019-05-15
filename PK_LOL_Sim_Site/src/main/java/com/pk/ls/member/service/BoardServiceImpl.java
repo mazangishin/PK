@@ -42,4 +42,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.boardUpdate(content,board_Number,boardTitle2);
 	}//게시글 수정
 	
+	@Override
+	public int boardWrite(String boardTitle2,
+			String boardText2, int writeNumber)//게시글 쓰기
+	{
+		return boardDao.boardWrite(boardTitle2, boardText2, writeNumber);
+	}
+	
 }

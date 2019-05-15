@@ -11,7 +11,7 @@ public class RePlyVo {
 	private String  is_reply_comm;
 	private Date  create_date;
 	private int  member_number;
-	private String  member_name;
+	private String  member_name;//
 	private int is_reply_comm_num;//대댓글 번호
 	
 	

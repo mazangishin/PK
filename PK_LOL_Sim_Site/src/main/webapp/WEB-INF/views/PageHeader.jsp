@@ -9,14 +9,14 @@
 
 #menu2{
 		position:fixed; z-index: 100;
-		top:0; right:0px; width: 100%; height: 45px;
+		top:0; right:auto; width: 100%; height: 45px;
 		padding: 0; margin: 0 auto;
 		background: black; text-align: center; overflow: hidden;		
 	}
 	
 	#munu2_bt{
 		position:fixed; z-index: 150;
-		top:1%; left:45%; width: 100%; height: 25px;
+		top:1%; left:40%; width: 100%; height: 25px;
 		padding: 0; margin: 50 auto;
 		text-align: center; overflow: hidden;
 		color: white;

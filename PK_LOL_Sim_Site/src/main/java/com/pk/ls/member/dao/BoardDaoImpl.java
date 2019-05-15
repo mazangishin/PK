@@ -59,4 +59,27 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("title", boardTitle2);
 		return sqlSession.update(namespace+"boardUpdate", map);
 	}
+	
+	@Override
+	public int boardWrite(String boardTitle2,
+			String boardText2, int writeNumber)//게시글 쓰기
+	{
+		Map<String, Object> map = new HashMap<>();//맵생성
+		
+		map.put("content", boardText2);
+		map.put("title", boardTitle2);
+		map.put("member_Number", writeNumber);
+		
+		return sqlSession.insert(namespace+"boardWrite", map);
+		
+		/*
+		 <result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="CREATE_DATE" property="create_Date"
+			javaType="java.util.Date" />
+		<result column="MODIFIED_DATE" property="modified_Date"
+			javaType="java.util.Date" />
+		<result column="MEMBER_NUMBER" property="member_Number"/>
+		 * */
+	}
 }
