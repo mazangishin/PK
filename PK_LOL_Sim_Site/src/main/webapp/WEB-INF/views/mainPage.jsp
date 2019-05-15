@@ -214,11 +214,11 @@
 	
 	<div class="section">11111</div>
 	<div class="section">
-		<div class="3rdSectionImage" style="width: 1920px; height: 930px;">
+		<div class="3rdSectionImage" style="width: 1920px; height: 930px; background-color: black;">
 			<a href="/PK_LOL_Sim_Site/champ/champList.hm" id="champListImg" 
 			style="width: 1920px; height: 930px;">
 				<img alt="hexagonChampList" src="./resources/images/hexagonChampList.jpg" 
-				style="width: 1920px; height: 930px;">
+				style="width: 1000px; height: 500px; position: absolute; top: 22%; left: 25%;">
 			</a>
 		</div>
 	</div>
