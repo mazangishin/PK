@@ -60,6 +60,16 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.update(namespace+"boardUpdate", map);
 	}
 	
+	
+	@Override
+	public int boardDel(int board_Number)//게시글 지우기
+	{
+		Map<String, Object> map = new HashMap<>();//맵생성
+		map.put("board_Number", board_Number);
+		return sqlSession.delete(namespace+"boardDel", map);
+	}
+	
+	
 	@Override
 	public int boardWrite(String boardTitle2,
 			String boardText2, int writeNumber)//게시글 쓰기

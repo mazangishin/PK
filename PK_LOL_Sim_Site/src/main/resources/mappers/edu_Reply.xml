@@ -50,5 +50,14 @@
 		WHERE REPLY_BOARD_NUM = #{reply_board_number}
 	</select>
 	
+	<select id="rePlyDel" parameterType="map">
+		
+		
+		DELETE FROM REPLY
+		WHERE REPLY_BOARD_NUM =#{reply_board_number}
+		
+		
+	</select>
+	
 
 </mapper>

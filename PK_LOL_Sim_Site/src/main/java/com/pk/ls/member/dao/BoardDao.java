@@ -17,4 +17,6 @@ public interface BoardDao {
 	public int boardUpdate(String content, int board_Number,String boardTitle2);//게시글 수정
 	
 	public int boardWrite(String boardTitle2,String boardText2, int writeNumber);//게시글 쓰기
+	
+	public int boardDel(int board_Number);//게시글 지우기
 }

@@ -1,6 +1,8 @@
 package com.pk.ls.member.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +49,13 @@ public class BoardServiceImpl implements BoardService{
 			String boardText2, int writeNumber)//게시글 쓰기
 	{
 		return boardDao.boardWrite(boardTitle2, boardText2, writeNumber);
+	}
+	
+	@Override
+	public int boardDel(int board_Number)//게시글 지우기
+	{
+		
+		return boardDao.boardDel(board_Number);
 	}
 	
 }

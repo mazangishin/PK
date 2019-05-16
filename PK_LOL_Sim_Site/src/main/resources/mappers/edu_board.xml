@@ -110,7 +110,13 @@
 		
 	</select>
 	
-
+	
+	<select id="boardDel" parameterType="map">
+		
+		DELETE FROM BOARD
+		WHERE BOARD_NUMBER = #{board_Number}
+		
+	</select>
 
 
 

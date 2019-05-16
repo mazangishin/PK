@@ -19,4 +19,6 @@ public interface RePlyDao {
 	public List<RePlyVo> rePlyList(int reply_board_number);
 	public List<RePlyVo> rePlyList2(int reply_board_number);
 	public int rePlyCount(int reply_board_number);
+	
+	public int rePlyDel(int reply_board_number);
 }

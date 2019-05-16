@@ -47,4 +47,8 @@ public class RePlyDaoImpl implements RePlyDao{
 	public int rePlyCount(int reply_board_number) {
 		return sqlSession.selectOne(namespace + "rePlyCount", reply_board_number);
 	}
+	@Override
+	public int rePlyDel(int reply_board_number) {
+		return sqlSession.delete(namespace + "rePlyDel", reply_board_number);
+	}
 }

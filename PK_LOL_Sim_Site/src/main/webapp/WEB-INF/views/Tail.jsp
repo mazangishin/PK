@@ -23,12 +23,9 @@
    
    <div id="tail_1">
    <p id ="tail_text">
-	   라이엇게임즈코리아 유한회사 서울특별시 강남구 테헤란로 521 30층 (삼성동, 파르나스타워) (우) 06164<br>
-	대표전화 : 02-3454-1560 | FAX : 02-3454-1565 (유) 라이엇게임즈코리아 대표자 : 박준규
-	사업자등록번호 : 120-87-68488 | 통신판매업신고번호 : 제 2011 - 서울강남 - 02718호
-	사업자정보확인 | 개인정보관리책임자 : 이호성
-	©Riot Games . All rights reserved.<br>
-	League of Legends and Riot games are trademarks or registered trademarks of Riot Games
+	   대표자 : 제임스|주소 : 서울특별시 강남구 강남대로 374 (역삼동, 형제빌딩)3~6층
+	   사업자등록번호 668-85-00778|통신판매업신고번호 2018-서울강남-00992호
+	©Tjoeun Games . All rights reserved.<br>
 	게임이용에 대한 기본정보
 	</p>
 		<!--  <div id="munu2_bt">

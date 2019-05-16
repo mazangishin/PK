@@ -43,5 +43,10 @@ public class ReplyServiceImplement implements RePlyService{
 		return rePlyDao.rePlyCount(reply_board_number);
 	}
 	
+	@Override
+	public int rePlyDel(int reply_board_number) {
+		return rePlyDao.rePlyDel(reply_board_number);
+	}
+	
 	
 }

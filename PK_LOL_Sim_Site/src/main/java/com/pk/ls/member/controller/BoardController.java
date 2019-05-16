@@ -216,6 +216,28 @@ public class BoardController {
 		 	
 	}
 	
+	
+	@RequestMapping(value="/board/delete.hm")//게시물 수정페이지로 가기
+	public String boardDel(HttpSession session,String boardNum){
+		
+			
+		  log.debug("글삭제 페이지로"); 
+		
+		 
+		  log.debug("글쓰는 삭제할 글 번호: {}", boardNum);
+		 int num= Integer.parseInt(boardNum);
+		 	
+		 replyServiceImplement.rePlyDel(num);
+		 boardService.boardDel(num);
+		  log.debug("게시글 작정 페이지로 감"); 
+		  
+		
+		 	return "redirect:/board/list.hm";
+		//return "forward:/mainPage.hm";
+		 	
+	}
+	
+	
 	@RequestMapping(value="/board/boardwrite.hm")//게시물 수정페이지로 가기
 	public String boardWrite2(HttpSession session,String boardText2,String boardTitle2){
 		

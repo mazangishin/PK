@@ -350,6 +350,15 @@
 						</td>
 						
 						<td>
+							<c:if test="${sessionScope.memberVo.memberId==binfo.member_id}">
+					           	<form action="./delete.hm" method="get">
+								<input type="hidden" id="boardNum" name="boardNum" value="${binfo.board_Number}">
+								<input type="submit" class="SubButton" value="삭제">
+								</form>
+				            </c:if>
+						</td>
+						
+						<td>
 						<c:if test="${sessionScope.memberVo.memberId==binfo.member_id}">
 				           	<form action="./update.hm" method="get">
 							<input type="hidden" id="boardNum" name="boardNum" value="${binfo.board_Number}">
@@ -456,7 +465,7 @@
 				        		&nbsp; &nbsp; &nbsp; ${RePlyVo.is_reply_comm}에게 <br>
 				        		
 				        		
-				        		&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; ${RePlyVo.re_comment}
+				        		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ${RePlyVo.re_comment}
 				        	
 				        		
 				        		
