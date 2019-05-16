@@ -106,6 +106,24 @@
 			document.getElementById("apGrowthCheck").innerHTML = "apGrowth 체크 완료";
 		}
 	}
+	function updateFnc() {
+		
+		var hpGrowthHTML = document.getElementById("hpGrowthCheck").innerHTML;
+		var mpGrowthHTML = document.getElementById("mpGrowthCheck").innerHTML;
+		var adGrowthHTML = document.getElementById("adGrowthCheck").innerHTML;
+		var apGrowthHTML = document.getElementById("apGrowthCheck").innerHTML;
+		
+		var hpGrowthComplete = "hpGrowth 체크 완료";
+		var mpGrowthComplete = "mpGrowth 체크 완료";
+		var adGrowthComplete = "adGrowth 체크 완료";
+		var apGrowthComplete = "apGrowth 체크 완료";
+		
+		if (hpGrowthHTML == hpGrowthComplete && mpGrowthHTML == mpGrowthComplete &&
+			adGrowthHTML == adGrowthComplete && apGrowthHTML == apGrowthComplete) {
+			document.getElementById("champUpdate").submit();
+		}
+		
+	}
 </script>
 <style type="text/css">
 	body {
@@ -412,7 +430,7 @@
 						<div id="buttonBox">
 							<input type="button" class="inputButton" value="반영"	
 							onclick="viewInputFnc();">
-							<input type="submit" class="inputButton" 
+							<input type="button" class="inputButton" 
 							value="수정하기" onclick="updateFnc();">
 							<input type="button" class="inputButton"
 							value="돌아가기" onclick="goToBackFnc();">

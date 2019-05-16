@@ -102,7 +102,7 @@
 			PW <input type="password" class="inputButton" name="password">
 			<input type="submit" class="loginButton" value="로그인">
 			<input type="reset" class="loginButton" value="취소">
-			<input type="button" class="loginButton" value="id찾기"
+			<input type="button" class="loginButton" value="id/pw찾기"
 				onclick="findAccountFnc();">
 			<input type="button" class="register" value="회원가입"
 				onclick="goToRegisterFnc();">

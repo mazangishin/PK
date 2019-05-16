@@ -58,7 +58,7 @@
 				<c:if test="${sessionScope.memberVo == null}">
 					게스트1
 					<a class="member_bt" 
-						href="${pageContext.request.contextPath}/member/login/hm">
+						href="${pageContext.request.contextPath}/member/login.hm">
 						<span>로그인</span>
 					</a>
 					<a class="member_bt" 

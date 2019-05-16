@@ -126,14 +126,15 @@
 			var apHTML = document.getElementById("apGrowthCheck").innerHTML;
 			var fileHTML = document.getElementById("fileCheck").innerHTML;
 			
-			var hpComplete = "hp 체크 완료";
-			var mpComplete = "mp 체크 완료";
-			var adComplete = "ad 체크 완료";
-			var apComplete = "ap 체크 완료";
-			var fileComplete = "file 체크 완료";
+			var hpComplete = "hpGrowth 체크 완료";
+			var mpComplete = "mpGrowth 체크 완료";
+			var adComplete = "adGrowth 체크 완료";
+			var apComplete = "apGrowth 체크 완료";
+			var fileComplete = "파일 체크 완료";
 			
 			if (hpHTML == hpComplete && mpHTML == mpComplete && adHTML == adComplete
 				&& apHTML == apComplete && fileHTML == fileComplete) {
+				alert('ㅇㅇ 성공함');
 				document.getElementById("champCreate").submit();
 			}
 		}
@@ -282,6 +283,7 @@
 		background: #595959;
 		display: block;
 		text-align: center;
+		margin: 15px auto;
 		height: 30px;
 		outline: none;
 		color: white;
@@ -388,6 +390,14 @@
 					<span class="validateResult" id="apGrowthCheck"></span>
 				</li>
 				<li>
+					<input class="longwidth" type="file" name="original_file_name" 
+					placeholder="챔피언의 이미지를 올려주세요" id="file" 
+					onblur="fileCheck(this.value);">
+				</li>
+				<li>
+					<span class="validateResult" id="fileCheck"></span>
+				</li>
+				<li>
 					<input type="button" class="inputButton" value="반영" 
 					onclick="createTableFnc();">
 				</li>
@@ -395,19 +405,12 @@
 					<input type="reset" class="inputButton" value="취소">
 				</li>
 				<li>
-					<input type="submit" class="inputButton" value="저장">
+					<input type="button" class="inputButton" value="저장"
+					onclick="validationCheckFnc();">
 				</li>
 				<li>
 					<input type="button" class="inputButton" value="리스트로"
 					onclick="goToBackFnc();">
-				</li>
-				<li>
-					<input class="longwidth" type="file" name="original_file_name" 
-					placeholder="챔피언의 이미지를 올려주세요" id="file" 
-					onblur="fileCheck(this.value);">
-				</li>
-				<li>
-					<span class="validateResult" id="fileCheck"></span>
 				</li>
 			</ul>
 		</form>

@@ -120,6 +120,9 @@
 	.inputButton:hover {
 		background: #B778FF;
 	}
+	.validteResult {
+		color: #AAFFA3;
+	}
 </style>
 <title>회원 정보 수정</title>
 </head>
