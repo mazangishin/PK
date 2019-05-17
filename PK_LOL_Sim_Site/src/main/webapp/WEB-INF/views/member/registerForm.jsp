@@ -169,6 +169,7 @@
 	<div id="box">
 		<div>
 			<h1>회원가입</h1>
+			<h3>※한글은 허용되지 않습니다.</h3>
 		</div>
 		<div>
 			<form id="register" action="registerCtr.hm" method="post" 

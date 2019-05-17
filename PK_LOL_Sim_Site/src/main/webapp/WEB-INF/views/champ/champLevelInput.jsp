@@ -134,7 +134,6 @@
 			
 			if (hpHTML == hpComplete && mpHTML == mpComplete && adHTML == adComplete
 				&& apHTML == apComplete && fileHTML == fileComplete) {
-				alert('ㅇㅇ 성공함');
 				document.getElementById("champCreate").submit();
 			}
 		}
