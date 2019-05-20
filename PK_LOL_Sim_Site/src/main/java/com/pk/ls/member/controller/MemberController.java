@@ -177,13 +177,15 @@ public class MemberController {
 	@RequestMapping(value="/member/memberDelete.hm",
 			method=RequestMethod.GET)
 	public String memberDelete(@RequestParam(value="memberNumber") 
-			String memberNumber, MemberVo memberVo, Model model) {
+			String memberNumber, MemberVo memberVo, Model model, HttpSession session) {
 		
 		memberVo.setMemberNumber(Integer.parseInt(memberNumber));
 		
 		log.debug("회원 탈퇴를 수행합니다. 회원 번호", memberVo.getMemberNumber());
 		
 		memberService.memberDelete(memberVo.getMemberNumber());
+		session.removeAttribute("memberVo");
+		
 		
 		return "/member/successPage";
 	}
